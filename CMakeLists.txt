@@ -38,6 +38,8 @@ else()
     message(FATAL_ERROR "This is Windows only project") 
 endif()
 
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
+
 file(GLOB SOURCE *.cpp *.h  
     ${CMAKE_CURRENT_SOURCE_DIR}/Fingerprints/*.h 
     ${CMAKE_CURRENT_SOURCE_DIR}/Fingerprints/*.cpp

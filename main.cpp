@@ -17,11 +17,17 @@
     static plog::ColorConsoleAppender<plog::FuncMessageFormatter> console_appender;
     static plog::RollingFileAppender<plog::FuncMessageFormatter> file_appender("fp_changer.log");
 #else
-    static static plog::ColorConsoleAppender<plog::FuncMessageFormatter> console_appender;
+    static plog::ColorConsoleAppender<plog::FuncMessageFormatter> console_appender;
 #endif
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[]) 
+{
+#ifdef DEBUG
     plog::init(plog::debug, &console_appender).addAppender(&file_appender);
+#else
+    plog::init(plog::info, &console_appender);
+#endif
+    
     FingerPrintChanger fp_;
 
     try {

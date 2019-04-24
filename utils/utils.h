@@ -11,7 +11,7 @@
 #include <cstdlib>
 #include <string>
 #include <rpcdce.h>
-#include <ShlObj_core.h>
+#include <ShlObj.h>
 #include <memory>
 #include <codecvt>
 #include "plog/Log.h"
@@ -21,7 +21,7 @@
 class RegUtil {
 public:
     static std::pair<bool, std::string> export_key(const std::string& full_key_name, const std::string& file_name, const std::string& reg_mode) {
-        STARTUPINFO info;
+        STARTUPINFOW info;
         PROCESS_INFORMATION proc_info;
         std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
         std::wstringstream cmd;
@@ -38,7 +38,7 @@ public:
 
         /// LOG_WARNING << "COMMAND TO EXPORT: " << cmd.str();
 
-        bool res = CreateProcess( L"C:\\Windows\\System32\\reg.exe", (LPWSTR)cmd.str().data(), NULL, NULL, FALSE, 0, NULL, NULL, &info, &proc_info);
+        bool res = CreateProcessW( L"C:\\Windows\\System32\\reg.exe", (LPWSTR)cmd.str().data(), NULL, NULL, FALSE, 0, NULL, NULL, &info, &proc_info);
         if (!res) {
             return std::make_pair(res, std::string(strerror(GetLastError())));
         }
@@ -52,7 +52,7 @@ public:
     //// There is a bug with "reg import" command, success message is written to stderr!
     //// https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/reg-import
     static std::pair<bool, std::string> import_key(const std::string& file_name/*, const std::string& reg_mode*/) {
-        STARTUPINFO info;
+        STARTUPINFOW info;
         PROCESS_INFORMATION proc_info;
         std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
         std::wstringstream cmd;
@@ -67,7 +67,7 @@ public:
 
         LOG_WARNING << "Command to restore: " << cmd.str();
 
-        bool res = CreateProcess( L"C:\\Windows\\System32\\reg.exe", (LPWSTR)cmd.str().data(), NULL, NULL, FALSE, 0, NULL, NULL, &info, &proc_info);
+        bool res = CreateProcessW( L"C:\\Windows\\System32\\reg.exe", (LPWSTR)cmd.str().data(), NULL, NULL, FALSE, 0, NULL, NULL, &info, &proc_info);
         if (!res) {
             return std::make_pair(res, std::string(strerror(GetLastError())));
         }
@@ -195,13 +195,13 @@ public:
     /// \return
     ///
     static std::vector<std::string> list_files_in_directory(const std::string& directoryName) {
-        WIN32_FIND_DATA FindFileData;
+        WIN32_FIND_DATAW FindFileData;
         std::unique_ptr<wchar_t[]> FileName = string2wchar_t(directoryName + "\\*");
-        HANDLE hFind = FindFirstFile(FileName.get(), &FindFileData);
+        HANDLE hFind = FindFirstFileW(FileName.get(), &FindFileData);
 
         std::vector<std::string> listFileNames;
         ///listFileNames.push_back(directoryName + "\\" + wchar_t2string(FindFileData.cFileName));
-        while (FindNextFile(hFind, &FindFileData)) {
+        while (FindNextFileW(hFind, &FindFileData)) {
             std::string tmp(wchar_t2string(FindFileData.cFileName));
             if (tmp != ".."){
                 listFileNames.push_back(directoryName + "\\" + tmp);
