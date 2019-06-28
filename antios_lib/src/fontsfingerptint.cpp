@@ -1,4 +1,4 @@
-﻿#include "fontsfingerptint.h"
+﻿#include <antios_lib/fontsfingerptint.h>
 
 FontsFingerptint::FontsFingerptint(const std::string &backup_dir)
     : backup_dir_path_(backup_dir + std::string("fonts_fp\\"))

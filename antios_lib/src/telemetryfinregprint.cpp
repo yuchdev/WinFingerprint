@@ -1,4 +1,4 @@
-﻿#include "telemetryfinregprint.h"
+﻿#include <antios_lib/telemetryfinregprint.h>
 
 TelemetryFinregprint::TelemetryFinregprint(const std::string &backup_dir_path)
     : backup_dir_path_(backup_dir_path + std::string("telemetry_fp\\"))

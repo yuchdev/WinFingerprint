@@ -13,7 +13,7 @@
 #include "utils/win_registry_helper.h"
 #include "utils/win_system_information.h"
 
-#include "Interfaces/ifingerprint.h"
+#include <antios_lib/ifingerprint.h>
 
 /// @brief - class represents fonts fingerprint of system
 class FontsFingerptint : public IFingerprint {

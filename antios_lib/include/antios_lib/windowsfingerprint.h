@@ -13,7 +13,7 @@
 #include "utils/win_registry_helper.h"
 #include "utils/win_system_information.h"
 
-#include "Interfaces/ifingerprint.h"
+#include <antios_lib/ifingerprint.h>
 
 enum class EDITION {
     EDITION_ID = 0,

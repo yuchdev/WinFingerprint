@@ -1,4 +1,4 @@
-﻿#include "WindowsFingerprint.h"
+﻿#include <antios_lib/WindowsFingerprint.h>
 
 WindowsFingerprint::WindowsFingerprint(const std::string &backup_dir)
     : backup_dir_path_ { backup_dir + std::string("windows_fp\\") }

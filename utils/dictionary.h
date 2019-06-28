@@ -1,7 +1,7 @@
 ﻿#ifndef DICTIONARY_HPP
 #define DICTIONARY_HPP
 
-#include "Interfaces/idictionary.h"
+#include <antios_lib/idictionary.h>
 
 ///
 /// \brief The Dictionary class

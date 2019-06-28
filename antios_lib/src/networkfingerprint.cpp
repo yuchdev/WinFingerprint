@@ -1,4 +1,4 @@
-﻿#include "networkfingerprint.h"
+﻿#include <antios_lib/networkfingerprint.h>
 
 NetworkFingerprint::NetworkFingerprint(const std::string &backup_dir)
     : backup_dir_path_  (backup_dir + std::string("network-fp\\"))
