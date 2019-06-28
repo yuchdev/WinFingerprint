@@ -1,4 +1,4 @@
-﻿#include "fingerprintchanger.h"
+﻿#include <antios_cli/fingerprintchanger.h>
 
 FingerPrintChanger::FingerPrintChanger()
     : backup_dir_path_("backup\\") {

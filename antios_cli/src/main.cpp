@@ -11,7 +11,7 @@
 #include "plog/Formatters/FuncMessageFormatter.h"
 #include "plog/Formatters/MessageOnlyFormatter.h"
 
-#include "fingerprintchanger.h"
+#include <antios_cli/fingerprintchanger.h>
 
 #ifdef DEBUG
     static plog::ColorConsoleAppender<plog::FuncMessageFormatter> console_appender;
