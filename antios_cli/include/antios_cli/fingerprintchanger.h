@@ -3,16 +3,16 @@
 
 #include <memory>
 
-#include "utils/utils.h"
+#include <utils/utils.h>
 
-#include "Fingerprints/telemetryfinregprint.h"
-#include "Fingerprints/fontsfingerptint.h"
-#include "Fingerprints/hardwarefingerprint.h"
-#include "Fingerprints/networkfingerprint.h"
-#include "Fingerprints/windowsfingerprint.h"
+#include <antios_lib/telemetryfinregprint.h>
+#include <antios_lib/fontsfingerptint.h>
+#include <antios_lib/hardwarefingerprint.h>
+#include <antios_lib/networkfingerprint.h>
+#include <antios_lib/windowsfingerprint.h>
 
-#include "plog/Log.h"
-#include "plog/Logger.h"
+#include <plog/Log.h>
+#include <plog/Logger.h>
 
 enum class FP {
     TELEMETRY   = 0,

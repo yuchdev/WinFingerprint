@@ -37,10 +37,6 @@ int main(int argc, char* argv[])
         LOG_ERROR << e.what();
         fp_.restore_state();
     }
-    catch (...) {
-        LOG_ERROR << "Unknown exception!";
-        fp_.restore_state();
-    }
 
     return 0;
 }
