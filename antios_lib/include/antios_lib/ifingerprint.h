@@ -5,9 +5,11 @@
 #define WOW64_32 "/reg:32"
 
 /// @brief IFingerprint - class represents a common interface for system fingerprints
-class IFingerprint {
+class IFingerprint
+{
 public:
-    /// @brief generate - method to save current state, generate random and write to registry
+    
+    /// @brief Generate method to save current state, generate random and write to registry
     virtual void generate() = 0;
 
     /// @brief save_state - saving current state of registry

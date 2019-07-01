@@ -85,7 +85,8 @@ void NetworkFingerprint::write_state() {
     catch ( ... ) { throw "Unknow exception!"; }
 }
 
-void NetworkFingerprint::restore_state() {
+void NetworkFingerprint::restore_state()
+{
     if (data_.empty()) return;
     try {
         import_from_files();
