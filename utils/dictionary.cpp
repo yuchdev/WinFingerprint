@@ -4,21 +4,23 @@ Dictionary::Dictionary(const std::string &file_path) {
     try {
         path_ = file_path;
         if (path_.empty()) {
-            throw std::exception("Path is empty!");
+            is_valid_ = false;
         }
-
-        stream_.open(path_, std::ios_base::in);
-        if (!stream_.is_open()) {
-            std::stringstream ss;
-            ss << "Can't Open file by name: '" << path_
-               << "' Error: '" << strerror(errno)  /// Pusibly need to use strerror_s for safety
-               << "'";
-            throw std::runtime_error(ss.str().data());
+        else {
+            stream_.open(path_, std::ios_base::in);
+            if (stream_.is_open()) {
+                is_valid_ = true;
+                read_lines();
+            }
+            else { is_valid_ = false; }
         }
-        read_lines();
     }
-    catch (const std::exception& e) { throw std::exception(e); }
-    catch ( ... ) { throw "Unknown exception in ctor"; }
+    catch (const std::exception& e) {
+        LOG_ERROR << e.what();
+    }
+    catch ( ... ) {
+        LOG_ERROR << "Unknown exception in ctor";
+    }
 }
 
 
@@ -38,8 +40,15 @@ std::string Dictionary::get_random_value() {
         }
         return lines_[index];
     }
-    catch (const std::exception& e) { throw std::exception(e); }
-    catch ( ... ) { throw "Unknown exception"; }
+    catch (const std::exception& e) {
+        LOG_ERROR << e.what();
+        return std::string();
+
+    }
+    catch ( ... ) {
+        LOG_ERROR << "Unknown exception";
+        return std::string();
+    }
 }
 
 
@@ -47,31 +56,36 @@ std::wstring Dictionary::get_random_value_w() {
     try {
         return converter_.from_bytes(get_random_value().data());
     }
-    catch (const std::exception& e) { throw std::exception(e); }
-    catch ( ... ) { throw "Unknown exception"; }
+    catch (const std::exception& e) {
+        LOG_ERROR << e.what();
+        return std::wstring();
+    }
+    catch ( ... ) {
+        LOG_ERROR << "Unknown exception";
+        return std::wstring();
+    }
 }
 
 
-size_t Dictionary::size() const {
+std::size_t Dictionary::size() const {
     return lines_.size();
+}
+
+bool Dictionary::is_valid() const {
+    return is_valid_;
 }
 
 
 void Dictionary::read_lines() {
-    if (!stream_.is_open()) {
-        std::stringstream ss;
-        ss << "Can't Open file by name: '" << path_
-           << "' Error: '" << strerror(errno)
-           << "'";
-        throw std::runtime_error(ss.str().data());
-    }
-
     try {
-        std::string tmp;
-        while(std::getline(stream_, tmp)){
-            lines_.push_back(tmp);
+        if (!stream_.is_open()) {
+            LOG_ERROR << "Can't open stream: '" << path_ << "'";
+        }
+        else {
+            std::string tmp;
+            while(std::getline(stream_, tmp)) { lines_.push_back(tmp); }
         }
     }
-    catch (const std::exception& e) { throw std::exception(e); }
-    catch ( ... ) { throw "Unknown exception"; }
+    catch (const std::exception& e) { LOG_ERROR << e.what(); }
+    catch ( ... ) { LOG_ERROR << "Unknown exception"; }
 }

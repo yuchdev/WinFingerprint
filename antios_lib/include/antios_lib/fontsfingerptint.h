@@ -27,12 +27,14 @@ public:
     void generate_random_state  () override;
     void write_state            () override;
     bool is_customizable        () override;
+    std::pair<std::size_t, std::size_t> import_from_files() override;
+    bool export_to_file(const std::string &key, const std::string &file, const std::string &reg_mode) override;
 
     /// @brief - the method creates a hidden registry branch and moves there a random number of fonts from the main font branch
     void move_fonst_to_hidden(std::size_t size = 0);
 
     /// @brief - the method returns the moved fonts keys back to the system branch
-    void recover_fonts();
+    std::pair<std::size_t, std::size_t> recover_fonts();
 
     /// @brief - The method allows the user to select the number of fonts to be moved.
     void set_random_size(const std::size_t size);
@@ -40,13 +42,7 @@ public:
     /// @brief - getter for count of moved fonts
     std::size_t get_random_size() const;
 
-    /// @brief - save font branch to reg-file
-    void export_to_file(const std::string &key, const std::string &file, const std::string &reg_mode);
-
-    /// @brief - resotre all fonts from reg-file
-    void import_from_files();
-
-private:
+protected:
     /// @brief - directory path for backups
     const std::string backup_dir_path_;
 

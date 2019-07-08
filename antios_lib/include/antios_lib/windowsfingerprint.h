@@ -4,6 +4,8 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <algorithm>
+#include <iterator>
 
 #include "utils/keys.h"
 #include "utils/utils.h"
@@ -40,33 +42,33 @@ public:
     void restore_state          () override;
     void generate_random_state  () override;
     bool is_customizable        () override;
+    std::pair<std::size_t, std::size_t> import_from_files() override;
+    bool export_to_file(const std::string &key, const std::string &file, const std::string &reg_mode) override;
 
-private:
+protected:
     /// @brief - save reg-item to container (data_)
     void save_item(const helpers::RegistryKey &root_key, RegItem &item);
 
-    /// @brief - restore reg-item from container (data_)
-    void restore_item(RegItem& item);
-
     /// @brief - write item to registry
-    void write_item(RegItem& item);
-
-    /// @brief - save font branch to reg-file
-    void export_to_file(const std::string &key, const std::string &file, const std::string &reg_mode);
-
-    /// @brief - resotre all fonts from reg-file
-    void import_from_files();
+    bool write_item(RegItem& item);
 
     /// @brief - save generated value to item in data_
-    void save_value(const std::string& value_name, const std::string& value);
+    bool save_value(const std::string& value_name, const std::string& value);
+
+    /// @brief - save generated value to item in data_
+    bool save_value(const std::string& value_name, const std::vector<uint8_t>& values);
+
 
     /// @brief find key in subkey of this branch
     std::vector<RegItem> find_subkey_in_branch(const std::string &branch_name, const std::string& key_name);
 
     /// @brief - the metod for printing binary arrays (for testing)
-    void print_binray_key(const std::string& value);
+    void print_binray_value(const std::string& value);
 
-private:
+    /// @brief - the metod for printing binary arrays (for testing)
+    void print_binray_value(const std::vector<uint8_t>& value);
+
+protected:
     /// @brief - directory path for backups
     const std::string backup_dir_path_;
     \
@@ -81,6 +83,11 @@ private:
     std::multimap<int, std::string> BUILDS_;
     const std::vector<std::string> IE_SERVICE_UPDATES_;
 
+    std::vector<uint8_t> get_random_product_id4();
+    std::vector<uint8_t> get_random_ie_install_date();
+    std::vector<uint8_t> get_random_digital_product_id (const std::string& product_id);
+    std::vector<uint8_t> get_random_digital_product_id4(const std::string& uuid, const std::string& retail_oem, const std::string& rnd_edition_id);
+
     std::string get_random_product_name         (const std::vector<std::string>& blds) const;
     std::string get_random_current_version      (const std::vector<std::string>& blds) const;
     std::string get_random_current_build        (const std::vector<std::string>& blds) const;
@@ -89,14 +96,11 @@ private:
     std::string get_random_edition_id           (const std::vector<std::pair<std::string, std::string> > &edts);
     std::string get_random_edition_product_name (const std::vector<std::pair<std::string, std::string> > &edts);
     std::string get_random_build_guid           (const short win_ver) const;
-    std::string get_random_uuid_id4             () const;
-    std::string get_random_ie_service_update    ();
-    std::string get_random_ie_install_date      ();
-    std::string get_random_install_date         ();
     std::string get_random_retail_oem           (const bool value) const;
     std::string get_random_product_id           (const bool is_oem);
-    std::string get_random_digital_product_id   (const std::string& product_id);
-    std::string get_random_digital_product_id4  (const std::string& uuid, const std::string& retail_oem, const std::string& rnd_edition_id);
+    std::string get_random_uuid_id4             () const;
+    std::string get_random_ie_service_update    ();
+    std::string get_random_install_date         ();
     short get_random_windows_version            ();
     bool get_random_oem_version                 ();
 

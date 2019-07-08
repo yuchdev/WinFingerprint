@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #if defined(_WIN32) || defined(_WIN64)
 
@@ -9,7 +9,7 @@
 #include <Windows.h>
 #include <Ras.h>
 #include <RasError.h>
-#include "win_ptrs.h"
+#include "utils/win_ptrs.h"
 
 // Windows and RAS wrapper objects (exception, error message formatting etc)
 
@@ -56,6 +56,16 @@ class WinErrorChecker{
 public:
 
 
+    // @brief Transform Windows error code to bool without throwing an exception
+    // NOTE! Suits for WinAPI functions that return success code
+    // @return true if success, false otherwise
+    static bool retbool_nothrow_retcode(DWORD error_message_ID)
+    {
+        //Get the error message, if any
+        bool ret = (error_message_ID == ERROR_SUCCESS) ? true : false;
+        return ret;
+    }
+
     // @brief Transform Windows error code to string without throwing an exception
     // NOTE! Suits for WinAPI functions that return success code
     // @return String description of Windows last error
@@ -85,6 +95,16 @@ public:
             throw std::runtime_error(format_error_message(error_message_ID));
 #endif
         }
+    }
+
+    // @brief Transform Windows error code to bool without throwing an exception
+    // NOTE! Suits for WinAPI functions that return success code
+    // @return true if success, false otherwise
+    static bool retbool_nothrow_boolean(BOOL return_code)
+    {
+        //Get the error message, if any
+        bool ret = (return_code) ? true : false;
+        return ret;
     }
 
     // @brief Transform Windows error code to string without throwing an exception
@@ -145,7 +165,7 @@ public:
 
     /// @brief: Create an object that performs Windows error translation to std::sstring
     /// @param correct: Return code that reports successful operation
-    explicit RasErrorChecker(DWORD correct) :_correct_error_code(correct), _error_code(ERROR_SUCCESS){}
+    RasErrorChecker(DWORD correct) :_correct_error_code(correct), _error_code(ERROR_SUCCESS){}
 
     /// @brief Check operation result code
     /// @return true if operation is successful, false otherwise

@@ -44,3 +44,4 @@ endif()
 
 add_subdirectory(antios_lib)
 add_subdirectory(antios_cli)
+add_subdirectory(winfp)

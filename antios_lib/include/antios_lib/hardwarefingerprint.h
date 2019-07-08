@@ -11,7 +11,6 @@
 #include "utils/win_errors.h"
 #include "utils/win_registry_helper.h"
 #include "utils/win_system_information.h"
-
 #include <antios_lib/ifingerprint.h>
 
 /// @brief - class represents settings system equipment
@@ -26,23 +25,18 @@ public:
     void generate_random_state  () override;
     void write_state            () override;
     bool is_customizable        () override;
+    std::pair<std::size_t, std::size_t> import_from_files      () override;
+    bool export_to_file         (const std::string &key, const std::string &file, const std::string &reg_mode) override;
 
     /// @brief - save reg-item to container (data_)
     void save_item(const helpers::RegistryKey &root_key, RegItem &item);
 
     /// @brief - restore reg-item from container (data_)
-    void restore_item(RegItem& item);
+//    void restore_item(RegItem& item);
 
     /// @brief - write item to registry
-    void write_item(RegItem& item);
-
-    /// @brief - save font branch to reg-file
-    void export_to_file(const std::string &key, const std::string &file, const std::string &reg_mode);
-
-    /// @brief - resotre all fonts from reg-file
-    void import_from_files();
-
-private:
+    bool write_item(RegItem& item);
+protected:
     /// @brief - directory path for backups
     const std::string backup_dir_path_;
     \

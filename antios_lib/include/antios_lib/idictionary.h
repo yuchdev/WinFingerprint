@@ -23,6 +23,9 @@ public:
     /// @return count of words in dictionary
     virtual std::size_t size() const = 0;
 
+    /// @brief get valid state of dictionary
+    /// @return bool
+    virtual bool is_valid() const = 0;
 protected:
 
     /// @brief read file line by line
@@ -42,6 +45,9 @@ protected:
 
     /// @brief file path (must not be empty!)
     std::string path_;
+
+    /// @brief is valid
+    bool is_valid_;
 };
 
 

@@ -30,9 +30,7 @@ static const std::string IEFingerprint { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsof
 /// Key: "IE Installed Date"
 static const std::string IEMigration { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer\\Migration" };
 
-
 static const std::string IE { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Internet Explorer" };
-
 
 /// HW Fingerprint.
 /// Keys: "HwProfileGuid", "SusClientId", "SusClientIDValidation" )
@@ -46,6 +44,8 @@ static const std::string WindowsUpdate { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsof
 
 ///
 static const std::string Fonts          { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts" };
+
+///
 static const std::string FontsHidden    { "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts\\Hidden" };
 
 //// test

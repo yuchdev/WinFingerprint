@@ -14,9 +14,7 @@ FingerPrintChanger::FingerPrintChanger()
     help_string_ = ss.str();
 }
 
-FingerPrintChanger::~FingerPrintChanger() {
-//    restore_state();
-}
+FingerPrintChanger::~FingerPrintChanger() {}
 
 void FingerPrintChanger::init(int argc, char *argv[])
 {
@@ -67,7 +65,7 @@ void FingerPrintChanger::init(int argc, char *argv[])
         generate();
     }
     catch (const std::exception& e) { throw std::exception(e); }
-    catch ( ... ) { throw "Unkown exception in 'FingerPrintChanger'"; }
+    catch ( ... ) { throw "Unknown exception in 'FingerPrintChanger'"; }
 }
 
 

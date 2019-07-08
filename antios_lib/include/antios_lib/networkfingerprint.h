@@ -11,6 +11,7 @@
 #include "utils/win_errors.h"
 #include "utils/win_registry_helper.h"
 #include "utils/win_system_information.h"
+#include "utils/dictionary.h"
 
 #include <antios_lib/ifingerprint.h>
 
@@ -27,20 +28,15 @@ public:
     void generate_random_state  () override;
     bool is_customizable        () override;
 
+    std::pair<std::size_t, std::size_t> import_from_files() override;
+
+    bool export_to_file(const std::string &key, const std::string &file, const std::string &reg_mode) override;
+
     /// @brief - save reg-item to container (data_)
     void save_item(const helpers::RegistryKey &root_key, RegItem &item);
 
-    /// @brief - restore reg-item from container (data_)
-    void restore_item(RegItem& item);
-
     /// @brief - write item to registry
-    void write_item(RegItem& item);
-
-    /// @brief - save font branch to reg-file
-    void export_to_file(const std::string &key, const std::string &file, const std::string &reg_mode);
-
-    /// @brief - resotre all fonts from reg-file
-    void import_from_files();
+    bool write_item(RegItem& item);
 
     /// @brief - setters of main network id's
     void set_hostname       (const std::string& hostname);
@@ -56,7 +52,7 @@ public:
 
     /// @brief find key in subkey of this branch
     std::vector<RegItem> find_subkey_in_branch(const std::string &branch_name, const std::string& key_name);
-private:
+protected:
     /// @brief - directory path for backups
     const std::string backup_dir_path_;
     \
@@ -78,6 +74,7 @@ private:
     std::string owner_;
 
     bool is_custom_;
+    bool is_valid_;
 };
 
 #endif // NETWORKFINGERPRINT_H

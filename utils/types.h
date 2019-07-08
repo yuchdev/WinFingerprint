@@ -2,6 +2,7 @@
 #define TYPES_H
 
 #include <string>
+#include <vector>
 #include <iostream>
 
 
@@ -9,6 +10,7 @@
 /// \brief The RegItem struct
 ///
 struct RegItem {
+    std::vector<uint8_t> bin_key_value_;
     std::string key_path_;
     std::string value_name_;
     std::string key_value_;
@@ -36,7 +38,8 @@ struct RegItem {
     { }
 
     RegItem(const RegItem& item)
-        : key_path_     (item.key_path_)
+        : bin_key_value_(item.bin_key_value_)
+        , key_path_     (item.key_path_)
         , value_name_   (item.value_name_)
         , key_value_    (item.key_value_)
         , file_name_    (item.file_name_)
@@ -44,6 +47,7 @@ struct RegItem {
     { }
 
     RegItem& operator=(const RegItem& item) {
+        bin_key_value_ = item.bin_key_value_;
         key_path_    = item.key_path_;
         value_name_  = item.value_name_;
         key_value_   = item.file_name_;
@@ -58,7 +62,8 @@ struct RegItem {
            << "' [KeyValue]: '"  << item.key_value_
            << "' [FileName]: '"  << item.file_name_
            << "' [Type]: '"      << item.type_
-           << "'";
+           << "' [BINARY]: '";
+        for (auto &it : item.bin_key_value_) os << (unsigned char)it;
         return os;
     }
 };

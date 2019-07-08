@@ -27,23 +27,16 @@ public:
     void restore_state          () override;
     void generate_random_state  () override;
     bool is_customizable        () override;
-
-    /// @brief - restore reg-item from container (data_)
-    void restore_item(RegItem& item);
+    bool export_to_file         (const std::string &key, const std::string &file, const std::string &reg_mode) override;
+    std::pair<std::size_t, std::size_t> import_from_files() override;
 
     /// @brief - write item to registry
-    void write_item(RegItem& item);
-
-    /// @brief - save font branch to reg-file
-    void export_to_file(const std::string &key, const std::string &file, const std::string &reg_mode);
-
-    /// @brief - resotre all fonts from reg-file
-    void import_from_files();
+    bool write_item(RegItem& item);
 
     /// @brief find key in subkey of this branch
     std::vector<RegItem> find_subkey_in_branch(const std::string &branch_name, const std::string& key_name);
 
-private:
+protected:
     /// @brief - directory path for backups
     const std::string backup_dir_path_;
     \
