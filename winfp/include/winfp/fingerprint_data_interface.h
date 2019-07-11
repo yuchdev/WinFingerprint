@@ -1,5 +1,7 @@
 #pragma once
 
+namespace antios {
+
 class IFingerprintData
 {
 public:
@@ -9,4 +11,6 @@ public:
 
     /// @brief Generate content
     virtual void generate() = 0;
-}
+};
+
+} // namespace antios 
