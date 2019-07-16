@@ -51,7 +51,9 @@ namespace antios {
             _kernel_version(kernel_version),
             _major_version(major_version),
             _minor_version(minor_version),
-            _build_number(build_number) {}
+            _build_number(build_number)
+        {
+        }
 
         int _kernel_version = 0;
         int _major_version = 0;
