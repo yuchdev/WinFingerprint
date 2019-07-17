@@ -9,56 +9,130 @@
 
 namespace antios {
 
+    enum class ProductName
+    {
+        Windows7,
+        Windows8,
+        Windows81,
+        Windows10v1703,
+        Windows10v1709,
+        ProductNameCount
+    };
+
     enum class WindowsEditionSKU
     {
-        Starter = 0,
-        HomeBasic = 1,
-        HomePremium = 2,
-        Professional = 3,
-        ProfessionalN = 4,
-        ProfessionalKN = 5,
-        Ultimate = 6,
-        Core = 7,
-        Pro = 8,
-        ProN = 9,
-        Enterprise = 10,
-        EnterpriseN = 11,
-        OEM = 12,
-        WithBing = 13,
-        Home = 14,
-        ProEducation = 15,
-        EnterpriseLTSB = 16,
-        Education = 17,
-        IoTCore = 18,
-        IoTEnterprise = 19,
-        S = 20,
+        Starter, StarterE, StarterK, StarterKN, StarterN,
+        HomeBasic, HomeBasicE, HomeBasicK, HomeBasicKN, HomeBasicN,
+        HomePremium, HomePremiumE, HomePremiumK, HomePremiumKN,
+        Professional, ProfessionalE, ProfessionalK, ProfessionalKN, ProfessionalN,
+        Enterprise, EnterpriseE, EnterpriseK, EnterpriseKN, EnterpriseN,
+        Ultimate, UltimateE, UltimateK, UltimateKN, UltimateN,
+        
+        Core, CoreK, CoreKN, CoreN, CoreConnected,
+        Pro, ProK, ProKN, ProN,
+
+        Education, EducationN,
+        EnterpriseLTSB,
+        Home, HomeN, S,
+
         EditionsCount
+    };
+
+    // Windows 7 SKU
+    // {Enterprise, EnterpriseE, EnterpriseK, EnterpriseKN, EnterpriseN,
+    //  HomeBasic, HomeBasicE, HomeBasicK, HomeBasicKN, HomeBasicN,
+    //  HomePremium, HomePremiumE, HomePremiumK, HomePremiumKN
+    //  Professional, ProfessionalE, ProfessionalK, ProfessionalKN, ProfessionalN
+    //  Starter, StarterE, StarterK, StarterKN, StarterN,
+    //  Ultimate, UltimateE, UltimateK, UltimateKN, UltimateN}
+
+    // Windows 8 SKU (Media Center editions excluded until beta)
+    // {Core, CoreK, CoreKN, CoreN
+    //  Enterprise, EnterpriseK, EnterpriseKN, EnterpriseN
+    //  Pro, ProK, ProKMediaCenter, ProKN, ProN, ProMediaCenter}
+
+    // Windows 8.1 SKU (Media Center and Country Specific editions excluded)
+    // {Core, CoreConnected, CoreN,
+    //  CoreConnectedCountrySpecific, CoreConnectedSingleLanguage, 
+    //  Enterprise, 
+    // Pro, ProEducation, ProK, ProMediaCenter}
+
+    // Windows 10 SKU (IoT Editions have specific since they intended to run embedded hardware)
+    // {Education, EducationN
+    //  Enterprise, EnterpriseLTSB
+    //  Home, HomeN
+    //  Pro, ProN,
+    //  IoTCore, IoTEnterprise, S}
+
+    struct WindowsBuildInfo
+    {
+        /// Example: "Windows 10"
+        std::string _product_name;
+
+        /// Service pack or major update (for Windows 10 version like "1809")
+        std::string _service_pack;
+
+        /// String representation of system major.minor version, example: "6.1"
+        std::string _product_version;
+
+        /// Short build number, example: Windows 10 v1709 is "16299"
+        std::string _short_version;
+
+        /// Full build number, example: Windows 10 v1809 is "10.0.17763.557"
+        std::string _full_version;
+
+        /// Full build name with tag
+        std::string _build_lab;
+
+        /// Full extended build name with tag
+        std::string _build_lab_ex;
+
+        /// Version of Service Pack or major update
+        std::string _csd_version;
+
+        /// Release date (because of lack of exact date often refer to the last day of release month)
+        int _release_date{};
     };
 
     enum class WindowsBuild
     {
+        // Windows 7
         Windows_6_1_7600_16385,
+
+        // Windows 7 SP1
         Windows_6_1_7600_17514,
-        Windows_6_1_7600_24214
-    };
 
-    struct WindowsBuildNumber
-    {
-        WindowsBuildNumber(int kernel_version,
-            int major_version,
-            int minor_version,
-            int build_number) :
-            _kernel_version(kernel_version),
-            _major_version(major_version),
-            _minor_version(minor_version),
-            _build_number(build_number)
-        {
-        }
+        // Windows 7 SP1
+        Windows_6_1_7600_24214,
 
-        int _kernel_version = 0;
-        int _major_version = 0;
-        int _minor_version = 0;
-        int _build_number = 0;
+        // Windows 8
+        Windows_6_2_9200_16384,
+
+        // Windows 8.1
+        Windows_6_3_9600_16384,
+
+        // Windows 8.1 Update
+        Windows_6_3_9600_17031,
+        Windows_6_3_9600_17238,
+        Windows_6_3_9600_17415,
+
+        // Windows 10
+        // 1709
+        Windows_10_0_16299_125,
+        
+        // 1803
+        // 9.0, 17134, 10.0.17134.829
+        /// "17134.rs4_release_svc_prod1.190606-1933", "17134.829.rs4_release_svc_prod1.190606-1933"
+        /// 30 June 2019
+        Windows_10_0_17134_829,
+        
+        // 1809
+        // 9.0, 17763, 10.0.17763.557
+        /// "17763.rs5_release_svc_prod1.190606-1817", "17763.557.rs5_release_svc_prod1.190606-1817"
+        /// 30 June 2019
+        Windows_10_0_17763_557,
+
+        WindowsBuildsCount
     };
 
     class WindowsFingerprint : public antios::FingerprintDataBase
@@ -154,23 +228,19 @@ namespace antios {
         //////////////////////////////////////////////////////////////////////////
         // Static Data
 
-        // System versions
-        static std::vector<int> _system_versions;
-
-        // System version to name
-        static std::map<int, std::string> _system_version_name;
+        static std::vector<WindowsBuildInfo> _builds_information;
 
         //////////////////////////////////////////////////////////////////////////
         /// Generated Fingerprint
 
-        /// From Windows 7 to Windows 10
-        int _windows_version;
-
         /// OEM or Retail version
         bool _oem;
 
+        /// Product name - Windows 7, Windows 8, Windows 8.1...
+        ProductName _product_name = ProductName::ProductNameCount;
+
         /// Edition ID, which is base for many other params
-        WindowsEditionSKU _edition;
+        WindowsEditionSKU _edition = WindowsEditionSKU::EditionsCount;
 
         /// For example, Windows 7 is "6.1.7600.16385", Windows 8.1 is "6.3.9600.17031"
         WindowsBuild _windows_build;

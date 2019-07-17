@@ -2,31 +2,44 @@
 
 using namespace antios;
 
-// static
-std::vector<int> antios::WindowsFingerprint::_system_versions = { 7,8,10 };
+std::vector<antios::WindowsBuildInfo> antios::WindowsFingerprint::_builds_information = {
+    
+    // Windows 7
+    WindowsBuildInfo{
+        "Windows 7", "", "6.1", "7600", "6.1.7600.16385", "7600.win7_rtm.090713-1255", "7600.16385.win7_rtm.090713-1255", "", 1256212800
+    },
+    // Windows 7 SP 1
+    WindowsBuildInfo{
+        "Windows 7", "Service Pack 1", "6.1", "7601", "6.1.7601.16385", "7601.win7_rtm.090713-1255", "7601.16385.win7_rtm.090713-1255", "1130", 1256212800
+    },
+    WindowsBuildInfo{
+        "Windows 7", "Service Pack 1", "6.1", "7601", "6.1.7601.17514", "7601.win7sp1_rtm.101119-1850", "7601.16385.win7sp1_rtm.101119-1850", "1130", 1256212800
+    },
+    WindowsBuildInfo{
+        "Windows 7", "Service Pack 1", "6.1", "7601", "6.1.7601.24214", "7601.win7sp1_ldr_escrow.180801-1700", "7601.24214.win7sp1_ldr_escrow.180801-1700", "1130", 1256212800
+    },
 
-std::map<int, std::string> WindowsFingerprint::_system_version_name = {
-    {7, "Windows 7"},
-    {8, "Windows 8"},
-    {10, "Windows 10"}
+    // Windows 10 1809
+    WindowsBuildInfo{
+        "Windows 10", "1809", "9.0", "17763", "10.0.17763.557", "17763.rs5_release_svc_prod1.190606-1817", "17763.557.rs5_release_svc_prod1.190606-1817", "", 1561896000
+    },
+
 };
 
 void WindowsFingerprint::generate()
 {
-    _windows_version = this->choise(_system_versions);
+    std::vector<bool> oem{ true, false };
+    _oem = this->choise(oem);
+
+    _product_name = static_cast<ProductName>(rnd(0, static_cast<int>(ProductName::ProductNameCount)));
 }
 
 
-int WindowsFingerprint::system_version() const
-{
-    return _windows_version;
-}
 
 std::string WindowsFingerprint::system_name() const
 {
-    auto ver = _system_version_name.find(_windows_version);
-    assert(ver != _system_version_name.end());
-    return (*ver).second;
+    throw std::logic_error{ "Not implemented" };
+    return std::string{};
 }
 
 std::string WindowsFingerprint::service_pack() const
