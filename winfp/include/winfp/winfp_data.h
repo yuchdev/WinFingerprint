@@ -9,89 +9,40 @@
 
 namespace antios {
 
-    enum class ProductName
+    struct EditionInfo
     {
-        Windows7,
-        Windows8,
-        Windows81,
-        Windows10v1703,
-        Windows10v1709,
-        ProductNameCount
+        std::string registry_name;
+        std::string readable_name;
     };
-
-    enum class WindowsEditionSKU
-    {
-        Starter, StarterE, StarterK, StarterKN, StarterN,
-        HomeBasic, HomeBasicE, HomeBasicK, HomeBasicKN, HomeBasicN,
-        HomePremium, HomePremiumE, HomePremiumK, HomePremiumKN,
-        Professional, ProfessionalE, ProfessionalK, ProfessionalKN, ProfessionalN,
-        Enterprise, EnterpriseE, EnterpriseK, EnterpriseKN, EnterpriseN,
-        Ultimate, UltimateE, UltimateK, UltimateKN, UltimateN,
-        
-        Core, CoreK, CoreKN, CoreN, CoreConnected,
-        Pro, ProK, ProKN, ProN,
-
-        Education, EducationN,
-        EnterpriseLTSB,
-        Home, HomeN, S,
-
-        EditionsCount
-    };
-
-    // Windows 7 SKU
-    // {Enterprise, EnterpriseE, EnterpriseK, EnterpriseKN, EnterpriseN,
-    //  HomeBasic, HomeBasicE, HomeBasicK, HomeBasicKN, HomeBasicN,
-    //  HomePremium, HomePremiumE, HomePremiumK, HomePremiumKN
-    //  Professional, ProfessionalE, ProfessionalK, ProfessionalKN, ProfessionalN
-    //  Starter, StarterE, StarterK, StarterKN, StarterN,
-    //  Ultimate, UltimateE, UltimateK, UltimateKN, UltimateN}
-
-    // Windows 8 SKU (Media Center editions excluded until beta)
-    // {Core, CoreK, CoreKN, CoreN
-    //  Enterprise, EnterpriseK, EnterpriseKN, EnterpriseN
-    //  Pro, ProK, ProKMediaCenter, ProKN, ProN, ProMediaCenter}
-
-    // Windows 8.1 SKU (Media Center and Country Specific editions excluded)
-    // {Core, CoreConnected, CoreN,
-    //  CoreConnectedCountrySpecific, CoreConnectedSingleLanguage, 
-    //  Enterprise, 
-    // Pro, ProEducation, ProK, ProMediaCenter}
-
-    // Windows 10 SKU (IoT Editions have specific since they intended to run embedded hardware)
-    // {Education, EducationN
-    //  Enterprise, EnterpriseLTSB
-    //  Home, HomeN
-    //  Pro, ProN,
-    //  IoTCore, IoTEnterprise, S}
 
     struct WindowsBuildInfo
     {
         /// Example: "Windows 10"
-        std::string _product_name;
+        std::string product_name;
 
         /// Service pack or major update (for Windows 10 version like "1809")
-        std::string _service_pack;
+        std::string service_pack;
 
         /// String representation of system major.minor version, example: "6.1"
-        std::string _product_version;
+        std::string product_version;
 
         /// Short build number, example: Windows 10 v1709 is "16299"
-        std::string _short_version;
+        std::string short_version;
 
         /// Full build number, example: Windows 10 v1809 is "10.0.17763.557"
-        std::string _full_version;
+        std::string full_version;
 
         /// Full build name with tag
-        std::string _build_lab;
+        std::string build_lab;
 
         /// Full extended build name with tag
-        std::string _build_lab_ex;
+        std::string build_lab_ex;
 
         /// Version of Service Pack or major update
-        std::string _csd_version;
+        std::string csd_version;
 
         /// Release date (because of lack of exact date often refer to the last day of release month)
-        int _release_date{};
+        int release_date{};
     };
 
     enum class WindowsBuild
@@ -101,8 +52,6 @@ namespace antios {
 
         // Windows 7 SP1
         Windows_6_1_7600_17514,
-
-        // Windows 7 SP1
         Windows_6_1_7600_24214,
 
         // Windows 8
@@ -116,14 +65,11 @@ namespace antios {
         Windows_6_3_9600_17238,
         Windows_6_3_9600_17415,
 
-        // Windows 10
-        // 1709
+        // Windows 10 1507
+        // Windows 10 1709
         Windows_10_0_16299_125,
         
-        // 1803
-        // 9.0, 17134, 10.0.17134.829
-        /// "17134.rs4_release_svc_prod1.190606-1933", "17134.829.rs4_release_svc_prod1.190606-1933"
-        /// 30 June 2019
+        // Windows 10 1803
         Windows_10_0_17134_829,
         
         // 1809
@@ -139,6 +85,78 @@ namespace antios {
     {
     public:
 
+        enum class ProductName
+        {
+            Windows7,
+            Windows8,
+            Windows81,
+            Windows10,
+            ProductNameCount
+        };
+
+        enum class ProductUpdateName
+        {
+            Windows7noUpdate,
+            Windows7SP1,
+            Windows8noUpdate,
+            Windows81noUpdate,
+            Windows81IR,
+            Windows10v1507,
+            Windows10v1511,
+            Windows10v1607,
+            Windows10v1703,
+            Windows10v1709,
+            Windows10v1803,
+            Windows10v1809,
+            Windows10v1903,
+            ProductNameCount
+        };
+
+        // Windows 7 SKU
+        // {Enterprise, EnterpriseE, EnterpriseK, EnterpriseKN, EnterpriseN,
+        //  HomeBasic, HomeBasicE, HomeBasicK, HomeBasicKN, HomeBasicN,
+        //  HomePremium, HomePremiumE, HomePremiumK, HomePremiumKN
+        //  Professional, ProfessionalE, ProfessionalK, ProfessionalKN, ProfessionalN
+        //  Starter, StarterE, StarterK, StarterKN, StarterN,
+        //  Ultimate, UltimateE, UltimateK, UltimateKN, UltimateN}
+
+        // Windows 8 SKU (Media Center editions excluded until beta)
+        // {Core, CoreK, CoreKN, CoreN
+        //  Enterprise, EnterpriseK, EnterpriseKN, EnterpriseN
+        //  Pro, ProK, ProKMediaCenter, ProKN, ProN, ProMediaCenter}
+
+        // Windows 8.1 SKU (Media Center and Country Specific editions excluded)
+        // {Core, CoreConnected, CoreN,
+        //  CoreConnectedCountrySpecific, CoreConnectedSingleLanguage, 
+        //  Enterprise, 
+        // Pro, ProEducation, ProK, ProMediaCenter}
+
+        // Windows 10 SKU (IoT Editions have specific since they intended to run embedded hardware)
+        // {Education, EducationN
+        //  Enterprise, EnterpriseLTSB
+        //  Home, HomeN
+        //  Pro, ProN,
+        //  IoTCore, IoTEnterprise, S}
+        enum WindowsEditionSKU
+        {
+            Starter, StarterE, StarterK, StarterKN, StarterN,
+            HomeBasic, HomeBasicE, HomeBasicK, HomeBasicKN, HomeBasicN,
+            HomePremium, HomePremiumE, HomePremiumK, HomePremiumKN,
+            Professional, ProfessionalE, ProfessionalK, ProfessionalKN, ProfessionalN,
+            Enterprise, EnterpriseE, EnterpriseK, EnterpriseKN, EnterpriseN,
+            Ultimate, UltimateE, UltimateK, UltimateKN, UltimateN,
+
+            Core, CoreK, CoreKN, CoreN, CoreConnected,
+            ProEducation, Pro, ProK, ProKN, ProN,
+
+            Education, EducationN,
+            EnterpriseLTSB,
+            Home, HomeN, S,
+
+            EditionsCount
+        };
+
+
         /// @brief Default
         WindowsFingerprint() = default;
 
@@ -147,9 +165,6 @@ namespace antios {
 
         /// @brief
         virtual void generate() override;
-
-        /// @brief Windows major version, [7, 8, 10]
-        int system_version() const;
 
         /// @brief Windows name without edition, "Windows 7"
         std::string system_name() const;
@@ -227,6 +242,8 @@ namespace antios {
 
         //////////////////////////////////////////////////////////////////////////
         // Static Data
+
+        static std::map<ProductName, std::vector<WindowsEditionSKU>> _version_editions;
 
         static std::vector<WindowsBuildInfo> _builds_information;
 
