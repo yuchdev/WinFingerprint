@@ -25,7 +25,7 @@ WindowsFingerprint::_version_editions = {
         }),
     },
 
-    // Windows 8
+    // Windows 8.1
     {std::make_pair(ProductName::Windows7, std::vector<WindowsEditionSKU> {
         Core, CoreConnected, CoreN,
         Enterprise,

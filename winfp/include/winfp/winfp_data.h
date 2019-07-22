@@ -78,6 +78,7 @@ namespace antios {
         /// 30 June 2019
         Windows_10_0_17763_557,
 
+        // This is count of all enum items
         WindowsBuildsCount
     };
 
@@ -91,6 +92,7 @@ namespace antios {
             Windows8,
             Windows81,
             Windows10,
+            // This is count of all enum items
             ProductNameCount
         };
 
@@ -109,6 +111,7 @@ namespace antios {
             Windows10v1803,
             Windows10v1809,
             Windows10v1903,
+            // This is count of all enum items
             ProductNameCount
         };
 
@@ -139,20 +142,85 @@ namespace antios {
         //  IoTCore, IoTEnterprise, S}
         enum WindowsEditionSKU
         {
-            Starter, StarterE, StarterK, StarterKN, StarterN,
-            HomeBasic, HomeBasicE, HomeBasicK, HomeBasicKN, HomeBasicN,
-            HomePremium, HomePremiumE, HomePremiumK, HomePremiumKN,
-            Professional, ProfessionalE, ProfessionalK, ProfessionalKN, ProfessionalN,
-            Enterprise, EnterpriseE, EnterpriseK, EnterpriseKN, EnterpriseN,
-            Ultimate, UltimateE, UltimateK, UltimateKN, UltimateN,
+            // Windows 7 and other versions
+            //
 
-            Core, CoreK, CoreKN, CoreN, CoreConnected,
-            ProEducation, Pro, ProK, ProKN, ProN,
+            // Starter
+            Starter, 
+            StarterE, 
+            StarterK, 
+            StarterKN, 
+            StarterN,
+            
+            // HomeBasic
+            HomeBasic, 
+            HomeBasicE, 
+            HomeBasicK, 
+            HomeBasicKN, 
+            HomeBasicN,
+            
+            // HomePremium
+            HomePremium, 
+            HomePremiumE, 
+            HomePremiumK, 
+            HomePremiumKN,
+            
+            // Professional
+            Professional, 
+            ProfessionalE, 
+            ProfessionalK, 
+            ProfessionalKN, 
+            ProfessionalN,
+            
+            // Enterprise
+            Enterprise, 
+            EnterpriseE, 
+            EnterpriseK, 
+            EnterpriseKN, 
+            EnterpriseN,
+            
+            // Ultimate
+            Ultimate, 
+            UltimateE, 
+            UltimateK, 
+            UltimateKN, 
+            UltimateN,
 
-            Education, EducationN,
+            // Windows 8 specific
+            // All Enterprise versions listed above
+            //
+
+            // Core
+            Core, 
+            CoreK, 
+            CoreKN, 
+            CoreN, 
+            CoreConnected,
+            // Pro
+            ProEducation, 
+            Pro, 
+            ProK, 
+            ProKN, 
+            ProN,
+
+            // Windows 10 specific 
+            //
+
+            // Education
+            Education, 
+            EducationN,
+
+            // Enterprise (just Enterprise listed above)
             EnterpriseLTSB,
-            Home, HomeN, S,
 
+            // Home
+            Home, 
+            HomeN, 
+
+            // S
+            S,
+            
+            // This is count of all enum items
             EditionsCount
         };
 
