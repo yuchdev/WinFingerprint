@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include <winfp/fingerprint_data_base.h>
 
+#include <boost/bimap.hpp>
+
 #include <string>
 #include <vector>
 #include <map>
@@ -8,6 +10,42 @@
 
 
 namespace antios {
+
+
+class WindowsFingerprint : public antios::FingerprintDataBase
+{
+public:
+
+    enum class ProductName
+    {
+        Windows7,
+        Windows8,
+        Windows81,
+        Windows10,
+        // This is count of all enum items
+        ProductNameCount
+    };
+
+    enum class SubproductName
+    {
+        Windows7noUpdate,
+        Windows7SP1,
+        Windows8noUpdate,
+        Windows81noUpdate,
+        Windows81IR3Update,
+        Windows81IR4Update,
+        Windows81IR5Update,
+        Windows10v1507,
+        Windows10v1511,
+        Windows10v1607,
+        Windows10v1703,
+        Windows10v1709,
+        Windows10v1803,
+        Windows10v1809,
+        Windows10v1903,
+        // This is count of all enum items
+        ProductNameCount
+    };
 
     struct EditionInfo
     {
@@ -17,11 +55,14 @@ namespace antios {
 
     struct WindowsBuildInfo
     {
+        /// Enum for filtering by product name
+        WindowsFingerprint::ProductName product_name_id;
+
+        /// Enum for filtering by product major update
+        WindowsFingerprint::SubproductName update_name_id;
+
         /// Example: "Windows 10"
         std::string product_name;
-
-        /// Service pack or major update (for Windows 10 version like "1809")
-        std::string service_pack;
 
         /// String representation of system major.minor version, example: "6.1"
         std::string product_version;
@@ -38,315 +79,256 @@ namespace antios {
         /// Full extended build name with tag
         std::string build_lab_ex;
 
-        /// Version of Service Pack or major update
-        std::string csd_version;
-
         /// Release date (because of lack of exact date often refer to the last day of release month)
         int release_date{};
+
+        /// System-specific values
+        std::map<std::string, std::string> system_specific;
     };
 
-    enum class WindowsBuild
+
+    // Windows 7 SKU
+    // {Enterprise, EnterpriseE, EnterpriseK, EnterpriseKN, EnterpriseN,
+    //  HomeBasic, HomeBasicE, HomeBasicK, HomeBasicKN, HomeBasicN,
+    //  HomePremium, HomePremiumE, HomePremiumK, HomePremiumKN
+    //  Professional, ProfessionalE, ProfessionalK, ProfessionalKN, ProfessionalN
+    //  Starter, StarterE, StarterK, StarterKN, StarterN,
+    //  Ultimate, UltimateE, UltimateK, UltimateKN, UltimateN}
+
+    // Windows 8 SKU (Media Center editions excluded until beta)
+    // {Core, CoreK, CoreKN, CoreN
+    //  Enterprise, EnterpriseK, EnterpriseKN, EnterpriseN
+    //  Pro, ProK, ProKMediaCenter, ProKN, ProN, ProMediaCenter}
+
+    // Windows 8.1 SKU (Media Center and Country Specific editions excluded)
+    // {Core, CoreConnected, CoreN,
+    //  CoreConnectedCountrySpecific, CoreConnectedSingleLanguage, 
+    //  Enterprise, 
+    // Pro, ProEducation, ProK, ProMediaCenter}
+
+    // Windows 10 SKU (IoT Editions have specific since they intended to run embedded hardware)
+    // {Education, EducationN
+    //  Enterprise, EnterpriseLTSB
+    //  Home, HomeN
+    //  Pro, ProN,
+    //  IoTCore, IoTEnterprise, S}
+    enum WindowsEditionSKU
     {
-        // Windows 7
-        Windows_6_1_7600_16385,
+        // Windows 7 and other versions
+        //
 
-        // Windows 7 SP1
-        Windows_6_1_7600_17514,
-        Windows_6_1_7600_24214,
+        // Starter
+        Starter, 
+        StarterE, 
+        StarterK, 
+        StarterKN, 
+        StarterN,
+            
+        // HomeBasic
+        HomeBasic, 
+        HomeBasicE, 
+        HomeBasicK, 
+        HomeBasicKN, 
+        HomeBasicN,
+            
+        // HomePremium
+        HomePremium, 
+        HomePremiumE, 
+        HomePremiumK, 
+        HomePremiumKN,
+            
+        // Professional
+        Professional, 
+        ProfessionalE, 
+        ProfessionalK, 
+        ProfessionalKN, 
+        ProfessionalN,
+            
+        // Enterprise
+        Enterprise, 
+        EnterpriseE, 
+        EnterpriseK, 
+        EnterpriseKN, 
+        EnterpriseN,
+            
+        // Ultimate
+        Ultimate, 
+        UltimateE, 
+        UltimateK, 
+        UltimateKN, 
+        UltimateN,
 
-        // Windows 8
-        Windows_6_2_9200_16384,
+        // Windows 8 specific
+        // All Enterprise versions listed above
+        //
 
-        // Windows 8.1
-        Windows_6_3_9600_16384,
+        // Core
+        Core, 
+        CoreK, 
+        CoreKN, 
+        CoreN, 
+        CoreConnected,
+        // Pro
+        ProEducation, 
+        Pro, 
+        ProK, 
+        ProKN, 
+        ProN,
 
-        // Windows 8.1 Update
-        Windows_6_3_9600_17031,
-        Windows_6_3_9600_17238,
-        Windows_6_3_9600_17415,
+        // Windows 10 specific 
+        //
 
-        // Windows 10 1507
-        // Windows 10 1709
-        Windows_10_0_16299_125,
-        
-        // Windows 10 1803
-        Windows_10_0_17134_829,
-        
-        // 1809
-        // 9.0, 17763, 10.0.17763.557
-        /// "17763.rs5_release_svc_prod1.190606-1817", "17763.557.rs5_release_svc_prod1.190606-1817"
-        /// 30 June 2019
-        Windows_10_0_17763_557,
+        // Education
+        Education, 
+        EducationN,
 
+        // Enterprise (just Enterprise listed above)
+        EnterpriseLTSB,
+
+        // Home
+        Home, 
+        HomeN, 
+
+        // Secure
+        S,
+            
         // This is count of all enum items
-        WindowsBuildsCount
+        EditionsCount
     };
 
-    class WindowsFingerprint : public antios::FingerprintDataBase
-    {
-    public:
 
-        enum class ProductName
-        {
-            Windows7,
-            Windows8,
-            Windows81,
-            Windows10,
-            // This is count of all enum items
-            ProductNameCount
-        };
+    /// @brief Default
+    WindowsFingerprint();
 
-        enum class ProductUpdateName
-        {
-            Windows7noUpdate,
-            Windows7SP1,
-            Windows8noUpdate,
-            Windows81noUpdate,
-            Windows81IR,
-            Windows10v1507,
-            Windows10v1511,
-            Windows10v1607,
-            Windows10v1703,
-            Windows10v1709,
-            Windows10v1803,
-            Windows10v1809,
-            Windows10v1903,
-            // This is count of all enum items
-            ProductNameCount
-        };
+    /// @brief Make it polymorph
+    virtual ~WindowsFingerprint() = default;
 
-        // Windows 7 SKU
-        // {Enterprise, EnterpriseE, EnterpriseK, EnterpriseKN, EnterpriseN,
-        //  HomeBasic, HomeBasicE, HomeBasicK, HomeBasicKN, HomeBasicN,
-        //  HomePremium, HomePremiumE, HomePremiumK, HomePremiumKN
-        //  Professional, ProfessionalE, ProfessionalK, ProfessionalKN, ProfessionalN
-        //  Starter, StarterE, StarterK, StarterKN, StarterN,
-        //  Ultimate, UltimateE, UltimateK, UltimateKN, UltimateN}
+    /// @brief
+    virtual void generate() override;
 
-        // Windows 8 SKU (Media Center editions excluded until beta)
-        // {Core, CoreK, CoreKN, CoreN
-        //  Enterprise, EnterpriseK, EnterpriseKN, EnterpriseN
-        //  Pro, ProK, ProKMediaCenter, ProKN, ProN, ProMediaCenter}
+    /// @brief Windows name without edition, "Windows 7"
+    std::string system_name() const;
 
-        // Windows 8.1 SKU (Media Center and Country Specific editions excluded)
-        // {Core, CoreConnected, CoreN,
-        //  CoreConnectedCountrySpecific, CoreConnectedSingleLanguage, 
-        //  Enterprise, 
-        // Pro, ProEducation, ProK, ProMediaCenter}
+    /// @brief Service pack or major update if present
+    std::string service_pack() const;
 
-        // Windows 10 SKU (IoT Editions have specific since they intended to run embedded hardware)
-        // {Education, EducationN
-        //  Enterprise, EnterpriseLTSB
-        //  Home, HomeN
-        //  Pro, ProN,
-        //  IoTCore, IoTEnterprise, S}
-        enum WindowsEditionSKU
-        {
-            // Windows 7 and other versions
-            //
+    /// @brief Windows edition, like "Home Premium" or "Professional"
+    /// Specific editions should comply with the system version, for example
+    /// "Windows 7 Professional N", "Windows 10 Education"
+    std::string edition() const;
 
-            // Starter
-            Starter, 
-            StarterE, 
-            StarterK, 
-            StarterKN, 
-            StarterN,
-            
-            // HomeBasic
-            HomeBasic, 
-            HomeBasicE, 
-            HomeBasicK, 
-            HomeBasicKN, 
-            HomeBasicN,
-            
-            // HomePremium
-            HomePremium, 
-            HomePremiumE, 
-            HomePremiumK, 
-            HomePremiumKN,
-            
-            // Professional
-            Professional, 
-            ProfessionalE, 
-            ProfessionalK, 
-            ProfessionalKN, 
-            ProfessionalN,
-            
-            // Enterprise
-            Enterprise, 
-            EnterpriseE, 
-            EnterpriseK, 
-            EnterpriseKN, 
-            EnterpriseN,
-            
-            // Ultimate
-            Ultimate, 
-            UltimateE, 
-            UltimateK, 
-            UltimateKN, 
-            UltimateN,
+    /// @brief ProductName is Windows version and edition with spaces, 
+    /// "Windows 7 Professional N"
+    std::string product_name() const;
 
-            // Windows 8 specific
-            // All Enterprise versions listed above
-            //
+    /// @brief "Client" or "Server"
+    std::string installation_type() const;
 
-            // Core
-            Core, 
-            CoreK, 
-            CoreKN, 
-            CoreN, 
-            CoreConnected,
-            // Pro
-            ProEducation, 
-            Pro, 
-            ProK, 
-            ProKN, 
-            ProN,
+    /// @brief Unix time format, depend on the system release date, 
+    /// since installation date can't be before release date
+    int installation_date() const;
 
-            // Windows 10 specific 
-            //
+    /// @brief Full Windows build version
+    /// For example, Windows 7 is "6.1.7600.16385", Windows 8.1 is "6.3.9600.17031"
+    std::string build() const;
 
-            // Education
-            Education, 
-            EducationN,
+    /// @brief Build GUID, unique for every build number, random if no info
+    std::string build_guid() const;
 
-            // Enterprise (just Enterprise listed above)
-            EnterpriseLTSB,
+    /// @brief CSD Version, string representation of Service Pack or major update
+    /// Example: "Service Pack 1"
+    std::string csd_version() const;
 
-            // Home
-            Home, 
-            HomeN, 
+    /// @brief CSDBuildNumber, numerical version of Service Pack or major update
+    int csd_build_number() const;
 
-            // S
-            S,
-            
-            // This is count of all enum items
-            EditionsCount
-        };
+    /// @brief BuildLab string representation
+    /// Example: "7601.win7sp1_ldr.170913-0600"
+    std::string build_lab() const;
 
+    /// @brief BuildLabEx string representation
+    /// Example: "7601.23915.amd64fre.win7sp1_ldr.170913-0600"
+    std::string build_lab_ex() const;
 
-        /// @brief Default
-        WindowsFingerprint() = default;
+    /// @brief String representation of system major.minor version
+    /// Example: "6.1"
+    std::string current_version() const;
 
-        /// @brief Make it polymorph
-        virtual ~WindowsFingerprint() = default;
+    /// @brief String representation of CurrentBuild
+    /// Example: "7600"
+    std::string current_build() const;
 
-        /// @brief
-        virtual void generate() override;
+    /// @brief Numeric representation of CurrentBuild
+    /// Example: 7600
+    int current_build_number() const;
 
-        /// @brief Windows name without edition, "Windows 7"
-        std::string system_name() const;
+    /// @brief Binary parameter DigitalProductId
+    /// Contains a lot of information
+    std::vector<uint8_t> digital_product_id() const;
 
-        /// @brief Service pack or major update if present
-        std::string service_pack() const;
+    /// @brief Binary parameter DigitalProductId4
+    /// Contains a lot of information
+    std::vector<uint8_t> digital_product_id4() const;
 
-        /// @brief Windows edition, like "Home Premium" or "Professional"
-        /// Specific editions should comply with the system version, for example
-        /// "Windows 7 Professional N", "Windows 10 Education"
-        std::string edition() const;
+    /// @brief Binary array containing installation date
+    /// [0x01,0x04] - Unix time, other are random bytes
+    /// Should be close enough after installation date
+    std::vector<uint8_t> ie_install_date() const;
 
-        /// @brief ProductName is Windows version and edition with spaces, 
-        /// "Windows 7 Professional N"
-        std::string product_name() const;
+    /// One of IE updates from the known list, for example "KB3148198"
+    std::string ie_service_update() const;
 
-        /// @brief "Client" or "Server"
-        std::string installation_type() const;
+protected:
 
-        /// @brief Unix time format, depend on the system release date, 
-        /// since installation date can't be before release date
-        int installation_date() const;
+    static void static_init();
 
-        /// @brief Full Windows build version
-        /// For example, Windows 7 is "6.1.7600.16385", Windows 8.1 is "6.3.9600.17031"
-        std::string build() const;
+private:
 
-        /// @brief Build GUID, unique for every build number, random if no info
-        std::string build_guid() const;
+    //////////////////////////////////////////////////////////////////////////
+    // Static Data
 
-        /// @brief CSD Version, string representation of Service Pack or major update
-        /// Example: "Service Pack 1"
-        std::string csd_version() const;
+    using ProductNameBimap = boost::bimap<std::string, ProductName>;
+    using SubproductNameBimap = boost::bimap<std::string, SubproductName>;
 
-        /// @brief CSDBuildNumber, numerical version of Service Pack or major update
-        int csd_build_number() const;
+    static bool _init;
 
-        /// @brief BuildLab string representation
-        /// Example: "7601.win7sp1_ldr.170913-0600"
-        std::string build_lab() const;
+    static ProductNameBimap _product_string;
 
-        /// @brief BuildLabEx string representation
-        /// Example: "7601.23915.amd64fre.win7sp1_ldr.170913-0600"
-        std::string build_lab_ex() const;
+    static SubproductNameBimap _subproduct_string;
 
-        /// @brief String representation of system major.minor version
-        /// Example: "6.1"
-        std::string current_version() const;
+    static std::map<ProductName, std::vector<WindowsEditionSKU>> _version_editions;
 
-        /// @brief String representation of CurrentBuild
-        /// Example: "7600"
-        std::string current_build() const;
+    static std::vector<WindowsBuildInfo> _builds_information;
 
-        /// @brief Numeric representation of CurrentBuild
-        /// Example: 7600
-        int current_build_number() const;
+    //////////////////////////////////////////////////////////////////////////
+    /// Generated Fingerprint
 
-        /// @brief Binary parameter DigitalProductId
-        /// Contains a lot of information
-        std::vector<uint8_t> digital_product_id() const;
+    /// OEM or Retail version
+    bool _oem;
 
-        /// @brief Binary parameter DigitalProductId4
-        /// Contains a lot of information
-        std::vector<uint8_t> digital_product_id4() const;
+    /// Product name - Windows 7, Windows 8, Windows 8.1...
+    ProductName _product_name = ProductName::ProductNameCount;
 
-        /// @brief Binary array containing installation date
-        /// [0x01,0x04] - Unix time, other are random bytes
-        /// Should be close enough after installation date
-        std::vector<uint8_t> ie_install_date() const;
+    /// Edition ID, which is base for many other params
+    WindowsEditionSKU _edition = WindowsEditionSKU::EditionsCount;
 
-        /// One of IE updates from the known list, for example "KB3148198"
-        std::string ie_service_update() const;
+    /// Unix time format, depend on the system release date
+    int _install_date;
 
-    private:
+    /// Normal GUID
+    std::string _build_guid;
 
-        //////////////////////////////////////////////////////////////////////////
-        // Static Data
+    /// GUID for DigitalProductId4
+    std::string _build_guid4;
 
-        static std::map<ProductName, std::vector<WindowsEditionSKU>> _version_editions;
+    /// Example for Retail is "00376-166-5442024-86534", for OEM "00438-OEM-5672091-64034"
+    std::string _product_id;
 
-        static std::vector<WindowsBuildInfo> _builds_information;
+    /// Unix time format, should be close enough after installation date
+    int _ie_install_date;
 
-        //////////////////////////////////////////////////////////////////////////
-        /// Generated Fingerprint
-
-        /// OEM or Retail version
-        bool _oem;
-
-        /// Product name - Windows 7, Windows 8, Windows 8.1...
-        ProductName _product_name = ProductName::ProductNameCount;
-
-        /// Edition ID, which is base for many other params
-        WindowsEditionSKU _edition = WindowsEditionSKU::EditionsCount;
-
-        /// For example, Windows 7 is "6.1.7600.16385", Windows 8.1 is "6.3.9600.17031"
-        WindowsBuild _windows_build;
-
-        /// Unix time format, depend on the system release date
-        int _install_date;
-
-        /// Normal GUID
-        std::string _build_guid;
-
-        /// GUID for DigitalProductId4
-        std::string _build_guid4;
-
-        /// Example for Retail is "00376-166-5442024-86534", for OEM "00438-OEM-5672091-64034"
-        std::string _product_id;
-
-        /// Unix time format, should be close enough after installation date
-        int _ie_install_date;
-
-        /// One of IE updates from the known list, for example "KB3148198"
-        std::string _ie_service_update;
-    };
+    /// One of IE updates from the known list, for example "KB3148198"
+    std::string _ie_service_update;
+};
 
 } // namespace antios 
