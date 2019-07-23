@@ -241,6 +241,10 @@ public:
     /// "Windows 7 Professional N", "Windows 10 Education"
     std::string get_edition() const;
 
+    /// @brief Registry value for EditionID key
+    /// Registry value is almost the same as readable, just without spaces
+    std::string get_edition_id() const;
+
     /// @brief ProductName is Windows version and edition with spaces, 
     /// "Windows 7 Professional N"
     std::string get_product_version() const;

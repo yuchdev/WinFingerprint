@@ -915,19 +915,27 @@ std::string WindowsFingerprint::get_nt_version() const
     return _build_info.nt_version;
 }
 
+std::string WindowsFingerprint::get_edition_id() const
+{
+    auto edition_iter = _editions_info.find(_edition);
+    assert(edition_iter != _editions_info.end());
+    return (*edition_iter).second.registry_name;
+}
+
 std::string WindowsFingerprint::get_edition() const
 {
-    throw std::logic_error("Not implemented");
-    return "";
+    auto edition_iter = _editions_info.find(_edition);
+    assert(edition_iter != _editions_info.end());
+    return (*edition_iter).second.readable_name;
 }
 
 std::string WindowsFingerprint::get_product_name() const
 {
-    std::string ret;
-    throw std::logic_error("Not implemented");
-    return "";
+    std::string ret = _build_info.product_version;
+    ret += ' ';
+    ret += get_edition();
+    return std::move(ret);
 }
-
 
 std::string WindowsFingerprint::get_short_version() const
 {
@@ -967,7 +975,7 @@ const std::map<std::string, std::string>& WindowsFingerprint::get_system_specifi
 std::string WindowsFingerprint::get_build_guid() const
 {
     throw std::logic_error("Not implemented");
-    return "";
+    return std::string{};
 }
 
 std::vector<uint8_t> WindowsFingerprint::digital_product_id() const
