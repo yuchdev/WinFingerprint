@@ -7,61 +7,98 @@
 using namespace antios;
 
 // static
-bool antios::WindowsFingerprint::_init{false};
+std::map<std::string, WindowsFingerprint::ProductName> WindowsFingerprint::_product_string = {
+    {std::make_pair("Windows 7", ProductName::Windows7)},
+    {std::make_pair("Windows 8", ProductName::Windows8)},
+    {std::make_pair("Windows 8.1", ProductName::Windows81)},
+    {std::make_pair("Windows 10", ProductName::Windows10)}
+};
 
 // static
-boost::bimap<std::string, WindowsFingerprint::ProductName> WindowsFingerprint::_product_string;
+std::map<std::string, WindowsFingerprint::SubproductName> antios::WindowsFingerprint::_subproduct_string = {
+    {std::make_pair("Windows 7", SubproductName::Windows7noUpdate)},
+    {std::make_pair("Windows 7 SP1", SubproductName::Windows7SP1)},
+    {std::make_pair("Windows 8", SubproductName::Windows8noUpdate)},
+    {std::make_pair("Windows 8.1", SubproductName::Windows81noUpdate)},
+    {std::make_pair("Windows 8.1 IR3", SubproductName::Windows81IR3Update)},
+    {std::make_pair("Windows 8.1 IR4", SubproductName::Windows81IR4Update)},
+    {std::make_pair("Windows 8.1 IR5", SubproductName::Windows81IR5Update)},
+    {std::make_pair("Windows 10 1507", SubproductName::Windows10v1507)},
+    {std::make_pair("Windows 10 1511", SubproductName::Windows10v1511)},
+    {std::make_pair("Windows 10 1607", SubproductName::Windows10v1607)},
+    {std::make_pair("Windows 10 1703", SubproductName::Windows10v1703)},
+    {std::make_pair("Windows 10 1709", SubproductName::Windows10v1709)},
+    {std::make_pair("Windows 10 1803", SubproductName::Windows10v1803)},
+    {std::make_pair("Windows 10 1809", SubproductName::Windows10v1809)},
+    {std::make_pair("Windows 10 1903", SubproductName::Windows10v1903)}
+};
 
 // static
-boost::bimap<std::string, WindowsFingerprint::SubproductName> antios::WindowsFingerprint::_subproduct_string;
+std::map<WindowsFingerprint::ProductName, std::vector<WindowsFingerprint::SubproductName>> 
+antios::WindowsFingerprint::_products_to_subproducts = {
+    {std::make_pair(ProductName::Windows7, std::vector<WindowsFingerprint::SubproductName>{
+        SubproductName::Windows7noUpdate,
+        SubproductName::Windows7SP1}
+    )},
+    {std::make_pair(ProductName::Windows8, std::vector<WindowsFingerprint::SubproductName>{
+        SubproductName::Windows8noUpdate}
+    )},
+    {std::make_pair(ProductName::Windows81, std::vector<WindowsFingerprint::SubproductName>{
+        SubproductName::Windows81noUpdate, SubproductName::Windows81IR3Update, SubproductName::Windows81IR4Update, SubproductName::Windows81IR5Update}
+    )},
+    {std::make_pair(ProductName::Windows10, std::vector<WindowsFingerprint::SubproductName>{
+        SubproductName::Windows10v1507, SubproductName::Windows10v1511, SubproductName::Windows10v1607, SubproductName::Windows10v1703,
+        SubproductName::Windows10v1709, SubproductName::Windows10v1803, SubproductName::Windows10v1809, SubproductName::Windows10v1903 }
+    )}
+};
 
 // static
 std::map<WindowsFingerprint::WindowsEditionSKU, WindowsFingerprint::EditionInfo> WindowsFingerprint::_editions_info = {
-    {std::make_pair(Starter, EditionInfo{Starter, "Starter", "Starter"})},
-    {std::make_pair(StarterE, EditionInfo{StarterE, "StarterE", "Starter E"})},
-    {std::make_pair(StarterK, EditionInfo{StarterK,"StarterK","Starter K"})},
-    {std::make_pair(StarterKN, EditionInfo{StarterKN,"StarterKN", "Starter KN"})},
-    {std::make_pair(StarterN, EditionInfo{StarterN,"StarterN", "Starter N"})},
-    {std::make_pair(HomeBasic, EditionInfo{HomeBasic,"HomeBasic", "Home Basic"})},
-    {std::make_pair(HomeBasicE, EditionInfo{HomeBasicE, "HomeBasicE", "HomeBasic E"})},
-    {std::make_pair(HomeBasicK, EditionInfo{HomeBasicK, "HomeBasicK", "Home Basic K"})},
-    {std::make_pair(HomeBasicKN, EditionInfo{HomeBasicKN, "HomeBasicKN","Home Basic KN"})},
-    {std::make_pair(HomeBasicN, EditionInfo{HomeBasicN, "HomeBasicN", "Home Basic N"})},
-    {std::make_pair(HomePremium, EditionInfo{HomePremium, "HomePremium","Home Premium"})},
-    {std::make_pair(HomePremiumE, EditionInfo{HomePremiumE,"HomePremiumE","Home Premium E"})},
-    {std::make_pair(HomePremiumK, EditionInfo{HomePremiumK, "HomePremiumK","Home Premium K"})},
-    {std::make_pair(HomePremiumKN, EditionInfo{HomePremiumKN, "HomePremiumKN", "Home Premium KN"})},
-    {std::make_pair(Professional, EditionInfo{Professional, "Professional", "Professional"})},
-    {std::make_pair(ProfessionalE, EditionInfo{ProfessionalE, "ProfessionalE", "Professional E"})},
-    {std::make_pair(ProfessionalK, EditionInfo{ProfessionalK, "ProfessionalK", "Professional K"})},
-    {std::make_pair(ProfessionalKN, EditionInfo{ProfessionalKN, "ProfessionalKN", "Professional KN"})},
-    {std::make_pair(ProfessionalN, EditionInfo{ProfessionalN, "ProfessionalN", "Professional N"})},
-    {std::make_pair(Enterprise, EditionInfo{Enterprise, "Enterprise", "Enterprise"})},
-    {std::make_pair(EnterpriseE, EditionInfo{EnterpriseE, "EnterpriseE", "Enterprise E"})},
-    {std::make_pair(EnterpriseK, EditionInfo{EnterpriseK, "EnterpriseK", "Enterprise K"})},
-    {std::make_pair(EnterpriseKN, EditionInfo{EnterpriseKN, "EnterpriseKN", "Enterprise KN"})},
-    {std::make_pair(EnterpriseN, EditionInfo{EnterpriseN, "EnterpriseN", "Enterprise N"})},
-    {std::make_pair(Ultimate, EditionInfo{Ultimate, "Ultimate", "Ultimate"})},
-    {std::make_pair(UltimateE, EditionInfo{UltimateE, "UltimateE", "UltimatE"})},
-    {std::make_pair(UltimateK, EditionInfo{UltimateK, "UltimateK", "Ultimate K"})},
-    {std::make_pair(UltimateKN, EditionInfo{UltimateKN, "UltimateKN", "Ultimate KN"})},
-    {std::make_pair(UltimateN, EditionInfo{UltimateN, "UltimateN", "Ultimate N"})},
-    {std::make_pair(Core, EditionInfo{Core, "Core", "Core"})},
-    {std::make_pair(CoreK, EditionInfo{CoreK, "CoreK", "Core K"})},
-    {std::make_pair(CoreKN, EditionInfo{CoreKN, "CoreKN", "Core KN"})},
-    {std::make_pair(CoreN, EditionInfo{CoreN, "CoreN", "Core N"})},
-    {std::make_pair(CoreConnected, EditionInfo{CoreConnected, "CoreConnected", "Core Connected"})},
-    {std::make_pair(ProEducation, EditionInfo{ProEducation, "ProEducation", "Pro Education"})},
-    {std::make_pair(Pro, EditionInfo{Pro, "Pro", "Pro"})},
-    {std::make_pair(ProK, EditionInfo{ProK, "ProK", "Pro K"})},
-    {std::make_pair(ProKN, EditionInfo{ProKN, "ProKN", "Pro KN"})},
-    {std::make_pair(ProN, EditionInfo{ProN, "ProN", "Pro N"})},
-    {std::make_pair(Education, EditionInfo{Education, "Education", "Education"})},
-    {std::make_pair(EducationN, EditionInfo{EducationN, "EducationN", "Education N"})},
-    {std::make_pair(EnterpriseLTSB, EditionInfo{EnterpriseLTSB, "EnterpriseLTSB", "Enterprise LTSB"})},
-    {std::make_pair(Home, EditionInfo{Home, "Home", "Home"})},
-    {std::make_pair(HomeN, EditionInfo{HomeN, "HomeN", "Home N"})},
-    {std::make_pair(S, EditionInfo{S, "S", "S"})}
+    {std::make_pair(Starter, EditionInfo{"Starter", "Starter"})},
+    {std::make_pair(StarterE, EditionInfo{"StarterE", "Starter E"})},
+    {std::make_pair(StarterK, EditionInfo{"StarterK","Starter K"})},
+    {std::make_pair(StarterKN, EditionInfo{"StarterKN", "Starter KN"})},
+    {std::make_pair(StarterN, EditionInfo{"StarterN", "Starter N"})},
+    {std::make_pair(HomeBasic, EditionInfo{"HomeBasic", "Home Basic"})},
+    {std::make_pair(HomeBasicE, EditionInfo{"HomeBasicE", "HomeBasic E"})},
+    {std::make_pair(HomeBasicK, EditionInfo{"HomeBasicK", "Home Basic K"})},
+    {std::make_pair(HomeBasicKN, EditionInfo{"HomeBasicKN","Home Basic KN"})},
+    {std::make_pair(HomeBasicN, EditionInfo{"HomeBasicN", "Home Basic N"})},
+    {std::make_pair(HomePremium, EditionInfo{"HomePremium","Home Premium"})},
+    {std::make_pair(HomePremiumE, EditionInfo{"HomePremiumE","Home Premium E"})},
+    {std::make_pair(HomePremiumK, EditionInfo{"HomePremiumK","Home Premium K"})},
+    {std::make_pair(HomePremiumKN, EditionInfo{"HomePremiumKN", "Home Premium KN"})},
+    {std::make_pair(Professional, EditionInfo{"Professional", "Professional"})},
+    {std::make_pair(ProfessionalE, EditionInfo{"ProfessionalE", "Professional E"})},
+    {std::make_pair(ProfessionalK, EditionInfo{"ProfessionalK", "Professional K"})},
+    {std::make_pair(ProfessionalKN, EditionInfo{"ProfessionalKN", "Professional KN"})},
+    {std::make_pair(ProfessionalN, EditionInfo{"ProfessionalN", "Professional N"})},
+    {std::make_pair(Enterprise, EditionInfo{"Enterprise", "Enterprise"})},
+    {std::make_pair(EnterpriseE, EditionInfo{"EnterpriseE", "Enterprise E"})},
+    {std::make_pair(EnterpriseK, EditionInfo{"EnterpriseK", "Enterprise K"})},
+    {std::make_pair(EnterpriseKN, EditionInfo{"EnterpriseKN", "Enterprise KN"})},
+    {std::make_pair(EnterpriseN, EditionInfo{"EnterpriseN", "Enterprise N"})},
+    {std::make_pair(Ultimate, EditionInfo{"Ultimate", "Ultimate"})},
+    {std::make_pair(UltimateE, EditionInfo{"UltimateE", "UltimatE"})},
+    {std::make_pair(UltimateK, EditionInfo{"UltimateK", "Ultimate K"})},
+    {std::make_pair(UltimateKN, EditionInfo{"UltimateKN", "Ultimate KN"})},
+    {std::make_pair(UltimateN, EditionInfo{"UltimateN", "Ultimate N"})},
+    {std::make_pair(Core, EditionInfo{"Core", "Core"})},
+    {std::make_pair(CoreK, EditionInfo{"CoreK", "Core K"})},
+    {std::make_pair(CoreKN, EditionInfo{"CoreKN", "Core KN"})},
+    {std::make_pair(CoreN, EditionInfo{"CoreN", "Core N"})},
+    {std::make_pair(CoreConnected, EditionInfo{"CoreConnected", "Core Connected"})},
+    {std::make_pair(ProEducation, EditionInfo{"ProEducation", "Pro Education"})},
+    {std::make_pair(Pro, EditionInfo{"Pro", "Pro"})},
+    {std::make_pair(ProK, EditionInfo{"ProK", "Pro K"})},
+    {std::make_pair(ProKN, EditionInfo{"ProKN", "Pro KN"})},
+    {std::make_pair(ProN, EditionInfo{"ProN", "Pro N"})},
+    {std::make_pair(Education, EditionInfo{"Education", "Education"})},
+    {std::make_pair(EducationN, EditionInfo{"EducationN", "Education N"})},
+    {std::make_pair(EnterpriseLTSB, EditionInfo{"EnterpriseLTSB", "Enterprise LTSB"})},
+    {std::make_pair(Home, EditionInfo{"Home", "Home"})},
+    {std::make_pair(HomeN, EditionInfo{"HomeN", "Home N"})},
+    {std::make_pair(S, EditionInfo{"S", "S"})}
 };
 
 // static
@@ -800,9 +837,6 @@ WindowsBuildInfo{
 
 WindowsFingerprint::WindowsFingerprint()
 {
-    if (!_init) {
-        WindowsFingerprint::static_init();
-    }
 }
 
 void WindowsFingerprint::generate_product_id()
@@ -817,31 +851,6 @@ void WindowsFingerprint::generate_product_id()
     ret += '-';
     ret += random_string(5, alphabet);
     _product_id.swap(ret);
-}
-
-void WindowsFingerprint::static_init()
-{
-    _product_string.insert(ProductNameBimap::value_type("Windows 7", ProductName::Windows7));
-    _product_string.insert(ProductNameBimap::value_type("Windows 8", ProductName::Windows8));
-    _product_string.insert(ProductNameBimap::value_type("Windows 8.1", ProductName::Windows81));
-    _product_string.insert(ProductNameBimap::value_type("Windows 10", ProductName::Windows10));
-
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 7", SubproductName::Windows7noUpdate));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 7 SP1", SubproductName::Windows7SP1));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 8", SubproductName::Windows8noUpdate));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 8.1", SubproductName::Windows81noUpdate));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 8.1 IR3", SubproductName::Windows81IR3Update));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 8.1 IR4", SubproductName::Windows81IR4Update));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 8.1 IR5", SubproductName::Windows81IR5Update));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 10 1507", SubproductName::Windows10v1507));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 10 1511", SubproductName::Windows10v1511));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 10 1607", SubproductName::Windows10v1607));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 10 1703", SubproductName::Windows10v1703));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 10 1709", SubproductName::Windows10v1709));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 10 1803", SubproductName::Windows10v1803));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 10 1809", SubproductName::Windows10v1809));
-    _subproduct_string.insert(SubproductNameBimap::value_type("Windows 10 1903", SubproductName::Windows10v1903));
-    _init = true;
 }
 
 void WindowsFingerprint::generate()
@@ -879,14 +888,13 @@ std::vector<WindowsFingerprint::WindowsBuildInfo> WindowsFingerprint::build_by_p
 }
 
 std::vector<WindowsFingerprint::WindowsBuildInfo> WindowsFingerprint::build_by_subproduct(
-    WindowsFingerprint::ProductName product_name, 
     WindowsFingerprint::SubproductName subproduct_name) const
 {
     std::vector<WindowsFingerprint::WindowsBuildInfo> ret;
     std::copy_if(std::begin(_builds_information), std::end(_builds_information),
         std::back_inserter(ret),
-        [product_name, subproduct_name](const WindowsFingerprint::WindowsBuildInfo& b) {
-        return (b.product_name_id == product_name) && (b.subproduct_name_id == subproduct_name);
+        [subproduct_name](const WindowsFingerprint::WindowsBuildInfo& b) {
+        return b.subproduct_name_id == subproduct_name;
     });
     return std::move(ret);
 }
@@ -898,6 +906,32 @@ std::vector<WindowsFingerprint::WindowsEditionSKU> WindowsFingerprint::editions_
     assert(editions_iter != _version_editions.end());
     std::vector<WindowsFingerprint::WindowsEditionSKU> available_editions = editions_iter->second;
     return std::move(available_editions);
+}
+
+std::vector<WindowsFingerprint::SubproductName> WindowsFingerprint::subproducts_by_product(
+    WindowsFingerprint::ProductName product_name) const
+{
+    auto product_iter = _products_to_subproducts.find(product_name);
+    assert(product_iter != _products_to_subproducts.end());
+    return (*product_iter).second;
+}
+
+std::vector<std::string> WindowsFingerprint::all_products() const
+{
+    std::vector<std::string> all_windows;
+    all_windows.reserve(_product_string.size());
+    for (auto const& prod : _product_string)
+        all_windows.push_back(prod.first);
+    return std::move(all_windows);
+}
+
+std::vector<std::string> WindowsFingerprint::all_supproducts() const
+{
+    std::vector<std::string> all_windows;
+    all_windows.reserve(_subproduct_string.size());
+    for (auto const& prod : _subproduct_string)
+        all_windows.push_back(prod.first);
+    return std::move(all_windows);
 }
 
 std::string WindowsFingerprint::retail_oem() const

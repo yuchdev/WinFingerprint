@@ -1,8 +1,6 @@
 ﻿#pragma once
 #include <winfp/fingerprint_data_base.h>
 
-#include <boost/bimap.hpp>
-
 #include <string>
 #include <vector>
 #include <map>
@@ -162,7 +160,6 @@ public:
     /// and human-readable name
     struct EditionInfo
     {
-        WindowsEditionSKU edition_id;
         std::string registry_name;
         std::string readable_name;
     };
@@ -212,20 +209,35 @@ public:
     /// @brief Generate random Windows fingerprint
     virtual void generate() override;
 
+    //////////////////////////////////////////////////////////////////////////
+    // Windows info
+
     /// @brief Create a "query" to all possible builds based on user selection
     /// For example, all builds Windows 7 SP1 builds, all Windows 10 1803 builds
     std::vector<WindowsBuildInfo> build_by_product(WindowsFingerprint::ProductName product_name) const;
 
     /// @brief Create a "query" to all possible builds based on user selection
     /// For example, all builds Windows 7 SP1 builds, all Windows 10 1803 builds
-    std::vector<WindowsBuildInfo> build_by_subproduct(
-        WindowsFingerprint::ProductName product_name,
-        WindowsFingerprint::SubproductName subproduct_name) const;
+    std::vector<WindowsBuildInfo> build_by_subproduct(WindowsFingerprint::SubproductName subproduct_name) const;
 
     /// @brief Create a "query" to all possible editions based on product version
     /// For example, all editions of Windows 7
     std::vector<WindowsFingerprint::WindowsEditionSKU> editions_by_product(
         WindowsFingerprint::ProductName product_name) const;
+
+    /// @brief Create a "query" to all possible subproduct based on product version
+    /// For example, "Windows 7" and "Windows 7 SP1" by Windows 7
+    std::vector<WindowsFingerprint::SubproductName> subproducts_by_product(
+        WindowsFingerprint::ProductName product_name) const;
+
+    /// @brief All products from Windows 7 to 10
+    std::vector<std::string> all_products() const;
+
+    /// @brief All products from Windows 7 to 10 including service packs and updates
+    std::vector<std::string> all_supproducts() const;
+
+    //////////////////////////////////////////////////////////////////////////
+    // Build info
 
     /// @brief "Retail" or "OEM"
     std::string retail_oem() const;
@@ -298,9 +310,6 @@ public:
 
 protected:
 
-    /// One-time initialization
-    static void static_init();
-
     /// Generate ProductID
     /// ProductID format is 00376-OEM-166-5442025 for OEM and 04504-455-320-9058939 for Retail
     void generate_product_id();
@@ -310,15 +319,11 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Static Data
 
-    using ProductNameBimap = boost::bimap<std::string, ProductName>;
+    static std::map<std::string, ProductName> _product_string;
 
-    using SubproductNameBimap = boost::bimap<std::string, SubproductName>;
+    static std::map<std::string, SubproductName> _subproduct_string;
 
-    static bool _init;
-
-    static ProductNameBimap _product_string;
-
-    static SubproductNameBimap _subproduct_string;
+    static std::map<ProductName, std::vector<SubproductName>> _products_to_subproducts;
 
     static std::map<WindowsEditionSKU, EditionInfo> _editions_info;
 
