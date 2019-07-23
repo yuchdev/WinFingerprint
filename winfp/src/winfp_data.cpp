@@ -835,98 +835,69 @@ void WindowsFingerprint::generate()
 }
 
 
-
-std::string WindowsFingerprint::system_name() const
+std::vector<WindowsFingerprint::WindowsBuildInfo> WindowsFingerprint::build_by_product(
+    WindowsFingerprint::ProductName product_name) const
 {
-    throw std::logic_error{ "Not implemented" };
-    return std::string{};
-}
-
-std::string WindowsFingerprint::service_pack() const
-{
-    throw std::logic_error{ "Not implemented" };
-    return std::string{};
-}
-
-std::string WindowsFingerprint::edition() const
-{
-    throw std::logic_error{ "Not implemented" };
-    return std::string{};
-}
-
-std::string WindowsFingerprint::product_name() const
-{
-    throw std::logic_error{ "Not implemented" };
-    return std::string{};
-}
-
-std::string WindowsFingerprint::installation_type() const
-{
-    throw std::logic_error{ "Not implemented" };
-    return std::string{};
-}
-
-int WindowsFingerprint::installation_date() const
-{
-    throw std::logic_error{ "Not implemented" };
-    return 0;
 
 }
 
-std::string WindowsFingerprint::build() const
+std::vector<WindowsFingerprint::WindowsBuildInfo> WindowsFingerprint::build_by_subproduct(
+    WindowsFingerprint::ProductName product_name, 
+    WindowsFingerprint::SubproductName subproduct_name) const
 {
-    throw std::logic_error{ "Not implemented" };
-    return std::string{};
-}
-
-std::string WindowsFingerprint::build_guid() const
-{
-    throw std::logic_error{ "Not implemented" };
-    return std::string{};
-}
-
-std::string WindowsFingerprint::csd_version() const
-{
-    throw std::logic_error{ "Not implemented" };
-    return std::string{};
 
 }
 
-int WindowsFingerprint::csd_build_number() const
+std::string WindowsFingerprint::get_nt_version() const
 {
-    throw std::logic_error{ "Not implemented" };
-    return 0;
+
 }
 
-std::string WindowsFingerprint::build_lab() const
+std::string WindowsFingerprint::get_edition() const
 {
-    throw std::logic_error{ "Not implemented" };
-    return std::string{};
+
 }
 
-std::string WindowsFingerprint::build_lab_ex() const
+std::string WindowsFingerprint::get_product_name() const
 {
-    throw std::logic_error{ "Not implemented" };
-    return std::string{};
+
 }
 
-std::string WindowsFingerprint::current_version() const
+std::string WindowsFingerprint::get_short_version() const
 {
-    throw std::logic_error{ "Not implemented" };
-    return std::string{};
+
 }
 
-std::string WindowsFingerprint::current_build() const
+std::string WindowsFingerprint::get_full_version() const
 {
-    throw std::logic_error{ "Not implemented" };
-    return std::string{};
+
 }
 
-int WindowsFingerprint::current_build_number() const
+std::string WindowsFingerprint::get_build_lab() const
 {
-    throw std::logic_error{ "Not implemented" };
-    return 0;
+
 }
+
+std::string WindowsFingerprint::get_build_lab_ex() const
+{
+
+}
+
+int WindowsFingerprint::get_installation_date() const
+{
+
+}
+
+const std::map<std::string, std::string>& WindowsFingerprint::get_system_specific() const
+{
+
+}
+
+std::string WindowsFingerprint::get_build_guid() const
+{
+
+}
+
 
 std::vector<uint8_t> WindowsFingerprint::digital_product_id() const
 {
