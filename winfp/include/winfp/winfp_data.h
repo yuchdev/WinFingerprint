@@ -175,8 +175,8 @@ public:
         /// Example: "Windows 10"
         std::string product_name;
 
-        /// String representation of system major.minor version, example: "6.1"
-        std::string product_version;
+        /// String representation of NT kernel version, example: "6.1"
+        std::string nt_version;
 
         /// Short build number, example: Windows 10 v1709 is "16299"
         std::string short_version;

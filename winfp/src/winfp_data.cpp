@@ -402,7 +402,7 @@ WindowsBuildInfo{
 },
 
 
-    // Windows 10 1703, 10.0.15063.483, release date unknown, set to March 2018
+// Windows 10 1703, 10.0.15063.483, release date unknown, set to March 2018
 WindowsBuildInfo{
     ProductName::Windows10,
     SubproductName::Windows10v1703,
