@@ -2,7 +2,7 @@
 
 using namespace antios;
 
-
+// static
 bool antios::WindowsFingerprint::_init{false};
 
 // static
@@ -10,6 +10,55 @@ boost::bimap<std::string, WindowsFingerprint::ProductName> antios::WindowsFinger
 
 // static
 boost::bimap<std::string, antios::WindowsFingerprint::SubproductName> antios::WindowsFingerprint::_subproduct_string;
+
+std::vector<antios::WindowsFingerprint::EditionInfo> antios::WindowsFingerprint::_editions_info = {
+    // Starter
+    {Starter, "Starter", "Starter"},
+    {StarterE, "StarterE", "Starter E"},
+    {StarterK,"StarterK","Starter K"},
+    {StarterKN,"StarterKN", "Starter KN"},
+    {StarterN,"StarterN", "Starter N"},
+    {HomeBasic,"HomeBasic", "Home Basic"},
+    {HomeBasicE, "HomeBasicE", "HomeBasic E"},
+    {HomeBasicK, "HomeBasicK", "Home Basic K"},
+    {HomeBasicKN, "HomeBasicKN","Home Basic KN"},
+    {HomeBasicN, "HomeBasicN", "Home Basic N"},
+    {HomePremium,"HomePremium","Home Premium"},
+    {HomePremiumE,"HomePremiumE","Home Premium E"},
+    {HomePremiumK,"HomePremiumK","Home Premium K"},
+    {HomePremiumKN,"HomePremiumKN", "Home Premium KN"},
+    {Professional, "Professional", "Professional"},
+    {ProfessionalE, "ProfessionalE", "Professional E"},
+    {ProfessionalK, "ProfessionalK", "Professional K"},
+    {ProfessionalKN, "ProfessionalKN", "Professional KN"},
+    {ProfessionalN, "ProfessionalN", "Professional N"},
+    {Enterprise, "Enterprise", "Enterprise"},
+    {EnterpriseE, "EnterpriseE", "Enterprise E"},
+    {EnterpriseK, "EnterpriseK", "Enterprise K"},
+    {EnterpriseKN, "EnterpriseKN", "Enterprise KN"},
+    {EnterpriseN, "EnterpriseN", "Enterprise N"},
+    {Ultimate, "Ultimate", "Ultimate"},
+    {UltimateE, "UltimateE", "UltimatE"},
+    {UltimateK, "UltimateK", "Ultimate K"},
+    {UltimateKN, "UltimateKN", "Ultimate KN"},
+    {UltimateN, "UltimateN", "Ultimate N"},
+    {Core, "Core", "Core"},
+    {CoreK, "CoreK", "Core K"},
+    {CoreKN, "CoreKN", "Core KN"},
+    {CoreN, "CoreN", "Core N"},
+    {CoreConnected, "CoreConnected", "Core Connected"},
+    {ProEducation, "ProEducation", "Pro Education"},
+    {Pro, "Pro", "Pro"},
+    {ProK, "ProK", "Pro K"},
+    {ProKN, "ProKN", "Pro KN"},
+    {ProN, "ProN", "Pro N"},
+    {Education, "Education", "Education"},
+    {EducationN, "EducationN", "Education N"},
+    {EnterpriseLTSB, "EnterpriseLTSB", "Enterprise LTSB"},
+    {Home, "Home", "Home"},
+    {HomeN, "HomeN", "Home N"},
+    {S, "S", "S"},
+};
 
 // static
 std::map<WindowsFingerprint::ProductName, std::vector<WindowsFingerprint::WindowsEditionSKU>> 
@@ -774,6 +823,7 @@ void WindowsFingerprint::static_init()
     _subproduct_string.insert(SubproductNameBimap::value_type("Windows 10 1803", SubproductName::Windows10v1803));
     _subproduct_string.insert(SubproductNameBimap::value_type("Windows 10 1809", SubproductName::Windows10v1809));
     _subproduct_string.insert(SubproductNameBimap::value_type("Windows 10 1903", SubproductName::Windows10v1903));
+    _init = true;
 }
 
 void WindowsFingerprint::generate()

@@ -47,46 +47,6 @@ public:
         ProductNameCount
     };
 
-    struct EditionInfo
-    {
-        std::string registry_name;
-        std::string readable_name;
-    };
-
-    struct WindowsBuildInfo
-    {
-        /// Enum for filtering by product name
-        WindowsFingerprint::ProductName product_name_id;
-
-        /// Enum for filtering by product major update
-        WindowsFingerprint::SubproductName update_name_id;
-
-        /// Example: "Windows 10"
-        std::string product_name;
-
-        /// String representation of system major.minor version, example: "6.1"
-        std::string product_version;
-
-        /// Short build number, example: Windows 10 v1709 is "16299"
-        std::string short_version;
-
-        /// Full build number, example: Windows 10 v1809 is "10.0.17763.557"
-        std::string full_version;
-
-        /// Full build name with tag
-        std::string build_lab;
-
-        /// Full extended build name with tag
-        std::string build_lab_ex;
-
-        /// Release date (because of lack of exact date often refer to the last day of release month)
-        int release_date{};
-
-        /// System-specific values
-        std::map<std::string, std::string> system_specific;
-    };
-
-
     // Windows 7 SKU
     // {Enterprise, EnterpriseE, EnterpriseK, EnterpriseKN, EnterpriseN,
     //  HomeBasic, HomeBasicE, HomeBasicK, HomeBasicKN, HomeBasicN,
@@ -197,6 +157,46 @@ public:
     };
 
 
+    struct EditionInfo
+    {
+        WindowsEditionSKU edition_id;
+        std::string registry_name;
+        std::string readable_name;
+    };
+
+    struct WindowsBuildInfo
+    {
+        /// Enum for filtering by product name
+        WindowsFingerprint::ProductName product_name_id;
+
+        /// Enum for filtering by product major update
+        WindowsFingerprint::SubproductName update_name_id;
+
+        /// Example: "Windows 10"
+        std::string product_name;
+
+        /// String representation of system major.minor version, example: "6.1"
+        std::string product_version;
+
+        /// Short build number, example: Windows 10 v1709 is "16299"
+        std::string short_version;
+
+        /// Full build number, example: Windows 10 v1809 is "10.0.17763.557"
+        std::string full_version;
+
+        /// Full build name with tag
+        std::string build_lab;
+
+        /// Full extended build name with tag
+        std::string build_lab_ex;
+
+        /// Release date (because of lack of exact date often refer to the last day of release month)
+        int release_date{};
+
+        /// System-specific values
+        std::map<std::string, std::string> system_specific;
+    };
+
     /// @brief Default
     WindowsFingerprint();
 
@@ -288,6 +288,7 @@ private:
     // Static Data
 
     using ProductNameBimap = boost::bimap<std::string, ProductName>;
+
     using SubproductNameBimap = boost::bimap<std::string, SubproductName>;
 
     static bool _init;
@@ -295,6 +296,8 @@ private:
     static ProductNameBimap _product_string;
 
     static SubproductNameBimap _subproduct_string;
+
+    static std::vector<EditionInfo> _editions_info;
 
     static std::map<ProductName, std::vector<WindowsEditionSKU>> _version_editions;
 
