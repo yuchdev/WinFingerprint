@@ -311,9 +311,6 @@ private:
     /// OEM or Retail version
     bool _oem;
 
-    /// Product name - Windows 7, Windows 8, Windows 8.1...
-    ProductName _product_name = ProductName::ProductNameCount;
-
     /// Edition ID, which is base for many other params
     WindowsEditionSKU _edition = WindowsEditionSKU::EditionsCount;
 
