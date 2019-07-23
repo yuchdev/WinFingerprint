@@ -21,7 +21,10 @@ namespace antios {
     protected:
 
         /// @brief Generate random int from the range [lower, upper]
-        int rnd(int lower_b, int upper_b);
+        int random_from_range(int lower_b, int upper_b);
+
+        /// @brief 
+        std::string random_string(size_t length, const std::string& alphabet);
 
         template <typename Container>
         typename Container::value_type choise(const Container& container)

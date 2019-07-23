@@ -1,17 +1,21 @@
 #include <winfp/winfp_data.h>
 
+#include <ctime>
+#include <cassert>
+
 using namespace antios;
 
 // static
 bool antios::WindowsFingerprint::_init{false};
 
 // static
-boost::bimap<std::string, WindowsFingerprint::ProductName> antios::WindowsFingerprint::_product_string;
+boost::bimap<std::string, WindowsFingerprint::ProductName> WindowsFingerprint::_product_string;
 
 // static
-boost::bimap<std::string, antios::WindowsFingerprint::SubproductName> antios::WindowsFingerprint::_subproduct_string;
+boost::bimap<std::string, WindowsFingerprint::SubproductName> antios::WindowsFingerprint::_subproduct_string;
 
-std::vector<antios::WindowsFingerprint::EditionInfo> antios::WindowsFingerprint::_editions_info = {
+// static
+std::vector<WindowsFingerprint::EditionInfo> WindowsFingerprint::_editions_info = {
     // Starter
     {Starter, "Starter", "Starter"},
     {StarterE, "StarterE", "Starter E"},
@@ -801,6 +805,11 @@ WindowsFingerprint::WindowsFingerprint()
     }
 }
 
+void antios::WindowsFingerprint::generate_product_id()
+{
+
+}
+
 void WindowsFingerprint::static_init()
 {
     _product_string.insert(ProductNameBimap::value_type("Windows 7", ProductName::Windows7));
@@ -829,8 +838,19 @@ void WindowsFingerprint::static_init()
 void WindowsFingerprint::generate()
 {
     std::vector<bool> oem{ true, false };
+    
+    // OEM/Retail
     _oem = this->choise(oem);
+
+    // Random build
     _build_info = this->choise(_builds_information);
+
+    // Edition based on random build
+    std::vector<WindowsFingerprint::WindowsEditionSKU>& available_editions = editions_by_product(_build_info.product_name_id);
+    _edition = this->choise(available_editions);
+    
+    // Install date based on Windows version release date
+    _install_date = this->random_from_range(_build_info.release_date, std::time(nullptr));
 }
 
 
@@ -849,6 +869,20 @@ std::vector<WindowsFingerprint::WindowsBuildInfo> WindowsFingerprint::build_by_s
     std::vector<WindowsFingerprint::WindowsBuildInfo> ret{};
     throw std::logic_error("Not implemented");
     return std::move(ret);
+}
+
+std::vector<WindowsFingerprint::WindowsEditionSKU> WindowsFingerprint::editions_by_product(
+    WindowsFingerprint::ProductName product_name) const
+{
+    auto editions_iter = _version_editions.find(product_name);
+    assert(editions_iter != _version_editions.end());
+    std::vector<WindowsFingerprint::WindowsEditionSKU> available_editions = editions_iter->second;
+    return std::move(available_editions);
+}
+
+std::string WindowsFingerprint::retail_oem() const
+{
+    return _oem ? "OEM" : "Retail";
 }
 
 std::string WindowsFingerprint::get_product_version() const
@@ -896,8 +930,12 @@ std::string WindowsFingerprint::get_build_lab_ex() const
 
 int WindowsFingerprint::get_installation_date() const
 {
-    throw std::logic_error("Not implemented");
-    return 0;
+    return _install_date;
+}
+
+std::string antios::WindowsFingerprint::get_product_id() const
+{
+    return _product_id;
 }
 
 const std::map<std::string, std::string>& WindowsFingerprint::get_system_specific() const

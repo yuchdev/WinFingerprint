@@ -176,7 +176,7 @@ public:
         WindowsFingerprint::ProductName product_name_id;
 
         /// Enum for filtering by product major update
-        WindowsFingerprint::SubproductName update_name_id;
+        WindowsFingerprint::SubproductName subproduct_name_id;
 
         /// Example: "Windows 10"
         std::string product_version;
@@ -222,6 +222,14 @@ public:
         WindowsFingerprint::ProductName product_name,
         WindowsFingerprint::SubproductName subproduct_name) const;
 
+    /// @brief Create a "query" to all possible editions based on product version
+    /// For example, all editions of Windows 7
+    std::vector<WindowsFingerprint::WindowsEditionSKU> editions_by_product(
+        WindowsFingerprint::ProductName product_name) const;
+
+    /// @brief "Retail" or "OEM"
+    std::string retail_oem() const;
+
     /// @brief Windows name without edition, "Windows 7"
     std::string get_product_name() const;
 
@@ -257,6 +265,10 @@ public:
     /// since installation date can't be before release date
     int get_installation_date() const;
 
+    /// @brief Product ID 
+    /// Product ID format is 00376-OEM-166-5442025 for OEM and 04504-455-320-9058939 for Retail
+    std::string get_product_id() const;
+
     /// @brief Add keys, specific for particular system version
     /// For example, "CSDVersion" is specific for Windows 7, "ReleaseId" for Windows 10 
     const std::map<std::string, std::string>& get_system_specific() const;
@@ -282,7 +294,12 @@ public:
 
 protected:
 
+    /// One-time initialization
     static void static_init();
+
+    /// Generate ProductID
+    /// ProductID format is 00376-OEM-166-5442025 for OEM and 04504-455-320-9058939 for Retail
+    void generate_product_id();
 
 private:
 
@@ -317,7 +334,11 @@ private:
     /// 
     WindowsBuildInfo _build_info;
     
+    ///
     int _install_date;
+
+    /// Product ID
+    std::string product_id;
 
     /// Normal GUID
     std::string _build_guid;
