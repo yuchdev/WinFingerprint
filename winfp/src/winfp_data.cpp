@@ -2,6 +2,7 @@
 
 #include <ctime>
 #include <cassert>
+#include <algorithm>
 
 using namespace antios;
 
@@ -15,53 +16,52 @@ boost::bimap<std::string, WindowsFingerprint::ProductName> WindowsFingerprint::_
 boost::bimap<std::string, WindowsFingerprint::SubproductName> antios::WindowsFingerprint::_subproduct_string;
 
 // static
-std::vector<WindowsFingerprint::EditionInfo> WindowsFingerprint::_editions_info = {
-    // Starter
-    {Starter, "Starter", "Starter"},
-    {StarterE, "StarterE", "Starter E"},
-    {StarterK,"StarterK","Starter K"},
-    {StarterKN,"StarterKN", "Starter KN"},
-    {StarterN,"StarterN", "Starter N"},
-    {HomeBasic,"HomeBasic", "Home Basic"},
-    {HomeBasicE, "HomeBasicE", "HomeBasic E"},
-    {HomeBasicK, "HomeBasicK", "Home Basic K"},
-    {HomeBasicKN, "HomeBasicKN","Home Basic KN"},
-    {HomeBasicN, "HomeBasicN", "Home Basic N"},
-    {HomePremium,"HomePremium","Home Premium"},
-    {HomePremiumE,"HomePremiumE","Home Premium E"},
-    {HomePremiumK,"HomePremiumK","Home Premium K"},
-    {HomePremiumKN,"HomePremiumKN", "Home Premium KN"},
-    {Professional, "Professional", "Professional"},
-    {ProfessionalE, "ProfessionalE", "Professional E"},
-    {ProfessionalK, "ProfessionalK", "Professional K"},
-    {ProfessionalKN, "ProfessionalKN", "Professional KN"},
-    {ProfessionalN, "ProfessionalN", "Professional N"},
-    {Enterprise, "Enterprise", "Enterprise"},
-    {EnterpriseE, "EnterpriseE", "Enterprise E"},
-    {EnterpriseK, "EnterpriseK", "Enterprise K"},
-    {EnterpriseKN, "EnterpriseKN", "Enterprise KN"},
-    {EnterpriseN, "EnterpriseN", "Enterprise N"},
-    {Ultimate, "Ultimate", "Ultimate"},
-    {UltimateE, "UltimateE", "UltimatE"},
-    {UltimateK, "UltimateK", "Ultimate K"},
-    {UltimateKN, "UltimateKN", "Ultimate KN"},
-    {UltimateN, "UltimateN", "Ultimate N"},
-    {Core, "Core", "Core"},
-    {CoreK, "CoreK", "Core K"},
-    {CoreKN, "CoreKN", "Core KN"},
-    {CoreN, "CoreN", "Core N"},
-    {CoreConnected, "CoreConnected", "Core Connected"},
-    {ProEducation, "ProEducation", "Pro Education"},
-    {Pro, "Pro", "Pro"},
-    {ProK, "ProK", "Pro K"},
-    {ProKN, "ProKN", "Pro KN"},
-    {ProN, "ProN", "Pro N"},
-    {Education, "Education", "Education"},
-    {EducationN, "EducationN", "Education N"},
-    {EnterpriseLTSB, "EnterpriseLTSB", "Enterprise LTSB"},
-    {Home, "Home", "Home"},
-    {HomeN, "HomeN", "Home N"},
-    {S, "S", "S"},
+std::map<WindowsFingerprint::WindowsEditionSKU, WindowsFingerprint::EditionInfo> WindowsFingerprint::_editions_info = {
+    {std::make_pair(Starter, EditionInfo{Starter, "Starter", "Starter"})},
+    {std::make_pair(StarterE, EditionInfo{StarterE, "StarterE", "Starter E"})},
+    {std::make_pair(StarterK, EditionInfo{StarterK,"StarterK","Starter K"})},
+    {std::make_pair(StarterKN, EditionInfo{StarterKN,"StarterKN", "Starter KN"})},
+    {std::make_pair(StarterN, EditionInfo{StarterN,"StarterN", "Starter N"})},
+    {std::make_pair(HomeBasic, EditionInfo{HomeBasic,"HomeBasic", "Home Basic"})},
+    {std::make_pair(HomeBasicE, EditionInfo{HomeBasicE, "HomeBasicE", "HomeBasic E"})},
+    {std::make_pair(HomeBasicK, EditionInfo{HomeBasicK, "HomeBasicK", "Home Basic K"})},
+    {std::make_pair(HomeBasicKN, EditionInfo{HomeBasicKN, "HomeBasicKN","Home Basic KN"})},
+    {std::make_pair(HomeBasicN, EditionInfo{HomeBasicN, "HomeBasicN", "Home Basic N"})},
+    {std::make_pair(HomePremium, EditionInfo{HomePremium, "HomePremium","Home Premium"})},
+    {std::make_pair(HomePremiumE, EditionInfo{HomePremiumE,"HomePremiumE","Home Premium E"})},
+    {std::make_pair(HomePremiumK, EditionInfo{HomePremiumK, "HomePremiumK","Home Premium K"})},
+    {std::make_pair(HomePremiumKN, EditionInfo{HomePremiumKN, "HomePremiumKN", "Home Premium KN"})},
+    {std::make_pair(Professional, EditionInfo{Professional, "Professional", "Professional"})},
+    {std::make_pair(ProfessionalE, EditionInfo{ProfessionalE, "ProfessionalE", "Professional E"})},
+    {std::make_pair(ProfessionalK, EditionInfo{ProfessionalK, "ProfessionalK", "Professional K"})},
+    {std::make_pair(ProfessionalKN, EditionInfo{ProfessionalKN, "ProfessionalKN", "Professional KN"})},
+    {std::make_pair(ProfessionalN, EditionInfo{ProfessionalN, "ProfessionalN", "Professional N"})},
+    {std::make_pair(Enterprise, EditionInfo{Enterprise, "Enterprise", "Enterprise"})},
+    {std::make_pair(EnterpriseE, EditionInfo{EnterpriseE, "EnterpriseE", "Enterprise E"})},
+    {std::make_pair(EnterpriseK, EditionInfo{EnterpriseK, "EnterpriseK", "Enterprise K"})},
+    {std::make_pair(EnterpriseKN, EditionInfo{EnterpriseKN, "EnterpriseKN", "Enterprise KN"})},
+    {std::make_pair(EnterpriseN, EditionInfo{EnterpriseN, "EnterpriseN", "Enterprise N"})},
+    {std::make_pair(Ultimate, EditionInfo{Ultimate, "Ultimate", "Ultimate"})},
+    {std::make_pair(UltimateE, EditionInfo{UltimateE, "UltimateE", "UltimatE"})},
+    {std::make_pair(UltimateK, EditionInfo{UltimateK, "UltimateK", "Ultimate K"})},
+    {std::make_pair(UltimateKN, EditionInfo{UltimateKN, "UltimateKN", "Ultimate KN"})},
+    {std::make_pair(UltimateN, EditionInfo{UltimateN, "UltimateN", "Ultimate N"})},
+    {std::make_pair(Core, EditionInfo{Core, "Core", "Core"})},
+    {std::make_pair(CoreK, EditionInfo{CoreK, "CoreK", "Core K"})},
+    {std::make_pair(CoreKN, EditionInfo{CoreKN, "CoreKN", "Core KN"})},
+    {std::make_pair(CoreN, EditionInfo{CoreN, "CoreN", "Core N"})},
+    {std::make_pair(CoreConnected, EditionInfo{CoreConnected, "CoreConnected", "Core Connected"})},
+    {std::make_pair(ProEducation, EditionInfo{ProEducation, "ProEducation", "Pro Education"})},
+    {std::make_pair(Pro, EditionInfo{Pro, "Pro", "Pro"})},
+    {std::make_pair(ProK, EditionInfo{ProK, "ProK", "Pro K"})},
+    {std::make_pair(ProKN, EditionInfo{ProKN, "ProKN", "Pro KN"})},
+    {std::make_pair(ProN, EditionInfo{ProN, "ProN", "Pro N"})},
+    {std::make_pair(Education, EditionInfo{Education, "Education", "Education"})},
+    {std::make_pair(EducationN, EditionInfo{EducationN, "EducationN", "Education N"})},
+    {std::make_pair(EnterpriseLTSB, EditionInfo{EnterpriseLTSB, "EnterpriseLTSB", "Enterprise LTSB"})},
+    {std::make_pair(Home, EditionInfo{Home, "Home", "Home"})},
+    {std::make_pair(HomeN, EditionInfo{HomeN, "HomeN", "Home N"})},
+    {std::make_pair(S, EditionInfo{S, "S", "S"})}
 };
 
 // static
@@ -805,9 +805,18 @@ WindowsFingerprint::WindowsFingerprint()
     }
 }
 
-void antios::WindowsFingerprint::generate_product_id()
+void WindowsFingerprint::generate_product_id()
 {
-
+    std::string alphabet{"0123456789"};
+    std::string ret{23};
+    ret = random_string(5, alphabet);
+    ret += '-';
+    ret += _oem ? "OEM" : random_string(3, alphabet);
+    ret += '-';
+    ret += random_string(7, alphabet);
+    ret += '-';
+    ret += random_string(5, alphabet);
+    _product_id.swap(ret);
 }
 
 void WindowsFingerprint::static_init()
@@ -851,14 +860,21 @@ void WindowsFingerprint::generate()
     
     // Install date based on Windows version release date
     _install_date = this->random_from_range(_build_info.release_date, std::time(nullptr));
+
+    // ProductID
+    generate_product_id();
 }
 
 
 std::vector<WindowsFingerprint::WindowsBuildInfo> WindowsFingerprint::build_by_product(
     WindowsFingerprint::ProductName product_name) const
 {
-    std::vector<WindowsFingerprint::WindowsBuildInfo> ret{};
-    throw std::logic_error("Not implemented");
+    std::vector<WindowsFingerprint::WindowsBuildInfo> ret;
+    std::copy_if(std::begin(_builds_information), std::end(_builds_information), 
+        std::back_inserter(ret),
+        [product_name](const WindowsFingerprint::WindowsBuildInfo& b) { 
+        return b.product_name_id == product_name; 
+    });
     return std::move(ret);
 }
 
@@ -866,8 +882,12 @@ std::vector<WindowsFingerprint::WindowsBuildInfo> WindowsFingerprint::build_by_s
     WindowsFingerprint::ProductName product_name, 
     WindowsFingerprint::SubproductName subproduct_name) const
 {
-    std::vector<WindowsFingerprint::WindowsBuildInfo> ret{};
-    throw std::logic_error("Not implemented");
+    std::vector<WindowsFingerprint::WindowsBuildInfo> ret;
+    std::copy_if(std::begin(_builds_information), std::end(_builds_information),
+        std::back_inserter(ret),
+        [product_name, subproduct_name](const WindowsFingerprint::WindowsBuildInfo& b) {
+        return (b.product_name_id == product_name) && (b.subproduct_name_id == subproduct_name);
+    });
     return std::move(ret);
 }
 
@@ -903,6 +923,7 @@ std::string WindowsFingerprint::get_edition() const
 
 std::string WindowsFingerprint::get_product_name() const
 {
+    std::string ret;
     throw std::logic_error("Not implemented");
     return "";
 }

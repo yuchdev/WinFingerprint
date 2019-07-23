@@ -316,7 +316,7 @@ private:
 
     static SubproductNameBimap _subproduct_string;
 
-    static std::vector<EditionInfo> _editions_info;
+    static std::map<WindowsEditionSKU, EditionInfo> _editions_info;
 
     static std::map<ProductName, std::vector<WindowsEditionSKU>> _version_editions;
 
