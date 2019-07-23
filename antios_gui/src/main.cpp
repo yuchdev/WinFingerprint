@@ -2,8 +2,8 @@
 #include <QQmlApplicationEngine>
 #include <QtQuickControls2/QtQuickControls2>
 
-#include "application.h"
-#include "ui/mainwindow.h"
+#include <antios_gui/application.h>
+#include <antios_gui/mainwindow.h>
 
 int main (int argc, char *argv[]) {
 

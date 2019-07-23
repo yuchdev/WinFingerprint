@@ -1,4 +1,4 @@
-#include "settings.h"
+#include <antios_gui/settings.h>
 
 Settings::Settings(QWindow *parent)
     : QQuickView(parent)

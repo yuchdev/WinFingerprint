@@ -1,4 +1,4 @@
-﻿#include "windowsids.h"
+﻿#include <antios_gui/windowsids.h>
 
 WindowsIDS::WindowsIDS(QWindow *parent)
     : QQuickView                        (parent)

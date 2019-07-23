@@ -9,8 +9,8 @@
 #include <QQmlComponent>
 #include <QStringListModel>
 
-#include "../types.h"
-#include "../models/comboboxmodel.h"
+#include <antios_gui/types.h>
+#include <antios_gui/comboboxmodel.h>
 
 class WindowsIDS : public QQuickView {
 

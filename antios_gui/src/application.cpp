@@ -1,4 +1,4 @@
-#include "application.h"
+#include <antios_gui/application.h>
 
 Application::Application(QWindow *parent)
     : QWindow(parent)

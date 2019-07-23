@@ -5,8 +5,8 @@
 #include <QVariant>
 #include <QDebug>
 
-#include "models/infotablemodel.h"
-#include "ui/mainwindow.h"
+#include <antios_gui/infotablemodel.h>
+#include <antios_gui/mainwindow.h>
 
 class Application : public QWindow {
     Q_OBJECT

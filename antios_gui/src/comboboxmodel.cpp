@@ -1,4 +1,4 @@
-#include "comboboxmodel.h"
+#include <antios_gui/comboboxmodel.h>
 
 ComboboxModel::ComboboxModel(QObject *parent, const int default_index)
     : QAbstractListModel(parent)

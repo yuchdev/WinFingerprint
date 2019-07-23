@@ -4,7 +4,7 @@
 #include <QAbstractListModel>
 #include <QDebug>
 
-#include "../types.h"
+#include <antios_gui/types.h>
 
 class ComboboxModel : public QAbstractListModel {
     Q_OBJECT

@@ -10,10 +10,10 @@
 #include <QQmlComponent>
 #include <QCoreApplication>
 
-#include "settings.h"
-#include "windowsids.h"
-#include "../models/comboboxmodel.h"
-#include "../models/infotablemodel.h"
+#include <antios_gui/settings.h>
+#include <antios_gui/windowsids.h>
+#include <antios_gui/comboboxmodel.h>
+#include <antios_gui/infotablemodel.h>
 
 class MainWindow : public QQuickView {
     Q_OBJECT

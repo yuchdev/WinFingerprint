@@ -1,4 +1,4 @@
-﻿#include "mainwindow.h"
+﻿#include <antios_gui/mainwindow.h>
 
 MainWindow::MainWindow(QWindow *parent)
     : QQuickView            (parent)

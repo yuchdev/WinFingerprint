@@ -5,7 +5,7 @@
 #include <QString>
 #include <QDebug>
 
-#include "../types.h"
+#include <antios_gui/types.h>
 
 class InfoTableModel : public QAbstractTableModel {
     Q_OBJECT

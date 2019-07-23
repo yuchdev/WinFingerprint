@@ -13,7 +13,7 @@ message("Setting output directory " ${CMAKE_RUNTIME_OUTPUT_DIRECTORY})
 
 message("Setting Qt dependencies")
 # NOTE! Always set this variable!
-set(QT_DEPENDENCIES Core Widgets Qml Quick)
+set(QT_DEPENDENCIES Core Gui Widgets Qml Quick)
 find_package(Qt5 REQUIRED ${QT_DEPENDENCIES})
 
 message("Collecting source files")

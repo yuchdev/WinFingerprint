@@ -1,4 +1,4 @@
-#include "infotablemodel.h"
+#include <antios_gui/infotablemodel.h>
 
 InfoTableModel::InfoTableModel(QObject *parent)
     : QAbstractTableModel(parent)
