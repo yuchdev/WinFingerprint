@@ -830,27 +830,30 @@ void WindowsFingerprint::generate()
 {
     std::vector<bool> oem{ true, false };
     _oem = this->choise(oem);
-
-    _product_name = static_cast<ProductName>(rnd(0, static_cast<int>(ProductName::ProductNameCount)));
+    _build_info = this->choise(_builds_information);
 }
 
 
 std::vector<WindowsFingerprint::WindowsBuildInfo> WindowsFingerprint::build_by_product(
     WindowsFingerprint::ProductName product_name) const
 {
-
+    std::vector<WindowsFingerprint::WindowsBuildInfo> ret{};
+    throw std::logic_error("Not implemented");
+    return std::move(ret);
 }
 
 std::vector<WindowsFingerprint::WindowsBuildInfo> WindowsFingerprint::build_by_subproduct(
     WindowsFingerprint::ProductName product_name, 
     WindowsFingerprint::SubproductName subproduct_name) const
 {
-
+    std::vector<WindowsFingerprint::WindowsBuildInfo> ret{};
+    throw std::logic_error("Not implemented");
+    return std::move(ret);
 }
 
-std::string WindowsFingerprint::get_product_name() const
+std::string WindowsFingerprint::get_product_version() const
 {
-    return _build_info.product_name;
+    return _build_info.product_version;
 }
 
 std::string WindowsFingerprint::get_nt_version() const
@@ -863,6 +866,13 @@ std::string WindowsFingerprint::get_edition() const
     throw std::logic_error("Not implemented");
     return "";
 }
+
+std::string WindowsFingerprint::get_product_name() const
+{
+    throw std::logic_error("Not implemented");
+    return "";
+}
+
 
 std::string WindowsFingerprint::get_short_version() const
 {

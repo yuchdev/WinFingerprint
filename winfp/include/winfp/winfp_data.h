@@ -179,7 +179,7 @@ public:
         WindowsFingerprint::SubproductName update_name_id;
 
         /// Example: "Windows 10"
-        std::string product_name;
+        std::string product_version;
 
         /// String representation of NT kernel version, example: "6.1"
         std::string nt_version;
@@ -235,7 +235,7 @@ public:
 
     /// @brief ProductName is Windows version and edition with spaces, 
     /// "Windows 7 Professional N"
-    std::string get_product_name() const;
+    std::string get_product_version() const;
 
     /// @brief Short Windows build version within one product
     /// For example, Windows 7 is "7600", Windows 8.1 is "9600"
