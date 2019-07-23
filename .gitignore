@@ -6,10 +6,14 @@
 *.lo
 *.o
 *.obj
+*.orig
+*.rej
 
 # Precompiled Headers
 *.gch
 *.pch
+*_pch.h.cpp
+*_resource.rc
 
 # Compiled Dynamic libraries
 *.so
@@ -30,3 +34,49 @@
 *.exe
 *.out
 *.app
+
+# Temp
+.#*
+*.*#
+.DS_Store
+.directory
+
+
+# Qt
+*.core
+*.moc
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+
+# qtcreator generated files
+*.pro.user*
+
+# xemacs temporary files
+*.flc
+
+# Vim temporary files
+.*.swp
+
+# Visual Studio generated files
+*.ib_pdb_index
+*.idb
+*.ilk
+*.pdb
+*.sln
+*.suo
+*.vcproj
+*vcproj.*.*.user
+*.ncb
+*.sdf
+*.opensdf
+*.vcxproj
+*vcxproj.*
+
+# MinGW generated files
+*.Debug
+*.Release
+
+# Python byte code
+*.pyc
+

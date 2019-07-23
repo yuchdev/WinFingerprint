@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>src/main.qml</file>
+        <file>src/Windows_ids.qml</file>
+        <file>src/Windows_idsForm.ui.qml</file>
+        <file>res/next.png</file>
+        <file>src/Settings.qml</file>
+        <file>src/SettingsForm.ui.qml</file>
+    </qresource>
+</RCC>
