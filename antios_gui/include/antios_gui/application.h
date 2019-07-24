@@ -1,5 +1,4 @@
-#ifndef APPLICATION_H
-#define APPLICATION_H
+#pragma once
 
 #include <QObject>
 #include <QVariant>
@@ -18,6 +17,3 @@ public:
 private:
     MainWindow *ui_;
 };
-
-#endif // APPLICATION_H
-

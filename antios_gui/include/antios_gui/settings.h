@@ -1,5 +1,4 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#pragma once
 
 #include <QUrl>
 #include <QDebug>
@@ -53,5 +52,3 @@ private:
     bool display_all_ids_;
     bool auto_export_configuration_;
 };
-
-#endif // SETTINGS_H

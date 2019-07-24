@@ -1,5 +1,4 @@
-#ifndef COMBOBOXMODEL_H
-#define COMBOBOXMODEL_H
+#pragma once
 
 #include <antios_gui/types.h>
 
@@ -41,5 +40,3 @@ private:
     QList<Item> data_;
     const int default_index_;
 };
-
-#endif // COMBOBOXMODEL_H
