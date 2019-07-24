@@ -44,8 +44,6 @@ else()
     message(FATAL_ERROR "This is Windows only project") 
 endif()
 
-add_subdirectory(antios_lib)
-add_subdirectory(antios_cli)
 add_subdirectory(winfp)
 add_subdirectory(winapi_helpers)
 add_subdirectory(antios_gui)

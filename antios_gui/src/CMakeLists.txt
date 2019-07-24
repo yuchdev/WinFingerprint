@@ -18,7 +18,7 @@ find_package(Qt5 REQUIRED ${QT_DEPENDENCIES})
 message("Collecting source files")
 file(GLOB SOURCE *.cpp ${CMAKE_CURRENT_SOURCE_DIR}/../include/${TARGET}/*.h *.qml qss/*.qss)
 
-qt5_add_resources(RC antios.qrc)
+qt5_add_resources(RC ${CMAKE_CURRENT_SOURCE_DIR}/../antios.qrc)
 
 include_directories(
     ${Boost_INCLUDE_DIRS}
