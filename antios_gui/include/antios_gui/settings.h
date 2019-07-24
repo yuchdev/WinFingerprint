@@ -44,7 +44,6 @@ signals:
     void sigDisplayAllIds                       (const bool value);
     void sigAutoExportConfigurationChanged      (const bool value);
 
-public slots:
 private:
     QUrl url_;
 

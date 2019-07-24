@@ -8,14 +8,13 @@
 #include <antios_gui/infotablemodel.h>
 #include <antios_gui/mainwindow.h>
 
-class Application : public QWindow {
+class Application : public QWindow 
+{
     Q_OBJECT
 public:
     explicit Application(QWindow *parent = nullptr);
     virtual ~Application();
 
-signals:
-public slots:
 private:
     MainWindow *ui_;
 };

@@ -24,56 +24,68 @@ Settings::Settings(QWindow *parent)
     qDebug() << "Settings()";
 }
 
-Settings::~Settings() {
+Settings::~Settings() 
+{
     qDebug() << "~Settings()";
 }
 
-int Settings::getMaxAutoSavedConfigurations() const {
+int Settings::getMaxAutoSavedConfigurations() const 
+{
     return max_auto_saved_configurations_;
 }
 
-int Settings::getNumberUniqueConfigurations() const {
+int Settings::getNumberUniqueConfigurations() const 
+{
     return number_of_unique_configurations_;
 }
 
-bool Settings::getStartWithOS() const {
+bool Settings::getStartWithOS() const 
+{
     return start_with_os_;
 }
 
-bool Settings::getDisplayAllIds() const {
+bool Settings::getDisplayAllIds() const 
+{
     return display_all_ids_;
 }
 
-bool Settings::getAutoExportConfiguration() const {
+bool Settings::getAutoExportConfiguration() const 
+{
     return auto_export_configuration_;
 }
 
-void Settings::setMaxAutoSavedConfigurations(const int value) {
+void Settings::setMaxAutoSavedConfigurations(const int value) 
+{
     max_auto_saved_configurations_ = value;
     emit sigMaxAutoConfigurationsChanged(max_auto_saved_configurations_);
 }
 
-void Settings::setNumbverUniqueConfigurations(const int value) {
+void Settings::setNumbverUniqueConfigurations(const int value) 
+{
     number_of_unique_configurations_ = value;
     emit sigNumberUniqueConfigurationsChanged(number_of_unique_configurations_);
 }
 
-void Settings::setStartWithOS(const bool value) {
+void Settings::setStartWithOS(const bool value) 
+{
     start_with_os_ = value;
     emit sigStartWithOSChanged(start_with_os_);
 }
 
-void Settings::setDisplayAllIds(const bool value) {
+void Settings::setDisplayAllIds(const bool value) 
+{
     display_all_ids_ = value;
     emit sigDisplayAllIds(display_all_ids_);
 }
 
-void Settings::setAutoExportConfiguration(const bool value) {
+void Settings::setAutoExportConfiguration(const bool value) 
+{
     auto_export_configuration_ = value;
     emit sigAutoExportConfigurationChanged(auto_export_configuration_);
 }
 
-void Settings::okButtonClicked() {
+void Settings::okButtonClicked() 
+{
     qDebug() << "Ok Button clicked!";
     this->hide();
 }

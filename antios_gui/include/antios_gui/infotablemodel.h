@@ -1,5 +1,4 @@
-#ifndef INFOTABLEMODEL_H
-#define INFOTABLEMODEL_H
+#pragma once
 
 #include <QAbstractTableModel>
 #include <QString>
@@ -7,7 +6,8 @@
 
 #include <antios_gui/types.h>
 
-class InfoTableModel : public QAbstractTableModel {
+class InfoTableModel : public QAbstractTableModel 
+{
     Q_OBJECT
 public:
 
@@ -54,6 +54,3 @@ public slots:
 private:
     QList<Item> data_;
 };
-
-//Q_DECLARE_METATYPE(InfoTableModel)
-#endif // INFOTABLEMODEL_H

@@ -1,21 +1,21 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QDebug>
 #include <QObject>
 #include <QVariant>
+#include <antios_gui/settings.h>
+#include <antios_gui/windowsids.h>
+#include <antios_gui/comboboxmodel.h>
+#include <antios_gui/infotablemodel.h>
+
 #include <QSysInfo>
 #include <QQuickView>
 #include <QQmlContext>
 #include <QQmlComponent>
 #include <QCoreApplication>
 
-#include <antios_gui/settings.h>
-#include <antios_gui/windowsids.h>
-#include <antios_gui/comboboxmodel.h>
-#include <antios_gui/infotablemodel.h>
-
-class MainWindow : public QQuickView {
+class MainWindow : public QQuickView 
+{
     Q_OBJECT
 public:
 
@@ -26,7 +26,7 @@ public:
     void setContextProperty     (const QString& name, QObject* value);
 
     Q_INVOKABLE bool getButtonsIsActive() const;
-    Q_INVOKABLE void setButtonsIsActive(const bool value);
+    Q_INVOKABLE void setButtonsIsActive(bool value);
 
     Q_INVOKABLE void onApplyCLicked();
     Q_INVOKABLE void onRandomizeCLicked();
@@ -76,5 +76,3 @@ private:
 
     bool is_buttons_active_;
 };
-
-#endif // MAINWINDOW_H

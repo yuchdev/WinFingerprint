@@ -1,12 +1,13 @@
 #ifndef COMBOBOXMODEL_H
 #define COMBOBOXMODEL_H
 
+#include <antios_gui/types.h>
+
 #include <QAbstractListModel>
 #include <QDebug>
 
-#include <antios_gui/types.h>
-
-class ComboboxModel : public QAbstractListModel {
+class ComboboxModel : public QAbstractListModel 
+{
     Q_OBJECT
 public:
     Q_PROPERTY(int default_index READ getDefaultIndex)
@@ -19,7 +20,9 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     void addItem(const Item& item);
+
     void addItems(const QVector<Item>& items);
+
     void addItems(const QList<Item>& items);
 
     QList<Item>& getData();
@@ -29,7 +32,9 @@ public:
     Q_INVOKABLE int getDefaultIndex() const;
 
 signals:
+
     void sigCurrentItemChanged(const Item& item);
+
     void sigCurrentIndexChanged(const int index);
 
 private:

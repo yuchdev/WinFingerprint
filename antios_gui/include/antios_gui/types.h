@@ -1,11 +1,11 @@
-#ifndef TYPES_H
-#define TYPES_H
+#pragma once
 
 #include <QString>
 #include <QMetaType>
 #include <QTextStream>
 
-struct Item {
+struct Item 
+{
     Item() = default;
     virtual ~Item() = default;
 
@@ -51,7 +51,8 @@ struct Item {
 
 Q_DECLARE_METATYPE(Item)
 
-struct Product_id {
+struct Product_id 
+{
     QString field1_;
     QString field2_;
     QString field3_;
@@ -68,4 +69,3 @@ struct Product_id {
 
 Q_DECLARE_METATYPE(Product_id)
 
-#endif // TYPES_H

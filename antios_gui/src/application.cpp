@@ -2,10 +2,12 @@
 
 Application::Application(QWindow *parent)
     : QWindow(parent)
-    , ui_ (new MainWindow(qobject_cast<QWindow*>(this))) {
+    , ui_ (new MainWindow(qobject_cast<QWindow*>(this))) 
+{
     qDebug() << "Application()";
 }
 
-Application::~Application() {
+Application::~Application() 
+{
     qDebug() << "~Application()";
 }

@@ -1,5 +1,7 @@
-﻿#ifndef WINDOWSIDS_H
-#define WINDOWSIDS_H
+﻿#pragma once
+
+#include <antios_gui/types.h>
+#include <antios_gui/comboboxmodel.h>
 
 #include <QDebug>
 #include <QObject>
@@ -9,11 +11,9 @@
 #include <QQmlComponent>
 #include <QStringListModel>
 
-#include <antios_gui/types.h>
-#include <antios_gui/comboboxmodel.h>
 
-class WindowsIDS : public QQuickView {
-
+class WindowsIDS : public QQuickView 
+{
     Q_OBJECT
 
 public:
@@ -50,25 +50,24 @@ public:
     QSharedPointer<ComboboxModel> getProductTypeNameModel();
     QSharedPointer<ComboboxModel> getBuildNumberModel();
 
+    bool getIsSystemNameBoxActive() const { return is_system_name_cbox_active_; }
+    bool getIsServiceUpdateBoxActive() const { return is_service_update_cbox_active_; }
+    bool getIsEditionBoxActive() const { return is_edition_cbox_active_; }
+    bool getIsProductTypeBoxActive() const { return is_product_type_cbox_active_; }
+    bool getIsBuildNumberBoxActive() const { return is_build_number_cbox_active_; }
+    bool getIsProductIdLineActive() const { return is_product_id_line_active_; }
+    bool getIsInstallDateLineActive() const { return is_install_date_active_; }
+    bool getIsBuildGuidLineActive() const { return is_build_guid_active_; }
 
-    bool getIsSystemNameBoxActive       () const;
-    bool getIsServiceUpdateBoxActive    () const;
-    bool getIsEditionBoxActive          () const;
-    bool getIsProductTypeBoxActive      () const;
-    bool getIsBuildNumberBoxActive      () const;
-    bool getIsProductIdLineActive       () const;
-    bool getIsInstallDateLineActive     () const;
-    bool getIsBuildGuidLineActive       () const;
 
-
-    void setIsSystemNameBoxActive       (const bool value);
-    void setIsServiceUpdateBoxActive    (const bool value);
-    void setIsEditionBoxActive          (const bool value);
-    void setIsProductTypeBoxActive      (const bool value);
-    void setIsBuildNumberBoxActive      (const bool value);
-    void setIsProductIdLineActive       (const bool value);
-    void setIsInstallDateLineActive     (const bool value);
-    void setIsBuildGuidLineActive       (const bool value);
+    void setIsSystemNameBoxActive (const bool value);
+    void setIsServiceUpdateBoxActive (const bool value);
+    void setIsEditionBoxActive (const bool value);
+    void setIsProductTypeBoxActive (const bool value);
+    void setIsBuildNumberBoxActive (const bool value);
+    void setIsProductIdLineActive (const bool value);
+    void setIsInstallDateLineActive (const bool value);
+    void setIsBuildGuidLineActive (const bool value);
 
 
 private:
@@ -164,5 +163,3 @@ private:
     bool is_install_date_active_;
     bool is_build_guid_active_;
 };
-
-#endif // WINDOWSIDS_H

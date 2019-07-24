@@ -1,14 +1,15 @@
 #include <antios_gui/comboboxmodel.h>
 
 ComboboxModel::ComboboxModel(QObject *parent, const int default_index)
-    : QAbstractListModel(parent)
-    , default_index_    (default_index)
+    : QAbstractListModel(parent),
+    default_index_(default_index)
 {
 }
 
 int ComboboxModel::rowCount(const QModelIndex &parent) const
 {
-    if (parent.isValid()) return 0;
+    if (parent.isValid()) 
+        return 0;
     return data_.size();
 }
 
@@ -39,7 +40,8 @@ void ComboboxModel::addItem(const Item &item)
 
 void ComboboxModel::addItems(const QVector<Item> &items)
 {
-    for (auto& it: items) addItem(it);
+    for (auto& it: items) 
+        addItem(it);
 }
 
 void ComboboxModel::addItems(const QList<Item> &items)
