@@ -2,7 +2,7 @@
 
 Settings::Settings(QWindow *parent)
     : QQuickView(parent)
-    , url_                              (QString("qrc:/qml/Settings.qml"))
+    , url_                              (QString("qrc:/src/Settings.qml"))
     , max_auto_saved_configurations_    (0)
     , number_of_unique_configurations_  (0)
     , start_with_os_                    (false)

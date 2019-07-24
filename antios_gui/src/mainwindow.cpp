@@ -2,7 +2,7 @@
 
 MainWindow::MainWindow(QWindow *parent)
     : QQuickView            (parent)
-    , url_                  (QStringLiteral("qrc:/qml/main.qml"))
+    , url_                  (QStringLiteral("qrc:/src/main.qml"))
     , ids_tab_              (new WindowsIDS(this))
     , settings_             (new Settings())
     , table_model_          (new InfoTableModel(this))
