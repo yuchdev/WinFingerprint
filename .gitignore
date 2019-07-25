@@ -45,6 +45,7 @@
 # Qt
 *.core
 *.moc
+*.qmlc
 moc_*.cpp
 ui_*.h
 qrc_*.cpp

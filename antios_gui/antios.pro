@@ -1,8 +1,8 @@
 QT += quick qml core quickwidgets
-CONFIG += qt c++14 stl qml_debug #console
+CONFIG += qt c++17 stl qml_debug #console
 QT -= network
 QT -= svg
-TARGET += AntiOS
+TARGET += antios_gui
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -29,18 +29,18 @@ QMAKE_LFLAGS_DEBUG              += /IGNORE:4006
 QMAKE_CXXFLAGS_WARN_OFF += -w34100 -wd4100 -w4100
 
 SOURCES += \
-        application.cpp \
-        application.cpp \
-        main.cpp \
-        models/comboboxmodel.cpp \
-        models/comboboxmodel.cpp \
-        models/infotablemodel.cpp \
-        models/infotablemodel.cpp \
-        ui/mainwindow.cpp \
-        ui/mainwindow.cpp \
-        ui/settings.cpp \
-        ui/windowsids.cpp \
-        ui/windowsids.cpp
+        src/application.cpp \
+        src/application.cpp \
+        src/main.cpp \
+        src/comboboxmodel.cpp \
+        src/comboboxmodel.cpp \
+        src/infotablemodel.cpp \
+        src/infotablemodel.cpp \
+        src/mainwindow.cpp \
+        src/mainwindow.cpp \
+        src/settings.cpp \
+        src/windowsids.cpp \
+        src/windowsids.cpp
 
 RESOURCES += qml.qrc \
     qml.qrc
@@ -57,27 +57,20 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    application.h \
-    application.h \
-    models/comboboxmodel.h \
-    models/comboboxmodel.h \
-    models/infotablemodel.h \
-    models/infotablemodel.h \
-    types.h \
-    types.h \
-    ui/mainwindow.h \
-    ui/mainwindow.h \
-    ui/settings.h \
-    ui/windowsids.h \
-    ui/windowsids.h
+    include/antios_gui/application.h \
+    include/antios_gui/comboboxmodel.h \
+    include/antios_gui/infotablemodel.h \
+    include/antios_gui/types.h \
+    include/antios_gui/mainwindow.h \
+    include/antios_gui/settings.h \
+    include/antios_gui/windowsids.h
 
 DISTFILES += \
-    Windows_ids.qml \
-    Windows_idsForm.ui.qml \
-    qml/Settings.qml \
-    qml/SettingsForm.ui.qml \
-    qml/Windows_ids.qml \
-    qml/Windows_idsForm.ui.qml \
-    qml/main.qml \
-    res/next.png \
+    src/Windows_ids.qml \
+    src/Windows_idsForm.ui.qml \
+    src/Settings.qml \
+    src/SettingsForm.ui.qml \
+    src/Windows_ids.qml \
+    src/Windows_idsForm.ui.qml \
+    src/main.qml \
     res/next.png
