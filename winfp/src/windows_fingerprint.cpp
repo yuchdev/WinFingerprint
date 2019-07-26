@@ -8,6 +8,20 @@ using namespace antios;
 
 // static
 
+void WindowsFingerprint::generate_product_id()
+{
+    std::string alphabet{ "0123456789" };
+    std::string ret{ 23 };
+    ret = random_string(5, alphabet);
+    ret += '-';
+    ret += _oem ? "OEM" : random_string(3, alphabet);
+    ret += '-';
+    ret += random_string(7, alphabet);
+    ret += '-';
+    ret += random_string(5, alphabet);
+    _product_id.swap(ret);
+}
+
 std::string WindowsFingerprint::retail_oem() const
 {
     return _oem ? "OEM" : "Retail";
@@ -23,25 +37,11 @@ std::string WindowsFingerprint::get_nt_version() const
     return _build_info.nt_version;
 }
 
-std::string WindowsFingerprint::get_edition_id() const
-{
-    auto edition_iter = _editions_info.find(_edition);
-    assert(edition_iter != _editions_info.end());
-    return (*edition_iter).second.registry_name;
-}
-
-std::string WindowsFingerprint::get_edition() const
-{
-    auto edition_iter = _editions_info.find(_edition);
-    assert(edition_iter != _editions_info.end());
-    return (*edition_iter).second.readable_name;
-}
-
 std::string WindowsFingerprint::get_product_name() const
 {
     std::string ret = _build_info.product_version;
     ret += ' ';
-    ret += get_edition();
+    ret += WindowsFingerprintData::get_edition(_edition);
     return std::move(ret);
 }
 
