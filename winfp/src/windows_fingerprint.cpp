@@ -1,5 +1,7 @@
 #include <winfp/windows_fingerprint.h>
 
+#include <boost/format.hpp>
+
 #include <ctime>
 #include <cassert>
 #include <algorithm>
@@ -12,13 +14,13 @@ void WindowsFingerprint::generate_product_id()
 {
     std::string alphabet{ "0123456789" };
     std::string ret{ 23 };
-    ret = random_string(5, alphabet);
-    ret += '-';
-    ret += _oem ? "OEM" : random_string(3, alphabet);
-    ret += '-';
-    ret += random_string(7, alphabet);
-    ret += '-';
-    ret += random_string(5, alphabet);
+
+    ret = boost::str(boost::format("%1%-%2%-%3%-%4%")
+        % random_string(5, alphabet) 
+        % (_oem ? "OEM" : random_string(3, alphabet))
+        % random_string(7, alphabet)
+        % random_string(5, alphabet));
+
     _product_id.swap(ret);
 }
 
@@ -39,9 +41,10 @@ std::string WindowsFingerprint::get_nt_version() const
 
 std::string WindowsFingerprint::get_product_name() const
 {
-    std::string ret = _build_info.product_version;
-    ret += ' ';
-    ret += WindowsFingerprintData::get_edition(_edition);
+    std::string ret = boost::str(boost::format("%1% %2%")
+        % _build_info.product_version
+        % WindowsFingerprintData::get_edition(_edition));
+
     return std::move(ret);
 }
 
