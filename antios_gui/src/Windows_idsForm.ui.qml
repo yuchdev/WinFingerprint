@@ -33,7 +33,7 @@ Item {
     Rectangle {
         id: winids_rectangle
         x: 8
-        y: 40
+        y: 43
         width: parent.width
         height: parent.height
         color: bg_grupbox_color
@@ -41,14 +41,14 @@ Item {
         Rectangle {
             id: lbls_rtc
             width: 123
-            height: 381
+            height: 255
             color: bg_grupbox_color
 
             Label {
                 id: build_number_lbl
-                x: 8
-                y: 8
-                width: 123
+                x: 16
+                y: 24
+                width: 107
                 height: 20
                 text: qsTr("System Name")
                 verticalAlignment: Text.AlignVCenter
@@ -57,9 +57,9 @@ Item {
 
             Label {
                 id: build_lab_lbl
-                x: 8
-                y: 34
-                width: 123
+                x: 15
+                y: 49
+                width: 107
                 height: 20
                 text: qsTr("Service Pack/Update")
                 verticalAlignment: Text.AlignVCenter
@@ -68,9 +68,9 @@ Item {
 
             Label {
                 id: build_lab_ex_lbl
-                x: 8
-                y: 60
-                width: 123
+                x: 15
+                y: 75
+                width: 107
                 height: 20
                 text: qsTr("Edition")
                 verticalAlignment: Text.AlignVCenter
@@ -79,9 +79,9 @@ Item {
 
             Label {
                 id: build_guid_lbl
-                x: 8
-                y: 86
-                width: 123
+                x: 15
+                y: 101
+                width: 107
                 height: 20
                 text: qsTr("Product type")
                 verticalAlignment: Text.AlignVCenter
@@ -90,9 +90,9 @@ Item {
 
             Label {
                 id: crypto_machine_guid_lbl
-                x: 8
-                y: 112
-                width: 123
+                x: 15
+                y: 127
+                width: 107
                 height: 20
                 text: qsTr("Product ID")
                 verticalAlignment: Text.AlignVCenter
@@ -101,9 +101,9 @@ Item {
 
             Label {
                 id: device_guid_lbl
-                x: 8
-                y: 138
-                width: 123
+                x: 15
+                y: 153
+                width: 107
                 height: 20
                 text: qsTr("Build number")
                 verticalAlignment: Text.AlignVCenter
@@ -112,9 +112,9 @@ Item {
 
             Label {
                 id: ckcl_guid_lbl
-                x: 8
-                y: 164
-                width: 123
+                x: 15
+                y: 179
+                width: 107
                 height: 20
                 text: qsTr("Install date")
                 verticalAlignment: Text.AlignVCenter
@@ -123,13 +123,22 @@ Item {
 
             Label {
                 id: harware_guid_lbl
-                x: 8
-                y: 190
-                width: 123
+                x: 15
+                y: 205
+                width: 107
                 height: 20
                 text: qsTr("Build GUID")
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignLeft
+            }
+
+            GroupBox {
+                id: current_version_groubbox
+                x: 8
+                y: 8
+                width: 398
+                height: 241
+                title: qsTr("Current Version")
             }
         }
 
@@ -137,14 +146,14 @@ Item {
             id: combos_rct
             x: 121
             y: 0
-            width: 282
-            height: 381
+            width: 290
+            height: 255
             color: bg_grupbox_color
 
             ComboBox {
                 id: combobox_system_name
                 x: 8
-                y: 8
+                y: 25
                 width: 266
                 height: 20
                 editable: false
@@ -157,7 +166,7 @@ Item {
             ComboBox {
                 id: combobox_update
                 x: 8
-                y: 34
+                y: 49
                 width: 266
                 height: 20
                 editable: false
@@ -170,7 +179,7 @@ Item {
             ComboBox {
                 id: combobox_edition
                 x: 8
-                y: 60
+                y: 75
                 width: 266
                 height: 20
                 editable: false
@@ -183,7 +192,7 @@ Item {
             ComboBox {
                 id: combobox_product_type
                 x: 8
-                y: 86
+                y: 101
                 width: 266
                 height: 20
                 editable: false
@@ -196,7 +205,7 @@ Item {
             ComboBox {
                 id: combobox_prodict_number
                 x: 8
-                y: 138
+                y: 153
                 width: 266
                 height: 20
                 editable: false
@@ -209,7 +218,7 @@ Item {
             RowLayout {
                 id: product_id_input_rct
                 x: 8
-                y: 112
+                y: 127
                 width: 266
                 height: 20
 
@@ -322,7 +331,7 @@ Item {
             TextField {
                 id: install_date_text
                 x: 8
-                y: 164
+                y: 179
                 width: 266
                 height: 20
                 maximumLength: 10
@@ -348,7 +357,7 @@ Item {
             RowLayout {
                 id: build_guid_input_rct
                 x: 8
-                y: 190
+                y: 205
                 width: 266
                 height: 20
 
