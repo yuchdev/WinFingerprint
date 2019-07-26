@@ -49,7 +49,7 @@ bool MainWindow::getButtonsIsActive() const
     return is_buttons_active_;
 }
 
-Q_INVOKABLE void MainWindow::setButtonsIsActive(bool value) 
+/*Q_INVOKABLE */void MainWindow::setButtonsIsActive(bool value)
 {
     is_buttons_active_ = value;
     emit sigButtonsActiveChanged(is_buttons_active_);

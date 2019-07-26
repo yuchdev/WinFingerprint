@@ -3,6 +3,7 @@
 Windows_idsForm {
 
 
+
     first_guid_text.onTextChanged: {
         WindowsIDS.guid_1 = first_guid_text.text
     }
@@ -26,6 +27,8 @@ Windows_idsForm {
     install_date_text.onTextChanged: {
         WindowsIDS.setInstallDate(install_date_text.text);
     }
+
+
 
     first_id_text.onTextChanged: {
         WindowsIDS.product_id_1 = first_id_text.text

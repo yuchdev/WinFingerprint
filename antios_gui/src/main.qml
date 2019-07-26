@@ -1,6 +1,6 @@
 ﻿import QtQuick 2.1
 import QtQuick.Window 2.11
-import QtQuick.Controls 2.3
+import QtQuick.Controls 2.4
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 1.4 as OldControl
@@ -12,7 +12,7 @@ ApplicationWindow {
 
     visible: true
 
-    width: 1250
+    width: 1100//1250
     height: 520
 
     minimumWidth  : width
@@ -24,7 +24,7 @@ ApplicationWindow {
     property int    menu_item_width:                160
     property int    menu_item_heigth:               25
     property int    ident_from_menu:                10
-    property int    tabs_width:                     100
+    property int    tabs_width:                     81
     property int    tabbar_heigth:                  20
     property int    groupbox_border_width:          0
     property int    table_column_width:             200
@@ -34,6 +34,7 @@ ApplicationWindow {
     property color  groupbox_border_color:          "#000000"
     property color  bg_tabbutton_active_color:      "#404457"
     property color  bg_tabbutton_not_active_color:  "#8E929D"
+    property color  bs_tabbutton_disabled:          "#555F71"
 
     color: bg_grupbox_color
 
@@ -355,7 +356,6 @@ ApplicationWindow {
         }
     }
 
-
     GroupBox {
         id: tabs_group
 
@@ -367,25 +367,25 @@ ApplicationWindow {
         background: Rectangle {
             width:          parent.width
             height:         parent.height
-            border.color:   groupbox_border_color
-            border.width:   groupbox_border_width
-            color:          bg_grupbox_color
+            border.color:   bs_tabbutton_disabled
+            border.width:   1
+            color:          bs_tabbutton_disabled
         }
 
         TabBar {
             id:     main_tab_bar
-            width:  parent.width
+            width:  parent.width + 200
             height: tabbar_heigth
 
             background: { color: bg_grupbox_color }
-
             spacing: 1
+
 
             TabButton {
                 id: windows_ids_btn
-                text: qsTr("Windows IDs")
+                text: qsTr("Current version")
                 height: parent.height
-
+                width: tabs_width
 
                 contentItem: Text {
                     text: windows_ids_btn.text
@@ -405,6 +405,7 @@ ApplicationWindow {
                 id: web_rtc_btn
                 text: qsTr("WebRTC")
                 height: parent.height
+                width: tabs_width
 
                 contentItem: Text {
                     text: web_rtc_btn.text
@@ -420,11 +421,12 @@ ApplicationWindow {
                 }
             }
 
-
             TabButton {
                 id: telemetry_btn
                 height: parent.height
+                width: tabs_width
                 text: qsTr("Telemetry")
+                enabled: false /// NOTE: Inactive at that time
 
                 contentItem: Text {
                     text: telemetry_btn.text
@@ -435,15 +437,17 @@ ApplicationWindow {
                 }
 
                 background: Rectangle {
-                    border.color: "gray"
+                    border.color: bs_tabbutton_disabled
                     border.width: 1
                 }
             }
 
             TabButton {
                 id: browser_fingerprints_btn
-                text: qsTr("Browser Fingerprints")
+                text: qsTr("Browser")
                 height: parent.height
+                width: tabs_width
+                enabled: false /// NOTE: Inactive at that time
 
                 contentItem: Text {
                     text: browser_fingerprints_btn.text
@@ -454,7 +458,7 @@ ApplicationWindow {
                 }
 
                 background: Rectangle {
-                    border.color: "gray"
+                    border.color: bs_tabbutton_disabled
                     border.width: 1
                 }
             }
@@ -463,6 +467,9 @@ ApplicationWindow {
                 id: hardware_tab
                 text: qsTr("Hardware")
                 height: parent.height
+                width: tabs_width
+
+                enabled: false /// NOTE: Inactive at that time
 
                 contentItem: Text {
                     text: hardware_tab.text
@@ -473,7 +480,7 @@ ApplicationWindow {
                 }
 
                 background: Rectangle {
-                    border.color: "gray"
+                    border.color: bs_tabbutton_disabled
                     border.width: 1
                 }
             }
@@ -495,21 +502,19 @@ ApplicationWindow {
 
         id: table_box
 
-        x: parent.width / 2
+        x: parent.width / 2 - 100
         y: ident_from_menu
 
-        width: parent.width / 2
+        width: parent.width / 2 + 85
         height: parent.height - tabbar_heigth - 40
-
 
         background: Rectangle {
             width:          parent.width
             height:         parent.height
-            border.color:   groupbox_border_color
-            border.width:   groupbox_border_width
-            color:          bg_grupbox_color
+            border.color:   bs_tabbutton_disabled
+            border.width:   1
+            color:          bs_tabbutton_disabled
         }
-
 
         OldControl.TableView {
             id: table_view_id
@@ -538,7 +543,7 @@ ApplicationWindow {
             OldControl.TableViewColumn {
                 role: "after"
                 title: qsTr("After")
-                width: table_column_width
+                width: table_column_width + 8
                 movable: false
                 resizable: false
             }
@@ -601,7 +606,7 @@ ApplicationWindow {
             from: 0
             to: 100
             value: 75 /// for test
-            x: status_row.width + width
+            x: 0
         }
     }
 
@@ -634,7 +639,7 @@ ApplicationWindow {
         text: qsTr("Apply")
         implicitHeight: button_height
         implicitWidth: button_width
-        x: 170
+        x: 130
         y: main_window.height - 120
         enabled: MainWindow.buttons_active
         background: Rectangle {
@@ -664,7 +669,7 @@ ApplicationWindow {
         text: qsTr("Randomize")
         implicitHeight: button_height
         implicitWidth: button_width
-        x: 270
+        x: apply_btn.x + apply_btn.width + 10
         y: main_window.height - 120
         enabled: MainWindow.buttons_active
         background: Rectangle {

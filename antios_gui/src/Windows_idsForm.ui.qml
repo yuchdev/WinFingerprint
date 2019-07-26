@@ -90,8 +90,8 @@ Item {
 
             Label {
                 id: crypto_machine_guid_lbl
-                x: 15
-                y: 127
+                x: 16
+                y: 179
                 width: 107
                 height: 20
                 text: qsTr("Product ID")
@@ -113,7 +113,7 @@ Item {
             Label {
                 id: ckcl_guid_lbl
                 x: 15
-                y: 179
+                y: 127
                 width: 107
                 height: 20
                 text: qsTr("Install date")
@@ -218,7 +218,7 @@ Item {
             RowLayout {
                 id: product_id_input_rct
                 x: 8
-                y: 127
+                y: 179
                 width: 266
                 height: 20
 
@@ -231,7 +231,7 @@ Item {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     maximumLength: 5
                     enabled: WindowsIDS.product_id_active
-
+                    readOnly: true
                     style: TextFieldStyle {
                         textColor: "black"
                         background: Rectangle {
@@ -257,7 +257,7 @@ Item {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     maximumLength: 3
                     enabled: WindowsIDS.product_id_active
-
+                    readOnly: true
                     style: TextFieldStyle {
                         textColor: "black"
                         background: Rectangle {
@@ -283,7 +283,7 @@ Item {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     maximumLength: 7
                     enabled: WindowsIDS.product_id_active
-
+                    readOnly: true
                     style: TextFieldStyle {
                         textColor: "black"
                         background: Rectangle {
@@ -309,7 +309,7 @@ Item {
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     maximumLength: 5
                     enabled: WindowsIDS.product_id_active
-
+                    readOnly: true
                     style: TextFieldStyle {
                         textColor: "black"
                         background: Rectangle {
@@ -331,7 +331,7 @@ Item {
             TextField {
                 id: install_date_text
                 x: 8
-                y: 179
+                y: 127
                 width: 266
                 height: 20
                 maximumLength: 10
@@ -352,6 +352,11 @@ Item {
                 validator: RegExpValidator {
                     regExp: /(\d{1,2})([.,]\d{1,2})([.,]\d{4})?$/
                 }
+
+//                Calendar {
+//                    id: install_date_calendar;
+//                    visible: false;
+//                }
             }
 
             RowLayout {
