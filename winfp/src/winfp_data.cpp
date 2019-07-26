@@ -864,8 +864,8 @@ void WindowsFingerprint::generate()
     _build_info = this->choise(_builds_information);
 
     // Edition based on random build
-    std::vector<WindowsFingerprint::WindowsEditionSKU>& available_editions = editions_by_product(_build_info.product_name_id);
-    _edition = this->choise(available_editions);
+    std::map<WindowsEditionSKU, EditionInfo>& available_editions = editions_by_product(_build_info.product_name_id);
+    _edition = this->choise(available_editions).first;
     
     // Install date based on Windows version release date
     _install_date = this->random_from_range(_build_info.release_date, std::time(nullptr));
@@ -899,13 +899,17 @@ std::vector<WindowsFingerprint::WindowsBuildInfo> WindowsFingerprint::build_by_s
     return std::move(ret);
 }
 
-std::vector<WindowsFingerprint::WindowsEditionSKU> WindowsFingerprint::editions_by_product(
-    WindowsFingerprint::ProductName product_name) const
+std::map<WindowsFingerprint::WindowsEditionSKU, WindowsFingerprint::EditionInfo> antios::WindowsFingerprint::editions_by_product(WindowsFingerprint::ProductName product_name) const
 {
+    std::map<WindowsFingerprint::WindowsEditionSKU, WindowsFingerprint::EditionInfo> ret;
     auto editions_iter = _version_editions.find(product_name);
     assert(editions_iter != _version_editions.end());
     std::vector<WindowsFingerprint::WindowsEditionSKU> available_editions = editions_iter->second;
-    return std::move(available_editions);
+    // filter all available edition
+    for (const auto& edition : available_editions) {
+        ret[edition] = _editions_info[edition];
+    }
+    return std::move(ret);
 }
 
 std::vector<WindowsFingerprint::SubproductName> WindowsFingerprint::subproducts_by_product(

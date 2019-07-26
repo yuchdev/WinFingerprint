@@ -222,8 +222,7 @@ public:
 
     /// @brief Create a "query" to all possible editions based on product version
     /// For example, all editions of Windows 7
-    std::vector<WindowsFingerprint::WindowsEditionSKU> editions_by_product(
-        WindowsFingerprint::ProductName product_name) const;
+    std::map<WindowsEditionSKU, EditionInfo> editions_by_product( WindowsFingerprint::ProductName product_name) const;
 
     /// @brief Create a "query" to all possible subproduct based on product version
     /// For example, "Windows 7" and "Windows 7 SP1" by Windows 7
