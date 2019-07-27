@@ -35,6 +35,7 @@ ApplicationWindow {
     property color  bg_tabbutton_active_color:      "#404457"
     property color  bg_tabbutton_not_active_color:  "#8E929D"
     property color  bs_tabbutton_disabled:          "#555F71"
+    property int    symmetrical_buttons_marging     : 100
 
     color: bg_grupbox_color
 
@@ -619,7 +620,7 @@ ApplicationWindow {
         width: (parent.width / 2) - 24
         height: 40
 
-        x: (main_window.width / 2 ) + 13
+        x: (main_window.width / 2 ) - 100
         y: main_window.height  - height - 41
 
         Label {
@@ -634,63 +635,84 @@ ApplicationWindow {
 
     }
 
-    Button {
-        id: apply_btn
-        text: qsTr("Apply")
-        implicitHeight: button_height
-        implicitWidth: button_width
-        x: 130
+    RowLayout {
+        id: buttons_row
+        width: button_width  * 2 + symmetrical_buttons_marging + 70;
+        height: button_height
+
         y: main_window.height - 120
-        enabled: MainWindow.buttons_active
-        background: Rectangle {
-            radius: 2
-            implicitHeight: button_height
+        x: symmetrical_buttons_marging - 20
+
+        Button {
+            id: randomize_btn
+            text: qsTr("Randomize")
+
             implicitWidth: button_width
-            anchors.fill: parent
-            border.color: groupbox_border_color
-            border.width: 1
-            color: apply_btn.pressed ? "#555F71" : "#BBBFC6"
-            Text {
-                id: apply_text
-                clip: true
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+            implicitHeight: button_height
+
+            enabled: MainWindow.buttons_active
+            background: Rectangle {
+                radius: 2
+                implicitHeight: button_height
+                implicitWidth: button_width
+                anchors.fill: parent
+                border.color: groupbox_border_color
+                border.width: 1
+                color: randomize_btn.pressed ? "#555F71" : "#BBBFC6"
+                Text {
+                    id: randomize_text
+                    clip: true
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+            }
+
+            onClicked: {
+                console.log(randomize_btn.text, " clicked!");
+                MainWindow.onRandomizeCLicked()
             }
         }
 
-        onClicked: {
-            console.log(apply_btn.text, " clicked!");
-            MainWindow.onApplyCLicked()
-        }
-    }
+        Button {
+            id: apply_btn
+            text: qsTr("Apply")
 
-    Button {
-        id: randomize_btn
-        text: qsTr("Randomize")
-        implicitHeight: button_height
-        implicitWidth: button_width
-        x: apply_btn.x + apply_btn.width + 10
-        y: main_window.height - 120
-        enabled: MainWindow.buttons_active
-        background: Rectangle {
-            radius: 2
-            implicitHeight: button_height
             implicitWidth: button_width
-            anchors.fill: parent
-            border.color: groupbox_border_color
-            border.width: 1
-            color: randomize_btn.pressed ? "#555F71" : "#BBBFC6"
-            Text {
-                id: randomize_text
-                clip: true
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
+            implicitHeight: button_height
+
+            x: randomize_btn.width + symmetrical_buttons_marging + 10
+
+            enabled: MainWindow.buttons_active
+            background: Rectangle {
+                radius: 2
+                implicitHeight: button_height
+                implicitWidth: button_width
+                anchors.fill: parent
+                border.color: groupbox_border_color
+                border.width: 1
+                color: apply_btn.pressed ? "#555F71" : "#BBBFC6"
+                Text {
+                    id: apply_text
+                    clip: true
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                }
+            }
+
+            onClicked: {
+                console.log(apply_btn.text, " clicked!");
+                MainWindow.onApplyCLicked()
             }
         }
-
-        onClicked: {
-            console.log(randomize_btn.text, " clicked!");
-            MainWindow.onRandomizeCLicked()
-        }
     }
+
+    Rectangle {
+        id: splitter_rct
+        color: "#BBBFC6"
+        width: 1
+        height: main_window.height - 55
+        y : ident_from_menu + 12
+        x: main_window.width/2 - 110
+    }
+
 }

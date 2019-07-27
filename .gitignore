@@ -81,3 +81,4 @@ qrc_*.cpp
 # Python byte code
 *.pyc
 
+build-antios-Default-Debug

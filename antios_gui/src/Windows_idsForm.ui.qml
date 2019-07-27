@@ -33,7 +33,7 @@ Item {
     Rectangle {
         id: winids_rectangle
         x: 8
-        y: 43
+        y: 25
         width: parent.width
         height: parent.height
         color: bg_grupbox_color
@@ -135,7 +135,7 @@ Item {
             GroupBox {
                 id: current_version_groubbox
                 x: 8
-                y: 8
+                y: 0
                 width: 398
                 height: 241
                 title: qsTr("Current Version")
