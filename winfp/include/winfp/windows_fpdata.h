@@ -155,6 +155,18 @@ public:
         EditionsCount
     };
 
+    struct ProductInfo
+    {
+        std::string product_name;
+        ProductName product_name_id;
+    };
+
+    struct SubproductInfo
+    {
+        std::string subproduct_name;
+        SubproductName subproduct_name_id;
+    };
+
     /// @brief Information about edition
     /// ID for internal representation, name for registry (usually without spaces)
     /// and human-readable name
@@ -229,6 +241,18 @@ public:
     /// @brief All products from Windows 7 to 10 including service packs and updates
     static std::vector<std::string> all_supproducts();
 
+    /// @brief Get ProductName ID for queries
+    static WindowsFingerprintData::ProductInfo get_product(const std::string& product_name);
+
+    /// @brief Get SubproductName ID for queries
+    static WindowsFingerprintData::SubproductInfo get_subproduct(const std::string& subproduct_name);
+
+    /// @brief Get ProductName ID for queries
+    static WindowsFingerprintData::ProductInfo get_product(WindowsFingerprintData::ProductName product_name);
+
+    /// @brief Get SubproductName ID for queries
+    static WindowsFingerprintData::SubproductInfo get_subproduct(WindowsFingerprintData::SubproductName subproduct_name);
+
     /// @brief Windows edition, like "Home Premium" or "Professional"
     /// Specific editions should comply with the system version, for example
     /// "Windows 7 Professional N", "Windows 10 Education"
@@ -246,9 +270,9 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Static Data
 
-    static std::map<std::string, ProductName> _product_string;
+    static std::vector<ProductInfo> _product_string;
 
-    static std::map<std::string, SubproductName> _subproduct_string;
+    static std::vector<SubproductInfo> _subproduct_string;
 
     static std::map<ProductName, std::vector<SubproductName>> _products_to_subproducts;
 

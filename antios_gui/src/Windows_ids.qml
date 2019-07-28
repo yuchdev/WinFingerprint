@@ -53,6 +53,8 @@ Windows_idsForm {
 
     combobox_system_name.onCurrentIndexChanged: {
         console.log("Index Changed To: ", combobox_system_name.currentIndex, "Text: ", combobox_system_name.textAt(combobox_system_name.currentIndex));
+		WindowsIDS.loadSubproducts(combobox_system_name.textAt(combobox_system_name.currentIndex))
+		WindowsIDS.loadEditions(combobox_system_name.textAt(combobox_system_name.currentIndex))
     }
 
     combobox_update.onCurrentIndexChanged: {

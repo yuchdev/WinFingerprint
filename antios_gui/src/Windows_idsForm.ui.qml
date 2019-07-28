@@ -159,7 +159,7 @@ Item {
                 editable: false
                 antialiasing: true
                 textRole: "display"
-                model: SystemNameModel
+                model: ProductNameModel
                 enabled: WindowsIDS.system_name_acive
             }
 
@@ -172,7 +172,7 @@ Item {
                 editable: false
                 antialiasing: true
                 textRole: "display"
-                model: ServiceUpdateModel
+                model: SubproductNameModel
                 enabled: WindowsIDS.service_update_active
             }
 

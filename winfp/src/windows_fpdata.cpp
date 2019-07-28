@@ -7,30 +7,30 @@
 using namespace antios;
 
 // static
-std::map<std::string, WindowsFingerprintData::ProductName> WindowsFingerprintData::_product_string = {
-    {std::make_pair("Windows 7", ProductName::Windows7)},
-    {std::make_pair("Windows 8", ProductName::Windows8)},
-    {std::make_pair("Windows 8.1", ProductName::Windows81)},
-    {std::make_pair("Windows 10", ProductName::Windows10)}
+std::vector<WindowsFingerprintData::ProductInfo> WindowsFingerprintData::_product_string = {
+    ProductInfo{"Windows 7", ProductName::Windows7},
+    ProductInfo{"Windows 8", ProductName::Windows8},
+    ProductInfo{"Windows 8.1", ProductName::Windows81},
+    ProductInfo{"Windows 10", ProductName::Windows10}
 };
 
 // static
-std::map<std::string, WindowsFingerprintData::SubproductName> antios::WindowsFingerprintData::_subproduct_string = {
-    {std::make_pair("Windows 7", SubproductName::Windows7noUpdate)},
-    {std::make_pair("Windows 7 SP1", SubproductName::Windows7SP1)},
-    {std::make_pair("Windows 8", SubproductName::Windows8noUpdate)},
-    {std::make_pair("Windows 8.1", SubproductName::Windows81noUpdate)},
-    {std::make_pair("Windows 8.1 IR3", SubproductName::Windows81IR3Update)},
-    {std::make_pair("Windows 8.1 IR4", SubproductName::Windows81IR4Update)},
-    {std::make_pair("Windows 8.1 IR5", SubproductName::Windows81IR5Update)},
-    {std::make_pair("Windows 10 1507", SubproductName::Windows10v1507)},
-    {std::make_pair("Windows 10 1511", SubproductName::Windows10v1511)},
-    {std::make_pair("Windows 10 1607", SubproductName::Windows10v1607)},
-    {std::make_pair("Windows 10 1703", SubproductName::Windows10v1703)},
-    {std::make_pair("Windows 10 1709", SubproductName::Windows10v1709)},
-    {std::make_pair("Windows 10 1803", SubproductName::Windows10v1803)},
-    {std::make_pair("Windows 10 1809", SubproductName::Windows10v1809)},
-    {std::make_pair("Windows 10 1903", SubproductName::Windows10v1903)}
+std::vector<WindowsFingerprintData::SubproductInfo> antios::WindowsFingerprintData::_subproduct_string = {
+    SubproductInfo{"Windows 7", SubproductName::Windows7noUpdate},
+    SubproductInfo{"Windows 7 SP1", SubproductName::Windows7SP1},
+    SubproductInfo{"Windows 8", SubproductName::Windows8noUpdate},
+    SubproductInfo{"Windows 8.1", SubproductName::Windows81noUpdate},
+    SubproductInfo{"Windows 8.1 IR3", SubproductName::Windows81IR3Update},
+    SubproductInfo{"Windows 8.1 IR4", SubproductName::Windows81IR4Update},
+    SubproductInfo{"Windows 8.1 IR5", SubproductName::Windows81IR5Update},
+    SubproductInfo{"Windows 10 1507", SubproductName::Windows10v1507},
+    SubproductInfo{"Windows 10 1511", SubproductName::Windows10v1511},
+    SubproductInfo{"Windows 10 1607", SubproductName::Windows10v1607},
+    SubproductInfo{"Windows 10 1703", SubproductName::Windows10v1703},
+    SubproductInfo{"Windows 10 1709", SubproductName::Windows10v1709},
+    SubproductInfo{"Windows 10 1803", SubproductName::Windows10v1803},
+    SubproductInfo{"Windows 10 1809", SubproductName::Windows10v1809},
+    SubproductInfo{"Windows 10 1903", SubproductName::Windows10v1903}
 };
 
 // static
@@ -859,7 +859,8 @@ std::vector<WindowsFingerprintData::WindowsBuildInfo> WindowsFingerprintData::bu
     return std::move(ret);
 }
 
-std::map<WindowsFingerprintData::WindowsEditionSKU, WindowsFingerprintData::EditionInfo> WindowsFingerprintData::editions_by_product(WindowsFingerprintData::ProductName product_name)
+std::map<WindowsFingerprintData::WindowsEditionSKU, WindowsFingerprintData::EditionInfo> WindowsFingerprintData::editions_by_product(
+    WindowsFingerprintData::ProductName product_name)
 {
     std::map<WindowsFingerprintData::WindowsEditionSKU, WindowsFingerprintData::EditionInfo> ret;
     auto editions_iter = _version_editions.find(product_name);
@@ -886,7 +887,7 @@ std::vector<std::string> WindowsFingerprintData::all_products()
     std::vector<std::string> all_windows;
     all_windows.reserve(_product_string.size());
     for (auto const& prod : _product_string)
-        all_windows.push_back(prod.first);
+        all_windows.push_back(prod.product_name);
     return std::move(all_windows);
 }
 
@@ -895,8 +896,48 @@ std::vector<std::string> WindowsFingerprintData::all_supproducts()
     std::vector<std::string> all_windows;
     all_windows.reserve(_subproduct_string.size());
     for (auto const& prod : _subproduct_string)
-        all_windows.push_back(prod.first);
+        all_windows.push_back(prod.subproduct_name);
     return std::move(all_windows);
+}
+
+// static
+WindowsFingerprintData::ProductInfo WindowsFingerprintData::get_product(const std::string& product_name)
+{
+    auto product_iter = std::find_if(std::begin(_product_string), std::end(_product_string), [product_name](const ProductInfo& p) {
+        return product_name == p.product_name;
+    });
+    assert(product_iter != _product_string.end());
+    return (*product_iter);
+}
+
+// static
+WindowsFingerprintData::SubproductInfo WindowsFingerprintData::get_subproduct(const std::string& subproduct_name)
+{
+    auto product_iter = std::find_if(std::begin(_subproduct_string), std::end(_subproduct_string), [subproduct_name](const SubproductInfo& p) {
+        return subproduct_name == p.subproduct_name;
+    });
+    assert(product_iter != _subproduct_string.end());
+    return (*product_iter);
+}
+
+// static
+WindowsFingerprintData::ProductInfo WindowsFingerprintData::get_product(WindowsFingerprintData::ProductName product_name)
+{
+    auto product_iter = std::find_if(std::begin(_product_string), std::end(_product_string), [product_name](const ProductInfo& p) {
+        return product_name == p.product_name_id;
+    });
+    assert(product_iter != _product_string.end());
+    return (*product_iter);
+}
+
+// static
+WindowsFingerprintData::SubproductInfo WindowsFingerprintData::get_subproduct(WindowsFingerprintData::SubproductName subproduct_name)
+{
+    auto product_iter = std::find_if(std::begin(_subproduct_string), std::end(_subproduct_string), [subproduct_name](const SubproductInfo& p) {
+        return subproduct_name == p.subproduct_name_id;
+    });
+    assert(product_iter != _subproduct_string.end());
+    return (*product_iter);
 }
 
 std::string WindowsFingerprintData::get_edition_id(WindowsEditionSKU edition)
