@@ -1,22 +1,6 @@
 ﻿#include <antios_gui/windowsids.h>
 
-WindowsIDS::WindowsIDS(QWindow *parent)
-    : QQuickView                        (parent)
-#if 0
-    , system_name_cbox_model_           (new ComboboxModel(this))
-    , service_update_cbox_model_        (new ComboboxModel(this))
-    , edition_cbox_model_               (new ComboboxModel(this))
-    , product_type_cbox_model_          (new ComboboxModel(this))
-    , build_number_cbox_model_          (new ComboboxModel(this))
-#endif
-    , is_system_name_cbox_active_       (true )
-    , is_service_update_cbox_active_    (false)
-    , is_edition_cbox_active_           (false)
-    , is_product_type_cbox_active_      (true )
-    , is_build_number_cbox_active_      (false)
-    , is_product_id_line_active_        (false)
-    , is_install_date_active_           (false)
-    , is_build_guid_active_             (true )
+WindowsIDS::WindowsIDS(QWindow *parent) : QQuickView(parent)
 {
     // TODO: fill data
 #if 0
@@ -39,54 +23,6 @@ void WindowsIDS::setContextProperty(const QString &name, QObject *value)
     if (!name.isEmpty() && value != nullptr) {
         this->rootContext()->setContextProperty(name, value);
     }
-}
-
-void WindowsIDS::setIsSystemNameBoxActive(const bool value)
-{
-    is_system_name_cbox_active_ = value;
-    emit sigSystemNameActiveChanged(is_system_name_cbox_active_);
-}
-
-void WindowsIDS::setIsServiceUpdateBoxActive(const bool value)
-{
-    is_service_update_cbox_active_ = value;
-    emit sigServiceUpdateActiveChanged(is_service_update_cbox_active_);
-}
-
-void WindowsIDS::setIsEditionBoxActive(const bool value)
-{
-    is_edition_cbox_active_ = value;
-    emit sigEditionActiveChanged(is_edition_cbox_active_);
-}
-
-void WindowsIDS::setIsProductTypeBoxActive(const bool value)
-{
-    is_product_type_cbox_active_ = value;
-    emit sigProductTypeActiveChanged(is_product_type_cbox_active_);
-}
-
-void WindowsIDS::setIsBuildNumberBoxActive(const bool value)
-{
-    is_build_number_cbox_active_ = value;
-    emit sigBuildNumberBoxActiveChanged(is_build_number_cbox_active_);
-}
-
-void WindowsIDS::setIsProductIdLineActive(const bool value)
-{
-    is_product_id_line_active_ = value;
-    emit sigProductIdLineActiveChanged(is_product_id_line_active_);
-}
-
-void WindowsIDS::setIsInstallDateLineActive(const bool value)
-{
-    is_install_date_active_ = value;
-    emit sigInstallDateLineActiveChanged(is_install_date_active_);
-}
-
-void WindowsIDS::setIsBuildGuidLineActive(const bool value)
-{
-    is_build_guid_active_ = value;
-    emit sigBuildGuidLineActiveChanged(is_build_guid_active_);
 }
 
 const QString & WindowsIDS::getPropductId1() const

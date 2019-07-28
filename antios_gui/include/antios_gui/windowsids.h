@@ -29,39 +29,10 @@ public:
 
     Q_PROPERTY(QString install_date READ getInstallDate WRITE setInstallDate)
 
-    Q_PROPERTY(bool system_name_active      READ getIsSystemNameBoxActive    WRITE setIsSystemNameBoxActive     NOTIFY sigSystemNameActiveChanged       )
-    Q_PROPERTY(bool service_update_active   READ getIsServiceUpdateBoxActive WRITE setIsServiceUpdateBoxActive  NOTIFY sigServiceUpdateActiveChanged    )
-    Q_PROPERTY(bool edition_active          READ getIsEditionBoxActive       WRITE setIsEditionBoxActive        NOTIFY sigEditionActiveChanged          )
-    Q_PROPERTY(bool product_type_active     READ getIsProductTypeBoxActive   WRITE setIsProductTypeBoxActive    NOTIFY sigProductTypeActiveChanged      )
-    Q_PROPERTY(bool build_number_active     READ getIsBuildNumberBoxActive   WRITE setIsBuildNumberBoxActive    NOTIFY sigBuildNumberBoxActiveChanged   )
-    Q_PROPERTY(bool product_id_active       READ getIsProductIdLineActive    WRITE setIsProductIdLineActive     NOTIFY sigProductIdLineActiveChanged    )
-    Q_PROPERTY(bool install_date_active     READ getIsInstallDateLineActive  WRITE setIsInstallDateLineActive   NOTIFY sigInstallDateLineActiveChanged  )
-    Q_PROPERTY(bool build_guid_active       READ getIsBuildGuidLineActive    WRITE setIsBuildGuidLineActive     NOTIFY sigBuildGuidLineActiveChanged    )
-
     explicit WindowsIDS(QWindow *parent = nullptr);
     void setContextProperty(const QString& name, QObject* value);
 
     Q_INVOKABLE void setInstallDate (const QString& date);
-
-    bool getIsSystemNameBoxActive() const { return is_system_name_cbox_active_; }
-    bool getIsServiceUpdateBoxActive() const { return is_service_update_cbox_active_; }
-    bool getIsEditionBoxActive() const { return is_edition_cbox_active_; }
-    bool getIsProductTypeBoxActive() const { return is_product_type_cbox_active_; }
-    bool getIsBuildNumberBoxActive() const { return is_build_number_cbox_active_; }
-    bool getIsProductIdLineActive() const { return is_product_id_line_active_; }
-    bool getIsInstallDateLineActive() const { return is_install_date_active_; }
-    bool getIsBuildGuidLineActive() const { return is_build_guid_active_; }
-
-
-    void setIsSystemNameBoxActive (const bool value);
-    void setIsServiceUpdateBoxActive (const bool value);
-    void setIsEditionBoxActive (const bool value);
-    void setIsProductTypeBoxActive (const bool value);
-    void setIsBuildNumberBoxActive (const bool value);
-    void setIsProductIdLineActive (const bool value);
-    void setIsInstallDateLineActive (const bool value);
-    void setIsBuildGuidLineActive (const bool value);
-
 
 private:
     const QString &getPropductId1() const;
@@ -127,13 +98,7 @@ public slots:
     void onBuildNumberIndexChanged  (const int index);
 
 private:
-#if 0
-    QSharedPointer<ComboboxModel> system_name_cbox_model_;
-    QSharedPointer<ComboboxModel> service_update_cbox_model_;
-    QSharedPointer<ComboboxModel> edition_cbox_model_;
-    QSharedPointer<ComboboxModel> product_type_cbox_model_;
-    QSharedPointer<ComboboxModel> build_number_cbox_model_;
-#endif
+
     QString prod_id_1_;
     QString prod_id_2_;
     QString prod_id_3_;
@@ -146,14 +111,4 @@ private:
     QString build_guid_3_;
     QString build_guid_4_;
     QString build_guid_5_;
-
-
-    bool is_system_name_cbox_active_;
-    bool is_service_update_cbox_active_;
-    bool is_edition_cbox_active_;
-    bool is_product_type_cbox_active_;
-    bool is_build_number_cbox_active_;
-    bool is_product_id_line_active_;
-    bool is_install_date_active_;
-    bool is_build_guid_active_;
 };
