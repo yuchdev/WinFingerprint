@@ -1,5 +1,5 @@
 QT += quick qml core quickwidgets
-CONFIG += qt c++17 stl qml_debug #console
+CONFIG += qt c++17 stl qml_debug console
 QT -= network
 QT -= svg
 TARGET += antios_gui
@@ -30,27 +30,23 @@ QMAKE_LFLAGS_DEBUG              += /IGNORE:4006
 QMAKE_CXXFLAGS_WARN_OFF += -w34100 -wd4100 -w4100
 
 SOURCES += \
-        src/application.cpp \
+        src/webrtc.cpp \
         src/application.cpp \
         src/main.cpp \
         src/comboboxmodel.cpp \
-        src/comboboxmodel.cpp \
         src/infotablemodel.cpp \
-        src/infotablemodel.cpp \
-        src/mainwindow.cpp \
         src/mainwindow.cpp \
         src/settings.cpp \
         src/windowsids.cpp \
-        src/windowsids.cpp
 
 RESOURCES += antios.qrc \
 #    qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
+QML_IMPORT_PATH = "$$PWD/src"
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
-QML_DESIGNER_IMPORT_PATH =
+QML_DESIGNER_IMPORT_PATH = "$$PWD/src"
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -64,9 +60,13 @@ HEADERS += \
     include/antios_gui/types.h \
     include/antios_gui/mainwindow.h \
     include/antios_gui/settings.h \
+    include/antios_gui/webrtc.h \
     include/antios_gui/windowsids.h
 
 DISTFILES += \
+    src/Style.qml \
+    src/WebRTC.qml \
+    src/WebRTCForm.ui.qml \
     src/Windows_ids.qml \
     src/Windows_idsForm.ui.qml \
     src/Settings.qml \

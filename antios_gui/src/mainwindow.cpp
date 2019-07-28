@@ -36,15 +36,16 @@ MainWindow::MainWindow(QWindow *parent)
 
     QObject::connect(ids_tab_.get(), &WindowsIDS::sigItemChanged, table_model_.get(), &InfoTableModel::onItemChanged);
 
+    this->engine()->addImportPath("qrc:/");
     setSource(url_);
 }
 
-void MainWindow::setContextProperty(const QString &name, QObject *value) 
+void MainWindow::setContextProperty(const QString &name, QObject *value)
 {
     this->rootContext()->setContextProperty(name, value);
 }
 
-bool MainWindow::getButtonsIsActive() const 
+bool MainWindow::getButtonsIsActive() const
 {
     return is_buttons_active_;
 }
@@ -55,7 +56,7 @@ bool MainWindow::getButtonsIsActive() const
     emit sigButtonsActiveChanged(is_buttons_active_);
 }
 
-void MainWindow::onApplyCLicked() 
+void MainWindow::onApplyCLicked()
 {
     qDebug() << "onApplyCLicked() invoked!";
 }
@@ -85,32 +86,32 @@ void MainWindow::quitConfiguration()
     QCoreApplication::exit(0);
 }
 
-void MainWindow::configurationRandomizeAll() 
+void MainWindow::configurationRandomizeAll()
 {
     qDebug() << "Configuration Randomize All";
 }
 
-void MainWindow::configurationRandomizeWindowsIDs() 
+void MainWindow::configurationRandomizeWindowsIDs()
 {
     qDebug() << "Configuration Randomize WindowsIDS";
 }
 
-void MainWindow::configurationRandomizeWebRTC() 
+void MainWindow::configurationRandomizeWebRTC()
 {
     qDebug() << "Configuration Randomize WebRTC";
 }
 
-void MainWindow::configurationRandomizeTelemetry() 
+void MainWindow::configurationRandomizeTelemetry()
 {
     qDebug() << "Configuration Randomize Telemetry";
 }
 
-void MainWindow::configurationRandomizeBrowser() 
+void MainWindow::configurationRandomizeBrowser()
 {
     qDebug() << "Configuration Randomize Browser";
 }
 
-void MainWindow::configurationRandomizeHardware() 
+void MainWindow::configurationRandomizeHardware()
 {
     qDebug() << "Configuration Randomize Hardware";
 }
@@ -152,7 +153,7 @@ void MainWindow::helpAbout()
     qDebug() << "About";
 }
 
-bool MainWindow::isTelemetryActive() const 
+bool MainWindow::isTelemetryActive() const
 {
     return (QSysInfo::productVersion() == QString("10"));
 }
@@ -163,7 +164,7 @@ void MainWindow::showSettings()
     settings_->show();
 }
 
-void MainWindow::clearAfter() 
+void MainWindow::clearAfter()
 {
     table_model_->clearAfter();
 }

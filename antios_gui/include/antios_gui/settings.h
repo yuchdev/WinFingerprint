@@ -1,9 +1,10 @@
-#pragma once
+﻿#pragma once
 
 #include <QUrl>
 #include <QDebug>
 #include <QObject>
 #include <QVariant>
+#include <QQmlEngine>
 #include <QQuickView>
 #include <QQmlContext>
 #include <QQmlComponent>

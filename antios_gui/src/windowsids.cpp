@@ -61,6 +61,8 @@ WindowsIDS::WindowsIDS(QWindow *parent)
     QObject::connect(edition_cbox_model_.get(),         &ComboboxModel::sigCurrentIndexChanged, this, &WindowsIDS::onEditionIndexChanged);
     QObject::connect(product_type_cbox_model_.get(),    &ComboboxModel::sigCurrentIndexChanged, this, &WindowsIDS::onProductTypeIndexChanged);
     QObject::connect(build_number_cbox_model_.get(),    &ComboboxModel::sigCurrentIndexChanged, this, &WindowsIDS::onBuildNumberIndexChanged);
+
+    this->engine()->addImportPath("qrc:/");
 }
 
 void WindowsIDS::setContextProperty(const QString &name, QObject *value)
@@ -70,29 +72,29 @@ void WindowsIDS::setContextProperty(const QString &name, QObject *value)
     }
 }
 
-QSharedPointer<ComboboxModel> WindowsIDS::getSystemNameModel        ()  
+QSharedPointer<ComboboxModel> WindowsIDS::getSystemNameModel        ()
 {
-    return system_name_cbox_model_;       
+    return system_name_cbox_model_;
 }
 
-QSharedPointer<ComboboxModel> WindowsIDS::getServiceUpdateModel()  
+QSharedPointer<ComboboxModel> WindowsIDS::getServiceUpdateModel()
 {
-    return service_update_cbox_model_;    
+    return service_update_cbox_model_;
 }
 
-QSharedPointer<ComboboxModel> WindowsIDS::getEditionModel()  
+QSharedPointer<ComboboxModel> WindowsIDS::getEditionModel()
 {
-    return edition_cbox_model_;           
+    return edition_cbox_model_;
 }
 
-QSharedPointer<ComboboxModel> WindowsIDS::getProductTypeNameModel() 
+QSharedPointer<ComboboxModel> WindowsIDS::getProductTypeNameModel()
 {
-    return product_type_cbox_model_;      
+    return product_type_cbox_model_;
 }
 
-QSharedPointer<ComboboxModel> WindowsIDS::getBuildNumberModel()  
-{ 
-    return build_number_cbox_model_;      
+QSharedPointer<ComboboxModel> WindowsIDS::getBuildNumberModel()
+{
+    return build_number_cbox_model_;
 }
 
 void WindowsIDS::setIsSystemNameBoxActive(const bool value)
@@ -145,22 +147,22 @@ void WindowsIDS::setIsBuildGuidLineActive(const bool value)
 
 const QString & WindowsIDS::getPropductId1() const
 {
-    return prod_id_1_; 
+    return prod_id_1_;
 }
 
 const QString & WindowsIDS::getPropductId2() const
 {
-    return prod_id_2_; 
+    return prod_id_2_;
 }
 
 const QString & WindowsIDS::getPropductId3() const
-{ 
-    return prod_id_3_; 
+{
+    return prod_id_3_;
 }
 
 const QString & WindowsIDS::getPropductId4() const
 {
-    return prod_id_4_; 
+    return prod_id_4_;
 }
 
 void WindowsIDS::setProductId1(const QString &id)

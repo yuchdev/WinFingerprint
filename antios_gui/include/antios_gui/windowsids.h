@@ -7,12 +7,13 @@
 #include <QObject>
 #include <QVariant>
 #include <QQuickView>
+#include <QQmlEngine>
 #include <QQmlContext>
 #include <QQmlComponent>
 #include <QStringListModel>
 
 
-class WindowsIDS : public QQuickView 
+class WindowsIDS : public QQuickView
 {
     Q_OBJECT
 

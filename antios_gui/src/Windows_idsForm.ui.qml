@@ -1,8 +1,11 @@
 ﻿import QtQuick 2.4
-import QtQuick.Controls 1.4
+import QtQuick.Controls 1.4 as OldControls
+import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Layouts 1.0
 import QtQuick.Controls.Styles.Desktop 1.0
+
+import "."
 
 Item {
 
@@ -11,6 +14,7 @@ Item {
     id: win_ids_tab
     width: main_window.width / 2
     height: main_window.height
+
     property alias five_guid_text: five_guid_text
     property alias four_guid_text: four_guid_text
     property alias third_guid_text: third_guid_text
@@ -32,212 +36,335 @@ Item {
 
     Rectangle {
         id: winids_rectangle
-        x: 8
+        x: 0
         y: 25
         width: parent.width
         height: parent.height
         color: bg_grupbox_color
 
-        Rectangle {
-            id: lbls_rtc
-            width: 123
-            height: 255
-            color: bg_grupbox_color
+        GroupBox {
+            id: current_version_groubbox
+            x: 0
+            y: 10
+            width: 415
+            height: 268
+            contentWidth: 3
+            title: qsTr("Current Version")
 
-            Label {
-                id: build_number_lbl
-                x: 16
-                y: 24
-                width: 107
-                height: 20
-                text: qsTr("System Name")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-            }
 
-            Label {
-                id: build_lab_lbl
-                x: 15
-                y: 49
-                width: 107
-                height: 20
-                text: qsTr("Service Pack/Update")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-            }
-
-            Label {
-                id: build_lab_ex_lbl
-                x: 15
-                y: 75
-                width: 107
-                height: 20
-                text: qsTr("Edition")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-            }
-
-            Label {
-                id: build_guid_lbl
-                x: 15
-                y: 101
-                width: 107
-                height: 20
-                text: qsTr("Product type")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-            }
-
-            Label {
-                id: crypto_machine_guid_lbl
-                x: 16
-                y: 179
-                width: 107
-                height: 20
-                text: qsTr("Product ID")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-            }
-
-            Label {
-                id: device_guid_lbl
-                x: 15
-                y: 153
-                width: 107
-                height: 20
-                text: qsTr("Build number")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-            }
-
-            Label {
-                id: ckcl_guid_lbl
-                x: 15
-                y: 127
-                width: 107
-                height: 20
-                text: qsTr("Install date")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-            }
-
-            Label {
-                id: harware_guid_lbl
-                x: 15
-                y: 205
-                width: 107
-                height: 20
-                text: qsTr("Build GUID")
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
-            }
-
-            GroupBox {
-                id: current_version_groubbox
-                x: 8
+            Rectangle {
+                id: lbls_rtc
+                x: 0
                 y: 0
-                width: 398
-                height: 241
-                title: qsTr("Current Version")
+                width: 115
+                height: 219
+
+                color: bg_grupbox_color
+
+                OldControls.Label {
+                    id: build_number_lbl
+                    x: 8
+                    y: 10
+                    width: 107
+                    height: 20
+                    text: qsTr("System Name")
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+                }
+
+                OldControls.Label {
+                    id: build_lab_lbl
+                    x: 8
+                    y: 32
+                    width: 107
+                    height: 20
+                    text: qsTr("Service Pack/Update")
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+                }
+
+                OldControls.Label {
+                    id: build_lab_ex_lbl
+                    x: 8
+                    y: 61
+                    width: 107
+                    height: 20
+                    text: qsTr("Edition")
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+                }
+
+                OldControls.Label {
+                    id: build_guid_lbl
+                    x: 7
+                    y: 87
+                    width: 107
+                    height: 20
+                    text: qsTr("Product type")
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+                }
+
+                OldControls.Label {
+                    id: crypto_machine_guid_lbl
+                    x: 8
+                    y: 165
+                    width: 107
+                    height: 20
+                    text: qsTr("Product ID")
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+                }
+
+                OldControls.Label {
+                    id: device_guid_lbl
+                    x: 8
+                    y: 139
+                    width: 107
+                    height: 20
+                    text: qsTr("Build number")
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+                }
+
+                OldControls.Label {
+                    id: ckcl_guid_lbl
+                    x: 7
+                    y: 113
+                    width: 107
+                    height: 20
+                    text: qsTr("Install date")
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+                }
+
+                OldControls.Label {
+                    id: harware_guid_lbl
+                    x: 8
+                    y: 191
+                    width: 107
+                    height: 20
+                    text: qsTr("Build GUID")
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+                }
+
+    //            GroupBox {
+    //                id: current_version_groubbox
+    //                x: 7
+    //                y: 0
+    //                width: 395
+    //                height: 241
+    //                title: qsTr("Current Version")
+
+    ////                background: Rectangle {
+    ////                    border.color: "black"
+    ////                    border.width: 1
+    ////                }
+    //            }
             }
-        }
 
-        Rectangle {
-            id: combos_rct
-            x: 121
-            y: 0
-            width: 290
-            height: 255
-            color: bg_grupbox_color
+            Rectangle {
+                id: combos_rct
+                x: 121
+                y: 0
+                width: 281
+                height: 219
+                color: bg_grupbox_color
 
-            ComboBox {
-                id: combobox_system_name
-                x: 8
-                y: 25
-                width: 266
-                height: 20
-                editable: false
-                antialiasing: true
-                textRole: "display"
-                model: SystemNameModel
-                enabled: WindowsIDS.system_name_acive
-            }
+                OldControls.ComboBox {
+                    id: combobox_system_name
+                    x: 8
+                    y: 10
+                    width: 266
+                    height: 20
+                    editable: false
+                    antialiasing: true
+                    textRole: "display"
+                    model: SystemNameModel
+                    enabled: WindowsIDS.system_name_acive
+                }
 
-            ComboBox {
-                id: combobox_update
-                x: 8
-                y: 49
-                width: 266
-                height: 20
-                editable: false
-                antialiasing: true
-                textRole: "display"
-                model: ServiceUpdateModel
-                enabled: WindowsIDS.service_update_active
-            }
+                OldControls.ComboBox {
+                    id: combobox_update
+                    x: 8
+                    y: 36
+                    width: 266
+                    height: 20
+                    editable: false
+                    antialiasing: true
+                    textRole: "display"
+                    model: ServiceUpdateModel
+                    enabled: WindowsIDS.service_update_active
+                }
 
-            ComboBox {
-                id: combobox_edition
-                x: 8
-                y: 75
-                width: 266
-                height: 20
-                editable: false
-                antialiasing: true
-                textRole: "display"
-                model: EditionModel
-                enabled: WindowsIDS.edition_active
-            }
+                OldControls.ComboBox {
+                    id: combobox_edition
+                    x: 8
+                    y: 62
+                    width: 266
+                    height: 20
+                    editable: false
+                    antialiasing: true
+                    textRole: "display"
+                    model: EditionModel
+                    enabled: WindowsIDS.edition_active
+                }
 
-            ComboBox {
-                id: combobox_product_type
-                x: 8
-                y: 101
-                width: 266
-                height: 20
-                editable: false
-                antialiasing: true
-                textRole: "display"
-                model: ProductTypeModel
-                enabled: WindowsIDS.product_type_active
-            }
+                OldControls.ComboBox {
+                    id: combobox_product_type
+                    x: 8
+                    y: 88
+                    width: 266
+                    height: 20
+                    editable: false
+                    antialiasing: true
+                    textRole: "display"
+                    model: ProductTypeModel
+                    enabled: WindowsIDS.product_type_active
+                }
 
-            ComboBox {
-                id: combobox_prodict_number
-                x: 8
-                y: 153
-                width: 266
-                height: 20
-                editable: false
-                antialiasing: true
-                textRole: "display"
-                model: BuildNumberModel
-                enabled: WindowsIDS.build_number_active
-            }
+                OldControls.ComboBox {
+                    id: combobox_prodict_number
+                    x: 8
+                    y: 136
+                    width: 266
+                    height: 20
+                    editable: false
+                    antialiasing: true
+                    textRole: "display"
+                    model: BuildNumberModel
+                    enabled: WindowsIDS.build_number_active
+                }
 
-            RowLayout {
-                id: product_id_input_rct
-                x: 8
-                y: 179
-                width: 266
-                height: 20
+                RowLayout {
+                    id: product_id_input_rct
+                    x: 8
+                    y: 162
+                    width: 266
+                    height: 20
 
-                TextField {
-                    id: first_id_text
-                    x: 0
-                    width: 40
-                    text: WindowsIDS.product_id_1
-                    height: product_id_input_rct.height
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    maximumLength: 5
-                    enabled: WindowsIDS.product_id_active
-                    readOnly: true
+                    OldControls.TextField {
+                        id: first_id_text
+                        x: 0
+                        width: 40
+                        text: WindowsIDS.product_id_1
+                        height: product_id_input_rct.height
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        maximumLength: 5
+                        enabled: WindowsIDS.product_id_active
+                        readOnly: true
+                        style: TextFieldStyle {
+                            textColor: "black"
+                            background: Rectangle {
+                                radius: 2
+                                implicitWidth: first_id_text.width
+                                implicitHeight: first_id_text.height
+                                border.color: "#333"
+                                border.width: 1
+                                color: "#EAEAEA"
+                            }
+                        }
+
+                        validator: RegExpValidator {
+                            regExp: /(\d{5})?$/
+                        }
+                    }
+
+                    OldControls.TextField {
+                        id: second_id_text
+                        width: 24
+                        text: WindowsIDS.product_id_2
+                        height: product_id_input_rct.height
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        maximumLength: 3
+                        enabled: WindowsIDS.product_id_active
+                        readOnly: true
+                        style: TextFieldStyle {
+                            textColor: "black"
+                            background: Rectangle {
+                                radius: 2
+                                implicitWidth: second_id_text.width
+                                implicitHeight: second_id_text.height
+                                border.color: "#333"
+                                border.width: 1
+                                color: "#EAEAEA"
+                            }
+                        }
+
+                        validator: RegExpValidator {
+                            regExp: /(\d{3})?$/
+                        }
+                    }
+
+                    OldControls.TextField {
+                        id: third_id_text
+                        width: 92
+                        text: WindowsIDS.product_id_3
+                        height: product_id_input_rct.height
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        maximumLength: 7
+                        enabled: WindowsIDS.product_id_active
+                        readOnly: true
+                        style: TextFieldStyle {
+                            textColor: "black"
+                            background: Rectangle {
+                                radius: 2
+                                implicitWidth: third_id_text.width
+                                implicitHeight: third_id_text.height
+                                border.color: "#333"
+                                border.width: 1
+                                color: "#EAEAEA"
+                            }
+                        }
+
+                        validator: RegExpValidator {
+                            regExp: /(\d{7})?$/
+                        }
+                    }
+
+                    OldControls.TextField {
+                        id: four_id_text
+                        width: 92
+                        text: WindowsIDS.product_id_4
+                        height: product_id_input_rct.height
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        maximumLength: 5
+                        enabled: WindowsIDS.product_id_active
+                        readOnly: true
+                        style: TextFieldStyle {
+                            textColor: "black"
+                            background: Rectangle {
+                                radius: 2
+                                implicitWidth: four_id_text.width
+                                implicitHeight: four_id_text.height
+                                border.color: "#333"
+                                border.width: 1
+                                color: "#EAEAEA"
+                            }
+                        }
+
+                        validator: RegExpValidator {
+                            regExp: /(\d{5})?$/
+                        }
+                    }
+                }
+
+                OldControls.TextField {
+                    id: install_date_text
+                    x: 8
+                    y: 113
+                    width: 266
+                    height: 20
+                    maximumLength: 10
+                    enabled: WindowsIDS.install_date_active
+
                     style: TextFieldStyle {
                         textColor: "black"
                         background: Rectangle {
                             radius: 2
-                            implicitWidth: first_id_text.width
-                            implicitHeight: first_id_text.height
+                            implicitWidth: install_date_text.width
+                            implicitHeight: install_date_text.height
                             border.color: "#333"
                             border.width: 1
                             color: "#EAEAEA"
@@ -245,233 +372,129 @@ Item {
                     }
 
                     validator: RegExpValidator {
-                        regExp: /(\d{5})?$/
+                        regExp: /(\d{1,2})([.,]\d{1,2})([.,]\d{4})?$/
                     }
+
+    //                Calendar {
+    //                    id: install_date_calendar;
+    //                    visible: false;
+    //                }
                 }
 
-                TextField {
-                    id: second_id_text
-                    width: 24
-                    text: WindowsIDS.product_id_2
-                    height: product_id_input_rct.height
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    maximumLength: 3
-                    enabled: WindowsIDS.product_id_active
-                    readOnly: true
-                    style: TextFieldStyle {
-                        textColor: "black"
-                        background: Rectangle {
-                            radius: 2
-                            implicitWidth: second_id_text.width
-                            implicitHeight: second_id_text.height
-                            border.color: "#333"
-                            border.width: 1
-                            color: "#EAEAEA"
+                RowLayout {
+                    id: build_guid_input_rct
+                    x: 8
+                    y: 189
+                    width: 266
+                    height: 20
+
+                    OldControls.TextField {
+                        id: first_guid_text
+                        width: 56
+                        text: WindowsIDS.guid_1
+                        height: build_guid_input_rct.height
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        maximumLength: 8
+                        enabled: true
+
+                        style: TextFieldStyle {
+                            textColor: "black"
+                            background: Rectangle {
+                                radius: 2
+                                implicitWidth: first_guid_text.width
+                                implicitHeight: first_guid_text.height
+                                border.color: "#333"
+                                border.width: 1
+                                color: "#EAEAEA"
+                            }
                         }
                     }
 
-                    validator: RegExpValidator {
-                        regExp: /(\d{3})?$/
-                    }
-                }
+                    OldControls.TextField {
+                        id: second_guid_text
+                        width: 32
+                        text: WindowsIDS.guid_2
+                        height: build_guid_input_rct.height
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        maximumLength: 4
+                        enabled: true
 
-                TextField {
-                    id: third_id_text
-                    width: 92
-                    text: WindowsIDS.product_id_3
-                    height: product_id_input_rct.height
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    maximumLength: 7
-                    enabled: WindowsIDS.product_id_active
-                    readOnly: true
-                    style: TextFieldStyle {
-                        textColor: "black"
-                        background: Rectangle {
-                            radius: 2
-                            implicitWidth: third_id_text.width
-                            implicitHeight: third_id_text.height
-                            border.color: "#333"
-                            border.width: 1
-                            color: "#EAEAEA"
+                        style: TextFieldStyle {
+                            textColor: "black"
+                            background: Rectangle {
+                                radius: 2
+                                implicitWidth: second_guid_text.width
+                                implicitHeight: second_guid_text.height
+                                border.color: "#333"
+                                border.width: 1
+                                color: "#EAEAEA"
+                            }
                         }
                     }
 
-                    validator: RegExpValidator {
-                        regExp: /(\d{7})?$/
-                    }
-                }
+                    OldControls.TextField {
+                        id: third_guid_text
+                        width: 32
+                        text: WindowsIDS.guid_3
+                        height: build_guid_input_rct.height
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        maximumLength: 4
+                        enabled: true
 
-                TextField {
-                    id: four_id_text
-                    width: 92
-                    text: WindowsIDS.product_id_4
-                    height: product_id_input_rct.height
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    maximumLength: 5
-                    enabled: WindowsIDS.product_id_active
-                    readOnly: true
-                    style: TextFieldStyle {
-                        textColor: "black"
-                        background: Rectangle {
-                            radius: 2
-                            implicitWidth: four_id_text.width
-                            implicitHeight: four_id_text.height
-                            border.color: "#333"
-                            border.width: 1
-                            color: "#EAEAEA"
+                        style: TextFieldStyle {
+                            textColor: "black"
+                            background: Rectangle {
+                                radius: 2
+                                implicitWidth: third_guid_text.width
+                                implicitHeight: third_guid_text.height
+                                border.color: "#333"
+                                border.width: 1
+                                color: "#EAEAEA"
+                            }
                         }
                     }
 
-                    validator: RegExpValidator {
-                        regExp: /(\d{5})?$/
-                    }
-                }
-            }
+                    OldControls.TextField {
+                        id: four_guid_text
+                        width: 32
+                        text: WindowsIDS.guid_4
+                        height: build_guid_input_rct.height
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        maximumLength: 4
+                        enabled: true
 
-            TextField {
-                id: install_date_text
-                x: 8
-                y: 127
-                width: 266
-                height: 20
-                maximumLength: 10
-                enabled: WindowsIDS.install_date_active
-
-                style: TextFieldStyle {
-                    textColor: "black"
-                    background: Rectangle {
-                        radius: 2
-                        implicitWidth: install_date_text.width
-                        implicitHeight: install_date_text.height
-                        border.color: "#333"
-                        border.width: 1
-                        color: "#EAEAEA"
-                    }
-                }
-
-                validator: RegExpValidator {
-                    regExp: /(\d{1,2})([.,]\d{1,2})([.,]\d{4})?$/
-                }
-
-//                Calendar {
-//                    id: install_date_calendar;
-//                    visible: false;
-//                }
-            }
-
-            RowLayout {
-                id: build_guid_input_rct
-                x: 8
-                y: 205
-                width: 266
-                height: 20
-
-                TextField {
-                    id: first_guid_text
-                    width: 56
-                    text: WindowsIDS.guid_1
-                    height: build_guid_input_rct.height
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    maximumLength: 8
-                    enabled: true
-
-                    style: TextFieldStyle {
-                        textColor: "black"
-                        background: Rectangle {
-                            radius: 2
-                            implicitWidth: first_guid_text.width
-                            implicitHeight: first_guid_text.height
-                            border.color: "#333"
-                            border.width: 1
-                            color: "#EAEAEA"
+                        style: TextFieldStyle {
+                            textColor: "black"
+                            background: Rectangle {
+                                radius: 2
+                                implicitWidth: four_guid_text.width
+                                implicitHeight: four_guid_text.height
+                                border.color: "#333"
+                                border.width: 1
+                                color: "#EAEAEA"
+                            }
                         }
                     }
-                }
 
-                TextField {
-                    id: second_guid_text
-                    width: 32
-                    text: WindowsIDS.guid_2
-                    height: build_guid_input_rct.height
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    maximumLength: 4
-                    enabled: true
+                    OldControls.TextField {
+                        id: five_guid_text
+                        width: 95
+                        text: WindowsIDS.guid_5
+                        height: build_guid_input_rct.height
+                        Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                        maximumLength: 12
+                        enabled: true
 
-                    style: TextFieldStyle {
-                        textColor: "black"
-                        background: Rectangle {
-                            radius: 2
-                            implicitWidth: second_guid_text.width
-                            implicitHeight: second_guid_text.height
-                            border.color: "#333"
-                            border.width: 1
-                            color: "#EAEAEA"
-                        }
-                    }
-                }
-
-                TextField {
-                    id: third_guid_text
-                    width: 32
-                    text: WindowsIDS.guid_3
-                    height: build_guid_input_rct.height
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    maximumLength: 4
-                    enabled: true
-
-                    style: TextFieldStyle {
-                        textColor: "black"
-                        background: Rectangle {
-                            radius: 2
-                            implicitWidth: third_guid_text.width
-                            implicitHeight: third_guid_text.height
-                            border.color: "#333"
-                            border.width: 1
-                            color: "#EAEAEA"
-                        }
-                    }
-                }
-
-                TextField {
-                    id: four_guid_text
-                    width: 32
-                    text: WindowsIDS.guid_4
-                    height: build_guid_input_rct.height
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    maximumLength: 4
-                    enabled: true
-
-                    style: TextFieldStyle {
-                        textColor: "black"
-                        background: Rectangle {
-                            radius: 2
-                            implicitWidth: four_guid_text.width
-                            implicitHeight: four_guid_text.height
-                            border.color: "#333"
-                            border.width: 1
-                            color: "#EAEAEA"
-                        }
-                    }
-                }
-
-                TextField {
-                    id: five_guid_text
-                    width: 95
-                    text: WindowsIDS.guid_5
-                    height: build_guid_input_rct.height
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    maximumLength: 12
-                    enabled: true
-
-                    style: TextFieldStyle {
-                        textColor: "black"
-                        background: Rectangle {
-                            radius: 2
-                            implicitWidth: five_guid_text.width
-                            implicitHeight: five_guid_text.height
-                            border.color: "#333"
-                            border.width: 1
-                            color: "#EAEAEA"
+                        style: TextFieldStyle {
+                            textColor: "black"
+                            background: Rectangle {
+                                radius: 2
+                                implicitWidth: five_guid_text.width
+                                implicitHeight: five_guid_text.height
+                                border.color: "#333"
+                                border.width: 1
+                                color: "#EAEAEA"
+                            }
                         }
                     }
                 }

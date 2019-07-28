@@ -6,5 +6,9 @@
         <file>res/next.png</file>
         <file>src/Settings.qml</file>
         <file>src/SettingsForm.ui.qml</file>
+        <file>src/WebRTC.qml</file>
+        <file>src/WebRTCForm.ui.qml</file>
+        <file>src/Style.qml</file>
+        <file>qmldir</file>
     </qresource>
 </RCC>

@@ -491,8 +491,8 @@ ApplicationWindow {
             width: parent.width
             currentIndex: main_tab_bar.currentIndex
 
-            Item { id: windowsIDsTab; Windows_ids { } }
-            Item { id: webRTCTab;                         }
+            Item { id: windowsIDsTab; Windows_ids { }     }
+            Item { id: webRTCTab;     WebRTC { }  }
             Item { id: telemetryTab;                      }
             Item { id: browserFingerprintsTab;            }
             Item { id: hardwareTab;                       }
@@ -714,5 +714,4 @@ ApplicationWindow {
         y : ident_from_menu + 12
         x: main_window.width/2 - 110
     }
-
 }

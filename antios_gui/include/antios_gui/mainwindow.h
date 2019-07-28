@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QDebug>
 #include <QObject>
@@ -9,12 +9,13 @@
 #include <antios_gui/infotablemodel.h>
 
 #include <QSysInfo>
+#include <QQmlEngine>
 #include <QQuickView>
 #include <QQmlContext>
 #include <QQmlComponent>
 #include <QCoreApplication>
 
-class MainWindow : public QQuickView 
+class MainWindow : public QQuickView
 {
     Q_OBJECT
 public:
