@@ -31,16 +31,10 @@ QMAKE_CXXFLAGS_WARN_OFF += -w34100 -wd4100 -w4100
 
 SOURCES += \
         src/application.cpp \
-        src/application.cpp \
         src/main.cpp \
-        src/comboboxmodel.cpp \
-        src/comboboxmodel.cpp \
         src/infotablemodel.cpp \
-        src/infotablemodel.cpp \
-        src/mainwindow.cpp \
         src/mainwindow.cpp \
         src/settings.cpp \
-        src/windowsids.cpp \
         src/windowsids.cpp
 
 RESOURCES += antios.qrc \
@@ -59,7 +53,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     include/antios_gui/application.h \
-    include/antios_gui/comboboxmodel.h \
     include/antios_gui/infotablemodel.h \
     include/antios_gui/types.h \
     include/antios_gui/mainwindow.h \

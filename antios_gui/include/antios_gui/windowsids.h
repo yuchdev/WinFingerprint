@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include <antios_gui/types.h>
-#include <antios_gui/comboboxmodel.h>
 
 #include <QDebug>
 #include <QObject>
@@ -43,12 +42,6 @@ public:
     void setContextProperty(const QString& name, QObject* value);
 
     Q_INVOKABLE void setInstallDate (const QString& date);
-
-    QSharedPointer<ComboboxModel> getSystemNameModel();
-    QSharedPointer<ComboboxModel> getServiceUpdateModel();
-    QSharedPointer<ComboboxModel> getEditionModel();
-    QSharedPointer<ComboboxModel> getProductTypeNameModel();
-    QSharedPointer<ComboboxModel> getBuildNumberModel();
 
     bool getIsSystemNameBoxActive() const { return is_system_name_cbox_active_; }
     bool getIsServiceUpdateBoxActive() const { return is_service_update_cbox_active_; }
@@ -134,12 +127,13 @@ public slots:
     void onBuildNumberIndexChanged  (const int index);
 
 private:
+#if 0
     QSharedPointer<ComboboxModel> system_name_cbox_model_;
     QSharedPointer<ComboboxModel> service_update_cbox_model_;
     QSharedPointer<ComboboxModel> edition_cbox_model_;
     QSharedPointer<ComboboxModel> product_type_cbox_model_;
     QSharedPointer<ComboboxModel> build_number_cbox_model_;
-
+#endif
     QString prod_id_1_;
     QString prod_id_2_;
     QString prod_id_3_;

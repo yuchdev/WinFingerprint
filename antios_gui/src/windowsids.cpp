@@ -2,11 +2,13 @@
 
 WindowsIDS::WindowsIDS(QWindow *parent)
     : QQuickView                        (parent)
+#if 0
     , system_name_cbox_model_           (new ComboboxModel(this))
     , service_update_cbox_model_        (new ComboboxModel(this))
     , edition_cbox_model_               (new ComboboxModel(this))
     , product_type_cbox_model_          (new ComboboxModel(this))
     , build_number_cbox_model_          (new ComboboxModel(this))
+#endif
     , is_system_name_cbox_active_       (true )
     , is_service_update_cbox_active_    (false)
     , is_edition_cbox_active_           (false)
@@ -16,40 +18,8 @@ WindowsIDS::WindowsIDS(QWindow *parent)
     , is_install_date_active_           (false)
     , is_build_guid_active_             (true )
 {
-    QList<Item> sys_list;
-
-    // TODO: remove test data
-    sys_list.push_back(Item("win_ver", "Windows Version", "Windows 7",      ""));
-    sys_list.push_back(Item("win_ver", "Windows Version", "Windows 8.1",    ""));
-    sys_list.push_back(Item("win_ver", "Windows Version", "Windows 10",     ""));
-    system_name_cbox_model_->addItems(sys_list);
-
-    QList<Item> srv_list;
-    srv_list.push_back(Item("win_update", "Service Pack/Update", "Service Pack 1", ""));
-    srv_list.push_back(Item("win_update", "Service Pack/Update", "Service Pack 2", ""));
-    srv_list.push_back(Item("win_update", "Service Pack/Update", "Service Pack 3", ""));
-    service_update_cbox_model_->addItems(srv_list);
-
-    QList<Item> edi_list;
-
-    edi_list.push_back(Item("win_edition", "Windows Edition", "HomeBasic",      ""));
-    edi_list.push_back(Item("win_edition", "Windows Edition", "HomePremium",    ""));
-    edi_list.push_back(Item("win_edition", "Windows Edition", "Professional",   ""));
-    edi_list.push_back(Item("win_edition", "Windows Edition", "Enterprise",     ""));
-    edi_list.push_back(Item("win_edition", "Windows Edition", "Ultimate",       ""));
-    edition_cbox_model_->addItems(edi_list);
-
-    QList<Item> type_list;
-    type_list.push_back(Item("win_prod_type", "WinType", "EOM",      ""));
-    type_list.push_back(Item("win_prod_type", "WinType", "Retail",   ""));
-    product_type_cbox_model_->addItems(type_list);
-
-    QList<Item> build_list;
-    build_list.push_back(Item("win_build", "Windows Build", "6.1.7600", ""));
-    build_list.push_back(Item("win_build", "Windows Build", "7.1.8100", ""));
-    build_list.push_back(Item("win_build", "Windows Build", "9.0.1665", ""));
-    build_number_cbox_model_->addItems(build_list);
-
+    // TODO: fill data
+#if 0
     QObject::connect(system_name_cbox_model_.get(),     &ComboboxModel::sigCurrentItemChanged, this, &WindowsIDS::sigItemChanged);
     QObject::connect(service_update_cbox_model_.get(),  &ComboboxModel::sigCurrentItemChanged, this, &WindowsIDS::sigItemChanged);
     QObject::connect(edition_cbox_model_.get(),         &ComboboxModel::sigCurrentItemChanged, this, &WindowsIDS::sigItemChanged);
@@ -61,6 +31,7 @@ WindowsIDS::WindowsIDS(QWindow *parent)
     QObject::connect(edition_cbox_model_.get(),         &ComboboxModel::sigCurrentIndexChanged, this, &WindowsIDS::onEditionIndexChanged);
     QObject::connect(product_type_cbox_model_.get(),    &ComboboxModel::sigCurrentIndexChanged, this, &WindowsIDS::onProductTypeIndexChanged);
     QObject::connect(build_number_cbox_model_.get(),    &ComboboxModel::sigCurrentIndexChanged, this, &WindowsIDS::onBuildNumberIndexChanged);
+#endif
 }
 
 void WindowsIDS::setContextProperty(const QString &name, QObject *value)
@@ -68,31 +39,6 @@ void WindowsIDS::setContextProperty(const QString &name, QObject *value)
     if (!name.isEmpty() && value != nullptr) {
         this->rootContext()->setContextProperty(name, value);
     }
-}
-
-QSharedPointer<ComboboxModel> WindowsIDS::getSystemNameModel        ()  
-{
-    return system_name_cbox_model_;       
-}
-
-QSharedPointer<ComboboxModel> WindowsIDS::getServiceUpdateModel()  
-{
-    return service_update_cbox_model_;    
-}
-
-QSharedPointer<ComboboxModel> WindowsIDS::getEditionModel()  
-{
-    return edition_cbox_model_;           
-}
-
-QSharedPointer<ComboboxModel> WindowsIDS::getProductTypeNameModel() 
-{
-    return product_type_cbox_model_;      
-}
-
-QSharedPointer<ComboboxModel> WindowsIDS::getBuildNumberModel()  
-{ 
-    return build_number_cbox_model_;      
 }
 
 void WindowsIDS::setIsSystemNameBoxActive(const bool value)
@@ -286,39 +232,44 @@ void WindowsIDS::onBuildGUIDChanged(const QString &)
 
 void WindowsIDS::onSystemNameIndexChanged(const int index)
 {
+#if 0
     if (system_name_cbox_model_->getDefaultIndex() != index) {
         setIsServiceUpdateBoxActive(true);
         setIsEditionBoxActive(true);
         setIsProductTypeBoxActive(true);
     }
+#endif
 }
 
 void WindowsIDS::onUpdateIndexChanged(const int index)
 {
+#if 0
     if (service_update_cbox_model_->getDefaultIndex() != index) {
         setIsInstallDateLineActive(true);
         setIsBuildNumberBoxActive(true);
     }
+#endif
 }
 
 void WindowsIDS::onEditionIndexChanged(const int index)
 {
+#if 0
     if (edition_cbox_model_->getDefaultIndex() != index) {
 
     }
+#endif
 }
 
 void WindowsIDS::onProductTypeIndexChanged(const int index)
 {
+#if 0
     if (product_type_cbox_model_->getDefaultIndex() != index) {
         setIsProductIdLineActive(true);
     }
+#endif
 }
 
 void WindowsIDS::onBuildNumberIndexChanged(const int index)
 {
-    if (build_number_cbox_model_->getDefaultIndex() != index) {
-
-    }
 }
 

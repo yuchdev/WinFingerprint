@@ -5,7 +5,6 @@
 #include <QVariant>
 #include <antios_gui/settings.h>
 #include <antios_gui/windowsids.h>
-#include <antios_gui/comboboxmodel.h>
 #include <antios_gui/infotablemodel.h>
 
 #include <QSysInfo>
