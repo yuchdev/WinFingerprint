@@ -7,49 +7,22 @@
 using namespace antios;
 
 // static
-std::vector<WindowsFingerprintData::ProductInfo> WindowsFingerprintData::_product_string = {
-    ProductInfo{"Windows 7", ProductName::Windows7},
-    ProductInfo{"Windows 8", ProductName::Windows8},
-    ProductInfo{"Windows 8.1", ProductName::Windows81},
-    ProductInfo{"Windows 10", ProductName::Windows10}
-};
-
-// static
-std::vector<WindowsFingerprintData::SubproductInfo> antios::WindowsFingerprintData::_subproduct_string = {
-    SubproductInfo{"Windows 7", SubproductName::Windows7noUpdate},
-    SubproductInfo{"Windows 7 SP1", SubproductName::Windows7SP1},
-    SubproductInfo{"Windows 8", SubproductName::Windows8noUpdate},
-    SubproductInfo{"Windows 8.1", SubproductName::Windows81noUpdate},
-    SubproductInfo{"Windows 8.1 IR3", SubproductName::Windows81IR3Update},
-    SubproductInfo{"Windows 8.1 IR4", SubproductName::Windows81IR4Update},
-    SubproductInfo{"Windows 8.1 IR5", SubproductName::Windows81IR5Update},
-    SubproductInfo{"Windows 10 1507", SubproductName::Windows10v1507},
-    SubproductInfo{"Windows 10 1511", SubproductName::Windows10v1511},
-    SubproductInfo{"Windows 10 1607", SubproductName::Windows10v1607},
-    SubproductInfo{"Windows 10 1703", SubproductName::Windows10v1703},
-    SubproductInfo{"Windows 10 1709", SubproductName::Windows10v1709},
-    SubproductInfo{"Windows 10 1803", SubproductName::Windows10v1803},
-    SubproductInfo{"Windows 10 1809", SubproductName::Windows10v1809},
-    SubproductInfo{"Windows 10 1903", SubproductName::Windows10v1903}
-};
-
-// static
-std::map<WindowsFingerprintData::ProductName, std::vector<WindowsFingerprintData::SubproductName>> 
-antios::WindowsFingerprintData::_products_to_subproducts = {
-    {std::make_pair(ProductName::Windows7, std::vector<WindowsFingerprintData::SubproductName>{
-        SubproductName::Windows7noUpdate,
-        SubproductName::Windows7SP1}
-    )},
-    {std::make_pair(ProductName::Windows8, std::vector<WindowsFingerprintData::SubproductName>{
-        SubproductName::Windows8noUpdate}
-    )},
-    {std::make_pair(ProductName::Windows81, std::vector<WindowsFingerprintData::SubproductName>{
-        SubproductName::Windows81noUpdate, SubproductName::Windows81IR3Update, SubproductName::Windows81IR4Update, SubproductName::Windows81IR5Update}
-    )},
-    {std::make_pair(ProductName::Windows10, std::vector<WindowsFingerprintData::SubproductName>{
-        SubproductName::Windows10v1507, SubproductName::Windows10v1511, SubproductName::Windows10v1607, SubproductName::Windows10v1703,
-        SubproductName::Windows10v1709, SubproductName::Windows10v1803, SubproductName::Windows10v1809, SubproductName::Windows10v1903 }
-    )}
+std::vector<WindowsFingerprintData::ProductInfo> WindowsFingerprintData::_product_info = {
+    ProductInfo{ProductName::Windows7, SubproductName::Windows7noUpdate, "Windows 7", "Windows 7"},
+    ProductInfo{ProductName::Windows7, SubproductName::Windows7SP1, "Windows 7", "Windows 7 SP1"},
+    ProductInfo{ProductName::Windows8, SubproductName::Windows8noUpdate, "Windows 8", "Windows 8"},
+    ProductInfo{ProductName::Windows81, SubproductName::Windows81noUpdate,"Windows 8.1", "Windows 8.1"},
+    ProductInfo{ProductName::Windows81, SubproductName::Windows81IR3Update,"Windows 8.1", "Windows 8.1 IR3"},
+    ProductInfo{ProductName::Windows81, SubproductName::Windows81IR4Update,"Windows 8.1", "Windows 8.1 IR4"},
+    ProductInfo{ProductName::Windows81, SubproductName::Windows81IR5Update,"Windows 8.1", "Windows 8.1 IR5"},
+    ProductInfo{ProductName::Windows10, SubproductName::Windows10v1507, "Windows 10", "Windows 10 1507"},
+    ProductInfo{ProductName::Windows10, SubproductName::Windows10v1511, "Windows 10", "Windows 10 1511"},
+    ProductInfo{ProductName::Windows10, SubproductName::Windows10v1607, "Windows 10", "Windows 10 1607"},
+    ProductInfo{ProductName::Windows10, SubproductName::Windows10v1703, "Windows 10", "Windows 10 1703"},
+    ProductInfo{ProductName::Windows10, SubproductName::Windows10v1709, "Windows 10", "Windows 10 1709"},
+    ProductInfo{ProductName::Windows10, SubproductName::Windows10v1803, "Windows 10", "Windows 10 1803"},
+    ProductInfo{ProductName::Windows10, SubproductName::Windows10v1809, "Windows 10", "Windows 10 1809"},
+    ProductInfo{ProductName::Windows10, SubproductName::Windows10v1903, "Windows 10", "Windows 10 1903"}
 };
 
 // static
@@ -117,7 +90,7 @@ WindowsFingerprintData::_version_editions = {
     },
 
     // Windows 8
-    {std::make_pair(ProductName::Windows7, std::vector<WindowsEditionSKU> {
+    {std::make_pair(ProductName::Windows8, std::vector<WindowsEditionSKU> {
         Core, CoreK, CoreKN, CoreN,
         Enterprise, EnterpriseK, EnterpriseKN, EnterpriseN,
         Pro, ProK, ProKN, ProN
@@ -125,7 +98,7 @@ WindowsFingerprintData::_version_editions = {
     },
 
     // Windows 8.1
-    {std::make_pair(ProductName::Windows7, std::vector<WindowsEditionSKU> {
+    {std::make_pair(ProductName::Windows81, std::vector<WindowsEditionSKU> {
         Core, CoreConnected, CoreN,
         Enterprise,
         Pro, ProEducation, ProK
@@ -133,7 +106,7 @@ WindowsFingerprintData::_version_editions = {
     },
 
     // Windows 10
-    {std::make_pair(ProductName::Windows7, std::vector<WindowsEditionSKU>  {
+    {std::make_pair(ProductName::Windows10, std::vector<WindowsEditionSKU>  {
         Education, EducationN,
         Enterprise, EnterpriseLTSB,
         Home, HomeN,
@@ -874,6 +847,7 @@ std::map<WindowsFingerprintData::WindowsEditionSKU, WindowsFingerprintData::Edit
     return std::move(ret);
 }
 
+#if 0
 std::vector<WindowsFingerprintData::SubproductName> WindowsFingerprintData::subproducts_by_product(
     WindowsFingerprintData::ProductName product_name)
 {
@@ -891,6 +865,7 @@ std::vector<std::string> WindowsFingerprintData::all_products()
     return std::move(all_windows);
 }
 
+
 std::vector<std::string> WindowsFingerprintData::all_supproducts()
 {
     std::vector<std::string> all_windows;
@@ -899,6 +874,7 @@ std::vector<std::string> WindowsFingerprintData::all_supproducts()
         all_windows.push_back(prod.subproduct_name);
     return std::move(all_windows);
 }
+#endif 
 
 // static
 WindowsFingerprintData::ProductInfo WindowsFingerprintData::get_product(const std::string& product_name)

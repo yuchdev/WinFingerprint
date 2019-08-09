@@ -157,14 +157,10 @@ public:
 
     struct ProductInfo
     {
-        std::string product_name;
         ProductName product_name_id;
-    };
-
-    struct SubproductInfo
-    {
-        std::string subproduct_name;
         SubproductName subproduct_name_id;
+        std::string product_name;
+        std::string subproduct_name;
     };
 
     /// @brief Information about edition
@@ -232,7 +228,7 @@ public:
 
     /// @brief Create a "query" to all possible subproduct based on product version
     /// For example, "Windows 7" and "Windows 7 SP1" by Windows 7
-    static std::vector<WindowsFingerprintData::SubproductName> subproducts_by_product(
+    static std::vector<WindowsFingerprintData::ProductInfo> product_info(
         WindowsFingerprintData::ProductName product_name);
 
     /// @brief All products from Windows 7 to 10
@@ -245,7 +241,7 @@ public:
     static WindowsFingerprintData::ProductInfo get_product(const std::string& product_name);
 
     /// @brief Get SubproductName ID for queries
-    static WindowsFingerprintData::SubproductInfo get_subproduct(const std::string& subproduct_name);
+    static WindowsFingerprintData::SubproductInfo get_product(const std::string& subproduct_name);
 
     /// @brief Get ProductName ID for queries
     static WindowsFingerprintData::ProductInfo get_product(WindowsFingerprintData::ProductName product_name);
@@ -270,11 +266,7 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Static Data
 
-    static std::vector<ProductInfo> _product_string;
-
-    static std::vector<SubproductInfo> _subproduct_string;
-
-    static std::map<ProductName, std::vector<SubproductName>> _products_to_subproducts;
+    static std::vector<ProductInfo> _product_info;
 
     static std::map<WindowsEditionSKU, EditionInfo> _editions_info;
 
