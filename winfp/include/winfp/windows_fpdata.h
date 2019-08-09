@@ -155,6 +155,14 @@ public:
         EditionsCount
     };
 
+    struct ProductInfo
+    {
+        ProductName product_id;
+        SubproductName subproduct_id;
+        std::string product_name;
+        std::string subproduct_name;
+    };
+
     /// @brief Information about edition
     /// ID for internal representation, name for registry (usually without spaces)
     /// and human-readable name
@@ -167,7 +175,7 @@ public:
     /// @brief Build information stored in CurrentVersion registry key
     /// Represent one particular build and should not be inconsistent
     /// (Windows 10 can't be installed in 2009, Windows 7 NT version is 6.1 only etc)
-    struct WindowsBuildInfo
+    struct BuildInfo
     {
         /// Enum for filtering by product name
         ProductName product_name_id;
@@ -208,26 +216,27 @@ public:
 
     /// @brief Create a "query" to all possible builds based on user selection
     /// For example, all builds Windows 7 SP1 builds, all Windows 10 1803 builds
-    static std::vector<WindowsBuildInfo> build_by_product(WindowsFingerprintData::ProductName product_name);
+    static std::vector<BuildInfo> query_builds(WindowsFingerprintData::ProductName product_name);
 
     /// @brief Create a "query" to all possible builds based on user selection
     /// For example, all builds Windows 7 SP1 builds, all Windows 10 1803 builds
-    static std::vector<WindowsBuildInfo> build_by_subproduct(WindowsFingerprintData::SubproductName subproduct_name);
+    static std::vector<BuildInfo> query_builds(WindowsFingerprintData::SubproductName subproduct_name);
 
     /// @brief Create a "query" to all possible editions based on product version
     /// For example, all editions of Windows 7
     static std::map<WindowsEditionSKU, EditionInfo> editions_by_product(WindowsFingerprintData::ProductName product_name);
 
-    /// @brief Create a "query" to all possible subproduct based on product version
-    /// For example, "Windows 7" and "Windows 7 SP1" by Windows 7
-    static std::vector<WindowsFingerprintData::SubproductName> subproducts_by_product(
-        WindowsFingerprintData::ProductName product_name);
+    /// @brief Create a "query" to all possible products based on product ID
+    static std::vector<WindowsFingerprintData::ProductInfo> query_products(WindowsFingerprintData::ProductName product_id);
 
-    /// @brief All products from Windows 7 to 10
-    static std::vector<std::string> all_products();
+    /// @brief Create a "query" to all possible products based on product name
+    static std::vector<WindowsFingerprintData::ProductInfo> query_products(const std::string& product_name);
 
-    /// @brief All products from Windows 7 to 10 including service packs and updates
-    static std::vector<std::string> all_supproducts();
+    /// @brief Create a "query" to all possible products based on subproduct ID
+    static std::vector<WindowsFingerprintData::ProductInfo> query_subproducts(WindowsFingerprintData::SubproductName subproduct_id);
+
+    /// @brief Create a "query" to all possible products based on subproduct name
+    static std::vector<WindowsFingerprintData::ProductInfo> query_subproducts(const std::string& subproduct_name);
 
     /// @brief Windows edition, like "Home Premium" or "Professional"
     /// Specific editions should comply with the system version, for example
@@ -246,17 +255,13 @@ private:
     //////////////////////////////////////////////////////////////////////////
     // Static Data
 
-    static std::map<std::string, ProductName> _product_string;
-
-    static std::map<std::string, SubproductName> _subproduct_string;
-
-    static std::map<ProductName, std::vector<SubproductName>> _products_to_subproducts;
+    static std::vector<ProductInfo> _product_info;
 
     static std::map<WindowsEditionSKU, EditionInfo> _editions_info;
 
     static std::map<ProductName, std::vector<WindowsEditionSKU>> _version_editions;
 
-    static std::vector<WindowsBuildInfo> _builds_information;
+    static std::vector<BuildInfo> _builds_information;
 };
 
 } // namespace antios 

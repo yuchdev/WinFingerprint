@@ -101,7 +101,7 @@ private:
     WindowsFingerprintData::WindowsEditionSKU _edition = WindowsFingerprintData::EditionsCount;
 
     /// 
-    WindowsFingerprintData::WindowsBuildInfo _build_info;
+    WindowsFingerprintData::BuildInfo _build_info;
     
     ///
     int _install_date;

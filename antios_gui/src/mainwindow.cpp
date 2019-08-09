@@ -28,13 +28,12 @@ MainWindow::MainWindow(QWindow *parent)
     this->setContextProperty("MainWindow",          this);
     this->setContextProperty("WindowsIDS",          ids_tab_.get());
     this->setContextProperty("InfoTableModel",      table_model_.get());
-#if 0
-    this->setContextProperty("SystemNameModel",     ids_tab_->getSystemNameModel().get());
-    this->setContextProperty("ServiceUpdateModel",  ids_tab_->getServiceUpdateModel().get());
-    this->setContextProperty("EditionModel",        ids_tab_->getEditionModel().get());
-    this->setContextProperty("ProductTypeModel",    ids_tab_->getProductTypeNameModel().get());
-    this->setContextProperty("BuildNumberModel",    ids_tab_->getBuildNumberModel().get());
-#endif
+
+    this->setContextProperty("ProductNameModel", &ids_tab_->productNameModel());
+    this->setContextProperty("SubproductNameModel", &ids_tab_->subproductNameModel());
+    this->setContextProperty("ProductTypeModel", &ids_tab_->productTypeModel());    
+    this->setContextProperty("EditionModel", &ids_tab_->editionModel());
+    this->setContextProperty("BuildNumberModel", &ids_tab_->buildNumberModel());
 
     QObject::connect(ids_tab_.get(), &WindowsIDS::sigItemChanged, table_model_.get(), &InfoTableModel::onItemChanged);
 

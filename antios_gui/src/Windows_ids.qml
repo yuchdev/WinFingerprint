@@ -46,33 +46,32 @@ Windows_idsForm {
         WindowsIDS.product_id_4 = four_id_text.text
     }
 
-    combobox_system_name.onStateChanged: {
+    comboboxProductVersion.onStateChanged: {
         console.log("SystemNameCombo State changed!");
     }
 
 
-    combobox_system_name.onCurrentIndexChanged: {
-        console.log("Index Changed To: ", combobox_system_name.currentIndex, "Text: ", combobox_system_name.textAt(combobox_system_name.currentIndex));
-        SystemNameModel.currentIndexChanged(combobox_system_name.currentIndex);
+    comboboxProductVersion.onCurrentIndexChanged: {
+        console.log("Index Changed To: ", comboboxProductVersion.currentIndex, "Text: ", comboboxProductVersion.textAt(comboboxProductVersion.currentIndex));
+		WindowsIDS.loadSubproducts(comboboxProductVersion.textAt(comboboxProductVersion.currentIndex))
+		WindowsIDS.loadEditions(comboboxProductVersion.textAt(comboboxProductVersion.currentIndex))
+		WindowsIDS.loadBuilds(comboboxSubproductVersion.textAt(comboboxSubproductVersion.currentIndex))
     }
 
-    combobox_update.onCurrentIndexChanged: {
-        console.log("Index Changed To: ", combobox_update.currentIndex, "Text: ", combobox_update.textAt(combobox_update.currentIndex));
-        ServiceUpdateModel.currentIndexChanged(combobox_update.currentIndex);
+    comboboxSubproductVersion.onCurrentIndexChanged: {
+        console.log("Index Changed To: ", comboboxSubproductVersion.currentIndex, "Text: ", comboboxSubproductVersion.textAt(comboboxSubproductVersion.currentIndex));
+		WindowsIDS.loadBuilds(comboboxSubproductVersion.textAt(comboboxSubproductVersion.currentIndex))
     }
 
-    combobox_edition.onCurrentIndexChanged: {
-        console.log("Index Changed To: ", combobox_edition.currentIndex, "Text: ", combobox_edition.textAt(combobox_edition.currentIndex));
-        EditionModel.currentIndexChanged(combobox_edition.currentIndex);
+    comboboxEdition.onCurrentIndexChanged: {
+        console.log("Index Changed To: ", comboboxEdition.currentIndex, "Text: ", comboboxEdition.textAt(comboboxEdition.currentIndex));
     }
 
-    combobox_product_type.onCurrentIndexChanged: {
-        console.log("Index Changed To: ", combobox_product_type.currentIndex, "Text: ", combobox_product_type.textAt(combobox_product_type.currentIndex));
-        ProductTypeModel.currentIndexChanged(combobox_product_type.currentIndex);
+    comboboxProductType.onCurrentIndexChanged: {
+        console.log("Index Changed To: ", comboboxProductType.currentIndex, "Text: ", comboboxProductType.textAt(comboboxProductType.currentIndex));
     }
 
-    combobox_prodict_number.onCurrentIndexChanged: {
-        console.log("Index Changed To: ", combobox_prodict_number.currentIndex, "Text: ", combobox_prodict_number.textAt(combobox_prodict_number.currentIndex));
-        BuildNumberModel.currentIndexChanged(combobox_prodict_number.currentIndex);
+    comboboxBuildNumber.onCurrentIndexChanged: {
+        console.log("Index Changed To: ", comboboxBuildNumber.currentIndex, "Text: ", comboboxBuildNumber.textAt(comboboxBuildNumber.currentIndex));
     }
 }
