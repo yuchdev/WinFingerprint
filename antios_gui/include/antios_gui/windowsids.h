@@ -64,6 +64,9 @@ public slots:
     /// @brief
     void loadEditions(const QString& product);
 
+    /// @brief
+    void loadBuilds(const QString& subproduct);
+
 
 private:
 

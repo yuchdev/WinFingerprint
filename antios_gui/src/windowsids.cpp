@@ -20,11 +20,14 @@ void WindowsIDS::initialLoad()
     _productNameModel.setStringList(productNamesList);
     loadSubproducts(productNamesList[0]);
     loadEditions(productNamesList[0]);
-
+    
     // Retail/OEM
     QStringList productTypesList;
     productTypesList << "Retail" << "OEM";
     _productTypeModel.setStringList(productTypesList);
+
+    // Builds
+    loadBuilds(_subproductNameModel.stringList()[0]);
 }
 
 
@@ -32,12 +35,11 @@ void WindowsIDS::loadSubproducts(const QString& product)
 {
     if (product.isEmpty())
         return;
-    WindowsFingerprintData::ProductInfo prod = WindowsFingerprintData::get_product(product.toStdString());
-    std::vector<WindowsFingerprintData::SubproductName> subproducts = WindowsFingerprintData::subproducts_by_product(prod.product_name_id);
+
+    std::vector<WindowsFingerprintData::ProductInfo> products = WindowsFingerprintData::query_products(product.toStdString());
     QStringList subproductNamesList;
-    for (auto subproduct : subproducts) {
-        WindowsFingerprintData::SubproductInfo subprod_info = WindowsFingerprintData::get_subproduct(subproduct);
-        subproductNamesList.push_back(QString::fromStdString(subprod_info.subproduct_name));
+    for (auto product : products) {
+        subproductNamesList.push_back(QString::fromStdString(product.subproduct_name));
     }
     _subproductNameModel.setStringList(subproductNamesList);
 }
@@ -47,8 +49,11 @@ void WindowsIDS::loadEditions(const QString& product)
 {
     if (product.isEmpty())
         return;
-    WindowsFingerprintData::ProductInfo prod = WindowsFingerprintData::get_product(product.toStdString());
-    auto editions = WindowsFingerprintData::editions_by_product(prod.product_name_id);
+
+    std::vector<WindowsFingerprintData::ProductInfo> prod = WindowsFingerprintData::query_products(product.toStdString());
+    assert(prod.size());
+    
+    auto editions = WindowsFingerprintData::editions_by_product(prod[0].product_id);
 
     QStringList editionsNamesList;
     for (auto edition : editions) {
@@ -56,6 +61,23 @@ void WindowsIDS::loadEditions(const QString& product)
     }
     _editionModel.setStringList(editionsNamesList);
 
+}
+
+
+void WindowsIDS::loadBuilds(const QString& subproduct)
+{
+    if (subproduct.isEmpty())
+        return;
+
+    std::vector<WindowsFingerprintData::ProductInfo> prod = WindowsFingerprintData::query_subproducts(subproduct.toStdString());
+    assert(prod.size());
+    std::vector<WindowsFingerprintData::BuildInfo> builds = WindowsFingerprintData::query_builds(prod[0].subproduct_id);
+
+    QStringList buildNamesList;
+    for (auto build : builds) {
+        buildNamesList.push_back(QString::fromStdString(build.full_version));
+    }
+    _buildNumberModel.setStringList(buildNamesList);
 }
 
 void WindowsIDS::setContextProperty(const QString &name, QObject *value)

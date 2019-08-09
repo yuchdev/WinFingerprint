@@ -24,9 +24,9 @@ Item {
     property alias first_id_text: first_id_text
     property alias combobox_prodict_number: combobox_prodict_number
     property alias combobox_product_type: combobox_product_type
-    property alias combobox_edition: combobox_edition
-    property alias combobox_update: combobox_update
-    property alias combobox_system_name: combobox_system_name
+    property alias comboboxEdition: comboboxEdition
+    property alias comboboxSubproductVersion: comboboxSubproductVersion
+    property alias comboboxProductVersion: comboboxProductVersion
     property alias combos_rct: combos_rct
     antialiasing: true
 
@@ -151,7 +151,7 @@ Item {
             color: bg_grupbox_color
 
             ComboBox {
-                id: combobox_system_name
+                id: comboboxProductVersion
                 x: 8
                 y: 25
                 width: 266
@@ -164,7 +164,7 @@ Item {
             }
 
             ComboBox {
-                id: combobox_update
+                id: comboboxSubproductVersion
                 x: 8
                 y: 49
                 width: 266
@@ -177,7 +177,7 @@ Item {
             }
 
             ComboBox {
-                id: combobox_edition
+                id: comboboxEdition
                 x: 8
                 y: 75
                 width: 266
