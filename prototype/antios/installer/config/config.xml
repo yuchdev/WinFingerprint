@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>AntiOS</Name>
+    <Version>0.0.1</Version>
+    <Title>AntiOS Install</Title>
+    <Publisher>AntiOS</Publisher>
+    <!-- <Logo>logo.png</Logo> -->
+    <WizardStyle>Modern</WizardStyle>
+    <!-- Directory name is used in component.xml -->
+    <StartMenuDir>AntiOS</StartMenuDir>
+    <MaintenanceToolName>Uninstall</MaintenanceToolName>
+    <!-- <Background>background.png</Background> -->
+    <TargetDir>@ApplicationsDir@/AntiOS</TargetDir>
+    <ControlScript>controlscript.js</ControlScript>
+</Installer>

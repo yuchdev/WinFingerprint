@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>AntiOS</DisplayName>
+    <Description>AntiOS</Description>
+    <Version>0.0.1</Version>
+    <ReleaseDate>2019-03-03</ReleaseDate>
+    <Default>true</Default>
+    <RequiresAdminRights>true</RequiresAdminRights>
+    <Script>installscript.qs</Script>
+</Package>
